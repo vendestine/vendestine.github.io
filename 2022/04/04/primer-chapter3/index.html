@@ -1,0 +1,1147 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Wenzhe Li">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="C++ primer chapter2 内容复习，回顾了书中一些比较重要的概念并列出需要深入的习题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ primer chapter3 复习笔记">
+<meta property="og:url" content="https://vendestine.github.io/2022/04/04/primer-chapter3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="C++ primer chapter2 内容复习，回顾了书中一些比较重要的概念并列出需要深入的习题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://vendestine.github.io/img/C++.png">
+<meta property="article:published_time" content="2022-04-04T22:03:45.000Z">
+<meta property="article:modified_time" content="2022-05-31T04:01:49.318Z">
+<meta property="article:author" content="Wenzhe Li">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="C++ Primer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://vendestine.github.io/img/C++.png">
+  
+  
+  <title>C++ primer chapter3 复习笔记 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"vendestine.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":null},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"rsfCNwYEYG167BlEXzFi6nFM-9Nh9j0Va","app_key":"YgnhSGLdGVYg7L4mapy5ab5f","server_url":"https://rsfcnwye.lc-cn-e1-shared.com","path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Vendestine&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/fox.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C++ primer chapter3 复习笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-04-04 18:03" pubdate>
+          2022年4月4日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          91 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C++ primer chapter3 复习笔记</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2022年5月31日 凌晨
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1 id="第三章：字符串，向量和数组"><a href="#第三章：字符串，向量和数组" class="headerlink" title="第三章：字符串，向量和数组"></a>第三章：字符串，向量和数组</h1><blockquote>
+<p>内置类型是由C++语言直接定义的，这些类型体现了大多数计算机硬件本身具备的能力。标准库库定义了一组具有更高级性质的类型，它们尚未直接实现到计算机硬件中。</p>
+</blockquote>
+<h2 id="命名空间using的声明"><a href="#命名空间using的声明" class="headerlink" title="命名空间using的声明"></a>命名空间using的声明</h2><p>using声明引入命名空间的成员，<strong>最好每个成员都使用独立的using声明</strong>。</p>
+<p><strong>头文件不应包含using声明</strong><br>如果头文件里有某个using声明，那么每个使用了该头文件的文件就都会有这个声明。对于某些程序来说，由于不经意间包含了一些名字，反而可能产生始料未及的名字冲突。</p>
+<br>
+
+<h2 id="标准库类型string"><a href="#标准库类型string" class="headerlink" title="标准库类型string"></a>标准库类型string</h2><h3 id="定义和初始化string对象"><a href="#定义和初始化string对象" class="headerlink" title="定义和初始化string对象"></a>定义和初始化string对象</h3><hr>
+<p>初始化string对象的方式：<br><img src="/../img/primer/3.2num1.png" srcset="/img/loading.gif" lazyload><br>如果使用等号初始化一个变量，实际上执行的是拷贝初始化（copy initialization），编译器把等号右侧的初始值拷贝到新创建的对象中去。如果不使用等号，则执行的是直接初始化（direct initialization).</p>
+<br>
+
+<h3 id="string对象上的操作"><a href="#string对象上的操作" class="headerlink" title="string对象上的操作"></a>string对象上的操作</h3><hr>
+<p><strong>string的操作：</strong><br><img src="/../img/primer/3.2num2.png" srcset="/img/loading.gif" lazyload></p>
+<p>在执行读取操作时，string对象会自动忽略开头的空白（空格符、换行符、制表符等）并从第一个真正的字符开始读取，直到遇见下一处空白为止。</p>
+<p>使用getline函数可以读取一整行字符。<br>该函数只要遇到换行符就结束读取并返回结果，如果输入的开始就是一个换行符，则得到空string。触发getline函数返回的那个换行符实际上被丢弃掉了，得到的string对象中并不包含该换行符。</p>
+<p>size函数返回string对象的长度，返回值是string::size_type类型，这是一种无符号类型。需要注意混用int和unsigned可能带来的问题。</p>
+<p><strong>string对象的比较运算符</strong><br>string里重载后的比较运算符逐一比较string对象中的字符，并且对大小写敏感</p>
+<ul>
+<li>如果两个string对象的长度不同，而且较短的string对象的每个字符都与较长string对象对应位置上的字符相同，则较短string对象 &lt; 较长string对象。</li>
+<li>如果两个string对象在某些对应的位置上不一致，则string对象比较的结果其实是string对象中第一对相异字符比较的结果。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// a &lt; b &lt; c</span><br>string a = <span class="hljs-string">&quot;Hello&quot;</span>;<br>string b = <span class="hljs-string">&quot;Hello World&quot;</span>;<br>string c = <span class="hljs-string">&quot;Hiya&quot;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>string对象的+运算符</strong><br>当把string对象和字符字面值及字符串字面值混合在一条语句中使用时，必须确保每个加法运算符两侧的运算对象中至少有一个是string。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++">string s4 = s1 + <span class="hljs-string">&quot;, &quot;</span>;          <span class="hljs-comment">// ok: adding a string and a literal</span><br>string s5 = <span class="hljs-string">&quot;hello&quot;</span> + <span class="hljs-string">&quot;, &quot;</span>;     <span class="hljs-comment">// error: no string operand</span><br>string s6 = s1 + <span class="hljs-string">&quot;, &quot;</span> + <span class="hljs-string">&quot;world&quot;</span>;    <span class="hljs-comment">// ok: each + has a string operand</span><br></code></pre></td></tr></table></figure>
+<p>为了与C兼容，C++语言中的字符串字面值并不是标准库string的对象。</p>
+<br>
+
+<h3 id="处理string对象中的字符"><a href="#处理string对象中的字符" class="headerlink" title="处理string对象中的字符"></a>处理string对象中的字符</h3><hr>
+<p><strong>cctype头文件中定义了一组标准库函数处理string对象中的字符。</strong><br><img src="/../img/primer/3.2num3.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>cctype vs ctype.h</strong><br><img src="/../img/primer/3.2num4.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>range for</strong><br>C++11提供了范围for（range for）语句，可以遍历给定序列中的每个元素并执行某种操作。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">for</span> (declaration : expression)<br>    statement<br></code></pre></td></tr></table></figure>
+<p><code>expression</code>部分是一个对象，用于表示一个序列。<code>declaration</code>部分负责定义一个变量，该变量被用于访问序列中的基础元素。每次迭代，<code>declaration</code>部分的变量都会被初始化为<code>expression</code>部分的下一个元素值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">string <span class="hljs-title">str</span><span class="hljs-params">(<span class="hljs-string">&quot;some string&quot;</span>)</span></span>;<br><span class="hljs-comment">// print the characters in str one character to a line</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> c : str)      <span class="hljs-comment">// for every char in str</span><br>    cout &lt;&lt; c &lt;&lt; endl;  <span class="hljs-comment">// print the current character followed by a newline</span><br></code></pre></td></tr></table></figure>
+<p>如果想在范围for语句中改变string对象中字符的值，<strong>必须把循环变量定义成引用类型。</strong></p>
+<br>
+
+<p><strong>要想访问string对象中的单个字符有两种方式；一种是使用下标，另外一种是使用迭代器。</strong></p>
+<p>[]下标运算符接收的输入参数是string::size_type类型的值，表示要访问字符的位置，返回值是该位置上字符的引用。</p>
+<blockquote>
+<p>下标的值称为索引，任何表达式只要它的值是一个整型值就能作为索引。例如给出int整型值也会自动转化为string::size_type类型值。不过要注意，如果某个索引是带符号类型的值，它将自动转化成由string::size_type表达的无符号类型。</p>
+</blockquote>
+<p>下标数值从0记起，范围是0至size - 1。使用超出范围的下标将引发不可预知的后果。所以使用下标访问空string也会引发不可预知的后果。</p>
+<br>
+
+<h2 id="标准库类型vector"><a href="#标准库类型vector" class="headerlink" title="标准库类型vector"></a>标准库类型vector</h2><p><strong>基本概念</strong></p>
+<ul>
+<li>标准库类型vector表示对象的集合，也叫做容器（container），定义在头文件vector中。vector中所有对象的类型都相同，每个对象都有一个索引与之对应并用于访问该对象。</li>
+<li>vector是模板（template）而非类型，由vector生成的类型必须包含vector中元素的类型，如vector<int>。</li>
+<li>类模板：本身不是类，但可以实例化instantiation出一个类，通过将类型放在类模板名称后面的尖括号中来指定类型，如vector<int> ivec。</li>
+<li>因为引用不是对象，所以不存在包含引用的vector</li>
+<li>在早期的C++标准中，如果vector的元素还是vector，定义时必须在外层vector对象的右尖括号和其元素类型之间添加一个空格，如vector&lt;vector<int> &gt;。但是在C++11标准中，可以直接写成vector&lt;vector<int>&gt;，不需要添加空格。</li>
+</ul>
+<br>
+
+<h3 id="定义和初始化vector对象"><a href="#定义和初始化vector对象" class="headerlink" title="定义和初始化vector对象"></a>定义和初始化vector对象</h3><hr>
+<p><strong>初始化vector对象的方法</strong><br><img src="/../img/primer/3.3num1.png" srcset="/img/loading.gif" lazyload></p>
+<br>
+
+<p><strong>初始化方式比较</strong></p>
+<ul>
+<li><p>初始化vector对象时如果使用圆括号，可以说提供的值是用来构造（construct）vector对象的，一个初始值指示容量，两个初始值指示容量和初始值</p>
+</li>
+<li><p>如果使用的是花括号，则是在尽可能地列表初始化（list initialize）该vector对象，如果提供的值无法列表初始化，编译器会尝试构造初始化<br>eg:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++">vector&lt;string&gt; v5&#123;<span class="hljs-string">&quot;hi&quot;</span>&#125;       <span class="hljs-comment">//列表初始化 一个元素&quot;hi&quot;</span><br><span class="hljs-function">vector&lt;string&gt; <span class="hljs-title">v6</span><span class="hljs-params">(<span class="hljs-string">&quot;hi&quot;</span>)</span>       <span class="hljs-comment">//错误：不能使用字符串字面值构造初始化</span></span><br><span class="hljs-function">vector&lt;string&gt; v7</span>&#123;<span class="hljs-number">10</span>&#125;         <span class="hljs-comment">//值无法列表初始化，自动构造初始化 10个元素</span><br>vector&lt;string&gt; v8&#123;<span class="hljs-number">10</span>, <span class="hljs-string">&quot;hi&quot;</span>&#125;   <span class="hljs-comment">//值无法列表初始化，自动构造初始化 10个元素&quot;hi&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>可以只提供vector对象容纳的元素数量而省略初始值，此时会创建一个值初始化（value-initialized）的元素初值，并把它赋给容器中的所有元素。这个初值由vector对象中的元素类型决定。</p>
+</li>
+</ul>
+<br>
+
+<h3 id="向vector对象中添加元素"><a href="#向vector对象中添加元素" class="headerlink" title="向vector对象中添加元素"></a>向vector对象中添加元素</h3><hr>
+<p>C++标准要求vector应该能在运行时高效快速地添加元素，所以常用的方式是先定义一个空的vector，然后向其添加具体值。</p>
+<p>push_back函数可以把一个值添加到vector的尾端。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++">vector&lt;<span class="hljs-type">int</span>&gt; v2;         <span class="hljs-comment">// empty vector</span><br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i != <span class="hljs-number">100</span>; ++i)<br>    v2.<span class="hljs-built_in">push_back</span>(i);    <span class="hljs-comment">// append sequential integers to v2</span><br><span class="hljs-comment">// at end of loop v2 has 100 elements, values 0 . . . 99</span><br></code></pre></td></tr></table></figure>
+
+<p>范围for语句体内不应该改变其所遍历序列的大小。</p>
+<br>
+
+<h3 id="其他vector操作"><a href="#其他vector操作" class="headerlink" title="其他vector操作"></a>其他vector操作</h3><hr>
+<p><img src="/../img/primer/3.3num2.png" srcset="/img/loading.gif" lazyload></p>
+<br>
+
+<ul>
+<li>size函数返回vector对象中元素的个数，返回值是由vector定义的size_type类型。vector对象的类型包含其中元素的类型.</li>
+<li>vector和string对象的下标运算符只能用来访问已经存在的元素，而不能用来添加元素.</li>
+<li>试图用下标的形式访问一个不存在的元素将引发错误，不过这种错误不会被编译器发现，而是在运行时产生一个不可预知的值。</li>
+<li>确保下标合法的一种有效手段就是尽可能地使用范围for语句。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C++">vector&lt;<span class="hljs-type">int</span>&gt;::size_type  <span class="hljs-comment">// ok</span><br>vector::size_type       <span class="hljs-comment">// error</span><br><br>vector&lt;<span class="hljs-type">int</span>&gt; ivec;   <span class="hljs-comment">// empty vector</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">decltype</span>(ivec.<span class="hljs-built_in">size</span>()) ix = <span class="hljs-number">0</span>; ix != <span class="hljs-number">10</span>; ++ix)<br>&#123;<br>    ivec[ix] = ix;  <span class="hljs-comment">// disaster: ivec has no elements</span><br>    ivec.<span class="hljs-built_in">push_back</span>(ix); <span class="hljs-comment">// ok: adds a new element with value ix</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<br>
+
+<h2 id="迭代器iterator"><a href="#迭代器iterator" class="headerlink" title="迭代器iterator"></a>迭代器iterator</h2><blockquote>
+<ul>
+<li>迭代器的作用和下标类似，但是更加通用。所有标准库容器都可以使用迭代器，但是其中只有少数几种同时支持下标运算符。</li>
+<li>类似于指针类型，迭代器也提供了对对象的间接访问，有效的迭代器指向某个元素或者指向容器中尾元素的下一个位置，其余所有情况都属于无效。</li>
+</ul>
+</blockquote>
+<br>
+
+<h3 id="使用迭代器"><a href="#使用迭代器" class="headerlink" title="使用迭代器"></a>使用迭代器</h3><hr>
+<ul>
+<li><p><code>vector&lt;int&gt;::iterator iter</code>。</p>
+</li>
+<li><p><code>auto b = v.begin();</code>begin函数返回指向第一个元素的迭代器.</p>
+</li>
+<li><p><code>auto e = v.end();</code>end函数返回指向容器“尾元素的下一位置（one past the end）”的迭代器，通常被称作尾后迭代器（off-the-end iterator）或者简称为尾迭代器（end iterator）</p>
+</li>
+<li><p>如果容器为空， <code>begin()</code>和 <code>end()</code>返回的是同一个迭代器，都是尾后迭代器。</p>
+</li>
+<li><p>养成使用迭代器和<code>!=</code>的习惯（泛型编程）。</p>
+</li>
+<li><p><strong>const_iterator</strong>：只能读取容器内元素不能改变。</p>
+<ul>
+<li>begin和end返回的迭代器具体类型由对象是否是常量决定，如果对象是常量，则返回const_iterator；如果对象不是常量，则返回iterator。</li>
+<li>C++11新增了cbegin和cend函数，不论vector或string对象是否为常量，都返回const_iterator迭代器。</li>
+</ul>
+</li>
+<li><p><strong>箭头运算符</strong>： 解引用 + 成员访问，<code>it-&gt;mem</code>等价于 <code>(*it).mem</code></p>
+</li>
+<li><p><strong>容器</strong>：可以包含其他对象；但所有的对象必须类型相同。</p>
+</li>
+<li><p><strong>迭代器（iterator）</strong>：每种标准容器都有自己的迭代器。<code>C++</code>倾向于用迭代器而不是下标遍历元素。</p>
+</li>
+<li><p><strong>谨记</strong>：任何可能改变容器对象容量的操作，都会使该对象的迭代器失效。但凡是使用了<strong>迭代器</strong>的循环体，都<strong>不要</strong>向迭代器所属的容器<strong>添加元素</strong>。</p>
+</li>
+</ul>
+<p>标准容器迭代器的运算符:</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>*iter</code></td>
+<td>返回迭代器<code>iter</code>所指向的<strong>元素的引用</strong></td>
+</tr>
+<tr>
+<td><code>iter-&gt;mem</code></td>
+<td>等价于<code>(*iter).mem</code></td>
+</tr>
+<tr>
+<td><code>++iter</code></td>
+<td>令<code>iter</code>指示容器中的下一个元素</td>
+</tr>
+<tr>
+<td><code>--iter</code></td>
+<td>令<code>iter</code>指示容器中的上一个元素</td>
+</tr>
+<tr>
+<td><code>iter1 == iter2</code></td>
+<td>判断两个迭代器是否相等</td>
+</tr>
+<tr>
+<td><code>iter1 != iter2</code></td>
+<td>不是指向同一元素，也不是同一个容器的尾后迭代器，不相等</td>
+</tr>
+</tbody></table>
+<br>
+
+<h3 id="迭代器运算"><a href="#迭代器运算" class="headerlink" title="迭代器运算"></a>迭代器运算</h3><hr>
+<p><code>vector</code>和<code>string</code>迭代器支持的运算：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>iter + n</code></td>
+<td>迭代器加上一个整数值仍得到一个迭代器，迭代器指示的新位置和原来相比向前移动了若干个元素。结果迭代器或者指示容器内的一个元素，或者指示容器尾元素的下一位置。</td>
+</tr>
+<tr>
+<td><code>iter - n</code></td>
+<td>迭代器减去一个整数仍得到一个迭代器，迭代器指示的新位置比原来向后移动了若干个元素。结果迭代器或者指向容器内的一个元素，或者指示容器尾元素的下一位置。</td>
+</tr>
+<tr>
+<td><code>iter1 += n</code></td>
+<td>迭代器加法的复合赋值语句，将<code>iter1</code>加n的结果赋给<code>iter1</code></td>
+</tr>
+<tr>
+<td><code>iter1 -= n</code></td>
+<td>迭代器减法的复合赋值语句，将<code>iter2</code>减n的加过赋给<code>iter1</code></td>
+</tr>
+<tr>
+<td><code>iter1 - iter2</code></td>
+<td>两个迭代器相减的结果是它们之间的距离，也就是说，将运算符右侧的迭代器向前移动差值个元素后得到左侧的迭代器。参与运算的两个迭代器必须指向的是同一个容器中的元素或者尾元素的下一位置。</td>
+</tr>
+<tr>
+<td><code>&gt;</code>、<code>&gt;=</code>、<code>&lt;</code>、<code>&lt;=</code></td>
+<td>迭代器的关系运算符</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>difference_type</strong>：保证足够大以存储任何两个迭代器对象间的距离，可正可负。</li>
+<li><strong>注意迭代器之间只有减法，没有其余运算</strong></li>
+</ul>
+<br>
+
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><blockquote>
+<p>数组类似vector，但数组的大小确定不变，不能随意向数组中添加元素。<br>如果不清楚元素的确切个数，应该使用vector。</p>
+</blockquote>
+<br>
+
+<h3 id="定义和初始化内置数组"><a href="#定义和初始化内置数组" class="headerlink" title="定义和初始化内置数组"></a>定义和初始化内置数组</h3><hr>
+<p>数组是一种复合类型，声明形式为a[d]，其中a是数组名称，d是数组维度（dimension）。维度必须是一个<strong>常量表达式</strong>。</p>
+<p>默认情况下，数组的元素被默认初始化。</p>
+<p>定义数组的时候<strong>必须指定数组的类型</strong>，不允许用auto关键字由初始值列表推断类型。</p>
+<p>如果定义数组时提供了元素的初始化列表，则允许省略数组维度，编译器会根据初始值的数量计算维度。但<strong>如果显式指明了维度，那么初始值的数量不能超过指定的大小</strong>。如果维度比初始值的数量大，则用提供的值初始化数组中靠前的元素，剩下的元素被默认初始化。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">const</span> <span class="hljs-type">unsigned</span> sz = <span class="hljs-number">3</span>;<br><span class="hljs-type">int</span> ia1[sz] = &#123;<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>&#125;;  <span class="hljs-comment">// array of three ints with values 0, 1, 2</span><br><span class="hljs-type">int</span> a2[] = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>&#125;;   <span class="hljs-comment">// an array of dimension 3</span><br><span class="hljs-type">int</span> a3[<span class="hljs-number">5</span>] = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>&#125;;  <span class="hljs-comment">// equivalent to a3[] = &#123;0, 1, 2, 0, 0&#125;</span><br>string a4[<span class="hljs-number">3</span>] = &#123;<span class="hljs-string">&quot;hi&quot;</span>, <span class="hljs-string">&quot;bye&quot;</span>&#125;;   <span class="hljs-comment">// same as a4[] = &#123;&quot;hi&quot;, &quot;bye&quot;, &quot;&quot;&#125;</span><br><span class="hljs-type">int</span> a5[<span class="hljs-number">2</span>] = &#123;<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>&#125;;    <span class="hljs-comment">// error: too many initializers</span><br></code></pre></td></tr></table></figure>
+<p>可以用字符串字面值初始化字符数组，但字符串字面值<strong>结尾处的空字符</strong>也会一起被拷贝到字符数组中。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">char</span> a1[] = &#123;<span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;+&#x27;</span>, <span class="hljs-string">&#x27;+&#x27;</span>&#125;;        <span class="hljs-comment">// list initialization, no null</span><br><span class="hljs-type">char</span> a2[] = &#123;<span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;+&#x27;</span>, <span class="hljs-string">&#x27;+&#x27;</span>, <span class="hljs-string">&#x27;\0&#x27;</span>&#125;;  <span class="hljs-comment">// list initialization, explicit null</span><br><span class="hljs-type">char</span> a3[] = <span class="hljs-string">&quot;C++&quot;</span>;      <span class="hljs-comment">// null terminator added automatically</span><br><span class="hljs-type">const</span> <span class="hljs-type">char</span> a4[<span class="hljs-number">6</span>] = <span class="hljs-string">&quot;Daniel&quot;</span>;    <span class="hljs-comment">// error: no space for the null!</span><br></code></pre></td></tr></table></figure>
+<p>不能用一个数组初始化或直接赋值给另一个数组。</p>
+<p>不同于默认的从右向左理解类型修饰，从数组的名字开始由内向外阅读有助于理解复杂数组声明的含义。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> *ptrs[<span class="hljs-number">10</span>];              <span class="hljs-comment">// ptrs is an array of ten pointers to int</span><br><span class="hljs-type">int</span> &amp;refs[<span class="hljs-number">10</span>] = <span class="hljs-comment">/* ? */</span>;    <span class="hljs-comment">// error: no arrays of references</span><br><span class="hljs-built_in">int</span> (*Parray)[<span class="hljs-number">10</span>] = &amp;arr;   <span class="hljs-comment">// Parray points to an array of ten ints</span><br><span class="hljs-built_in">int</span> (&amp;arrRef)[<span class="hljs-number">10</span>] = arr;    <span class="hljs-comment">// arrRef refers to an array of ten ints</span><br></code></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="访问数组元素"><a href="#访问数组元素" class="headerlink" title="访问数组元素"></a>访问数组元素</h3><hr>
+<p>数组下标通常被定义成size_t类型，这是一种机器相关的无符号类型，可以表示内存中任意对象的大小。size_t定义在头文件cstddef中。</p>
+<p>大多数常见的安全问题都源于缓冲区溢出错误。当数组或其他类似数据结构的下标越界并试图访问非法内存区域时，就会产生此类错误。</p>
+<br>
+
+<h3 id="指针和数组"><a href="#指针和数组" class="headerlink" title="指针和数组"></a>指针和数组</h3><hr>
+<p>在大多数表达式中，使用数组类型的对象其实是在使用一个指向该数组首元素的指针。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++">string nums[] = &#123;<span class="hljs-string">&quot;one&quot;</span>, <span class="hljs-string">&quot;two&quot;</span>, <span class="hljs-string">&quot;three&quot;</span>&#125;;    <span class="hljs-comment">// array of strings</span><br>string *p = &amp;nums[<span class="hljs-number">0</span>];   <span class="hljs-comment">// p points to the first element in nums</span><br>string *p2 = nums;      <span class="hljs-comment">// equivalent to p2 = &amp;nums[0]</span><br></code></pre></td></tr></table></figure>
+
+<p>当使用数组作为一个auto变量的初始值时，推断得到的类型是指针而非数组。但decltype关键字不会发生这种转换，直接返回数组类型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> ia[] = &#123;<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>&#125;;   <span class="hljs-comment">// ia is an array of ten ints</span><br><span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">ia2</span><span class="hljs-params">(ia)</span></span>;   <span class="hljs-comment">// ia2 is an int* that points to the first element in ia</span><br>ia2 = <span class="hljs-number">42</span>;       <span class="hljs-comment">// error: ia2 is a pointer, and we can&#x27;t assign an int to a pointer</span><br><span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">ia2</span><span class="hljs-params">(&amp;ia[<span class="hljs-number">0</span>])</span></span>;   <span class="hljs-comment">// now it&#x27;s clear that ia2 has type int*</span><br><span class="hljs-comment">// ia3 is an array of ten ints</span><br><span class="hljs-keyword">decltype</span>(ia) ia3 = &#123;<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>&#125;;<br>ia3 = p;    <span class="hljs-comment">// error: can&#x27;t assign an int* to an array</span><br>ia3[<span class="hljs-number">4</span>] = i;     <span class="hljs-comment">// ok: assigns the value of i to an element in ia3</span><br></code></pre></td></tr></table></figure>
+
+<p>C++11在头文件iterator中定义了两个名为begin和end的函数，功能与容器中的两个同名成员函数类似，参数是一个数组。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> ia[] = &#123;<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>&#125;;   <span class="hljs-comment">// ia is an array of ten ints</span><br><span class="hljs-type">int</span> *beg = <span class="hljs-built_in">begin</span>(ia);   <span class="hljs-comment">// pointer to the first element in ia</span><br><span class="hljs-type">int</span> *last = <span class="hljs-built_in">end</span>(ia);    <span class="hljs-comment">// pointer one past the last element in ia</span><br></code></pre></td></tr></table></figure>
+
+<p>标准库类型限定使用的下标必须是无符号类型，而内置的下标运算无此要求。</p>
+<br>
+
+<h3 id="C风格字符串"><a href="#C风格字符串" class="headerlink" title="C风格字符串"></a>C风格字符串</h3><hr>
+<ul>
+<li><p>C风格字符串是将字符串存放在字符数组中，并以空字符结束（null terminated）。这不是一种类型，而是一种为了表达和使用字符串而形成的书写方法。</p>
+<br>
+</li>
+<li><p>C++标准支持C风格字符串，但是最好不要在C++程序中使用它们。对大多数程序来说，使用标准库string要比使用C风格字符串更加安全和高效。</p>
+<br>
+</li>
+<li><p>C风格字符串的函数：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>strlen(p)</code></td>
+<td>返回<code>p</code>的长度，空字符不计算在内</td>
+</tr>
+<tr>
+<td><code>strcmp(p1, p2)</code></td>
+<td>比较<code>p1</code>和<code>p2</code>的相等性。如果<code>p1==p2</code>，返回0；如果<code>p1&gt;p2</code>，返回一个正值；如果<code>p1&lt;p2</code>，返回一个负值。</td>
+</tr>
+<tr>
+<td><code>strcat(p1, p2)</code></td>
+<td>将<code>p2</code>附加到<code>p1</code>之后，返回<code>p1</code></td>
+</tr>
+<tr>
+<td><code>strcpy(p1, p2)</code></td>
+<td>将<code>p2</code>拷贝给<code>p1</code>，返回<code>p1</code></td>
+</tr>
+</tbody></table>
+<br>
+
+<ul>
+<li><p>C风格字符串函数不负责验证其参数的正确性，传入此类函数的指针必须指向以空字符作为结尾的数组。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">char</span> ca[] = &#123;<span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;+&#x27;</span>, <span class="hljs-string">&#x27;+&#x27;</span>&#125;;  <span class="hljs-comment">//不以空字符结束</span><br>cout &lt;&lt; <span class="hljs-built_in">strlen</span>(ca) &lt;&lt; endl;   <span class="hljs-comment">//严重错误： ca没有以空字符结束</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>C风格字符串和标准库string对象的同类操作差别很大，包括比较，连接，拷贝。</p>
+<br></li>
+<li><p>对大多数应用来说，使用标准库 string比使用C风格字符串更安全、更高效。</p>
+<br></li>
+</ul>
+<h3 id="与旧代码的接口"><a href="#与旧代码的接口" class="headerlink" title="与旧代码的接口"></a>与旧代码的接口</h3><hr>
+<p>任何出现字符串字面值的地方都可以用以空字符结束的字符数组来代替：</p>
+<ul>
+<li><p>允许使用以空字符结束的字符数组来初始化string对象或为string对象赋值。</p>
+</li>
+<li><p>在string对象的加法运算中，允许使用以空字符结束的字符数组作为其中一个运算对象（不能两个运算对象都是）。</p>
+</li>
+<li><p>在string对象的复合赋值运算中，允许使用以空字符结束的字符数组作为右侧运算对象。</p>
+</li>
+</ul>
+<p>不能用string对象直接初始化指向字符的指针。为了实现该功能，string提供了一个名为c_str的成员函数，返回const char*类型的指针，指向一个以空字符结束的字符数组，数组的数据和string对象一样。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">string <span class="hljs-title">s</span><span class="hljs-params">(<span class="hljs-string">&quot;Hello World&quot;</span>)</span></span>;    <span class="hljs-comment">// s holds Hello World</span><br><span class="hljs-type">char</span> *str = s;  <span class="hljs-comment">// error: can&#x27;t initialize a char* from a string</span><br><span class="hljs-type">const</span> <span class="hljs-type">char</span> *str = s.<span class="hljs-built_in">c_str</span>();    <span class="hljs-comment">// ok</span><br></code></pre></td></tr></table></figure>
+
+<p>针对string对象的后续操作有可能会让c_str函数之前返回的数组失去作用，如果程序想一直都能使用其返回的数组，最好将该数组重新拷贝一份。</p>
+<p>可以使用数组来初始化vector对象，但是需要指明要拷贝区域的首元素地址和尾后地址。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> int_arr[] = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;<br><span class="hljs-comment">// ivec has six elements; each is a copy of the corresponding element in int_arr</span><br><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">ivec</span><span class="hljs-params">(begin(int_arr), end(int_arr))</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p>在新版本的C++程序中应该尽量使用vector、string和迭代器，避免使用内置数组、C风格字符串和指针。</p>
+<br>
+
+<h3 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h3><hr>
+<p>C++中的多维数组其实就是数组的数组。当一个数组的元素仍然是数组时，通常需要用两个维度定义它：一个维度表示数组本身的大小，另一个维度表示其元素（也是数组）的大小。通常把二维数组的第一个维度称作行，第二个维度称作列。</p>
+<p>多维数组初始化的几种方式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> ia[<span class="hljs-number">3</span>][<span class="hljs-number">4</span>] =<br>&#123;   <span class="hljs-comment">// three elements; each element is an array of size 4</span><br>    &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;,   <span class="hljs-comment">// initializers for the row indexed by 0</span><br>    &#123;<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>&#125;,   <span class="hljs-comment">// initializers for the row indexed by 1</span><br>    &#123;<span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>, <span class="hljs-number">11</span>&#125;  <span class="hljs-comment">// initializers for the row indexed by 2</span><br>&#125;;<br><span class="hljs-comment">// equivalent initialization without the optional nested braces for each row</span><br><span class="hljs-type">int</span> ib[<span class="hljs-number">3</span>][<span class="hljs-number">4</span>] = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>, <span class="hljs-number">11</span>&#125;;<br><span class="hljs-comment">// explicitly initialize only element 0 in each row</span><br><span class="hljs-type">int</span> ic[<span class="hljs-number">3</span>][<span class="hljs-number">4</span>] = &#123;&#123; <span class="hljs-number">0</span> &#125;, &#123; <span class="hljs-number">4</span> &#125;, &#123; <span class="hljs-number">8</span> &#125;&#125;;<br><span class="hljs-comment">// explicitly initialize row 0; the remaining elements are value initialized</span><br><span class="hljs-type">int</span> id[<span class="hljs-number">3</span>][<span class="hljs-number">4</span>] = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>可以使用下标访问多维数组的元素，数组的每个维度对应一个下标运算符。如果表达式中下标运算符的数量和数组维度一样多，则表达式的结果是给定类型的元素。如果下标运算符数量比数组维度小，则表达式的结果是给定索引处的一个内层数组。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// assigns the first element of arr to the last element in the last row of ia</span><br>ia[<span class="hljs-number">2</span>][<span class="hljs-number">3</span>] = arr[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>][<span class="hljs-number">0</span>];<br><span class="hljs-built_in">int</span> (&amp;row)[<span class="hljs-number">4</span>] = ia[<span class="hljs-number">1</span>];  <span class="hljs-comment">// binds row to the second four-element array in ia</span><br></code></pre></td></tr></table></figure>
+
+<p>使用范围for语句处理多维数组时，为了避免数组被自动转换成指针，语句中的外层循环控制变量必须声明成引用类型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">for</span> (<span class="hljs-type">const</span> <span class="hljs-keyword">auto</span> &amp;row : ia)  <span class="hljs-comment">// for every element in the outer array</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> col : row)    <span class="hljs-comment">// for every element in the inner array</span><br>        cout &lt;&lt; col &lt;&lt; endl;<br></code></pre></td></tr></table></figure>
+<p>如果row不是引用类型，编译器初始化row时会自动将数组形式的元素转换成指向该数组内首元素的指针，这样得到的row就是int<em>类型，而之后的内层循环则试图在一个int</em>内遍历，程序将无法通过编译。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> row : ia)<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> col : row)<br></code></pre></td></tr></table></figure>
+<p>使用范围for语句处理多维数组时，除了最内层的循环，其他所有外层循环的控制变量都应该定义成引用类型。</p>
+<p>因为多维数组实际上是数组的数组，所以由多维数组名称转换得到的指针指向第一个内层数组。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> ia[<span class="hljs-number">3</span>][<span class="hljs-number">4</span>];       <span class="hljs-comment">// array of size 3; each element is an array of ints of size 4</span><br><span class="hljs-built_in">int</span> (*p)[<span class="hljs-number">4</span>] = ia;   <span class="hljs-comment">// p points to an array of four ints</span><br>p = &amp;ia[<span class="hljs-number">2</span>];         <span class="hljs-comment">// p now points to the last element in ia</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>声明指向数组类型的指针时，必须带有圆括号。</strong></p>
+<p>int *ip[4];     &#x2F;&#x2F; array of pointers to int<br>int (*ip)[4];   &#x2F;&#x2F; pointer to an array of four ints</p>
+<p><strong>使用auto和decltype能省略复杂的指针定义。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// print the value of each element in ia, with each inner array on its own line</span><br><span class="hljs-comment">// p points to an array of four ints</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> p = ia; p != ia + <span class="hljs-number">3</span>; ++p)<br>&#123;<br>    <span class="hljs-comment">// q points to the first element of an array of four ints; that is, q points to an int</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> q = *p; q != *p + <span class="hljs-number">4</span>; ++q)<br>        cout &lt;&lt; *q &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span>;<br>    cout &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/" class="category-chain-item">C++</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/">#C++</a>
+      
+        <a href="/tags/C-Primer/">#C++ Primer</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C++ primer chapter3 复习笔记</div>
+      <div>https://vendestine.github.io/2022/04/04/primer-chapter3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Wenzhe Li</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年4月4日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/02/prefix-difference/" title="基础算法-前缀和与差分">
+                        <span class="hidden-mobile">基础算法-前缀和与差分</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"IjvyDUC4CWIE5z0piBf1Dqia-9Nh9j0Va","appKey":"KQ2019uci92UXL6srhLsiY9K","path":"window.location.pathname","placeholder":null,"avatar":"mp","meta":["nick","mail","link"],"requiredFields":["nick"],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://ijvyduc4.lc-cn-e1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
