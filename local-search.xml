@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>基础算法-双指针算法</title>
+    <link href="/2022/06/07/two-pointer/"/>
+    <url>/2022/06/07/two-pointer/</url>
+    
+    <content type="html"><![CDATA[<h2 id="双指针算法"><a href="#双指针算法" class="headerlink" title="双指针算法"></a>双指针算法</h2><h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h3><hr><p>本质：<br>双指针算法顾名思义就是要维护两个指针，这两个指针可能指向同一个序列当中的不同位置，也有可能指向不同的序列。但其本质就是<strong>利用单调性缩减枚举空间</strong></p><br><p><img src="/../img/algorithm_two_pointer/p1.jpg" alt="暴力枚举"><br><img src="/../img/algorithm_two_pointer/p2.jpg"></p><p>枚举一个指针，找另一个合法的指针，这里check指的是维护合法性质（根据题目条件判定，简单来说while不合法移动指针到合法为止，这样就找到了合法的另一个指针）</p><p>两个指针的位置的排列组合有$n^2$种，相应的时间复杂度也是$O(n^2)$，但如果应用双指针算法，可以将时间复杂度降至$O(n)$：比如说两个指针<strong>不回退</strong>扫描同一个序列，每一个指针在上图所有的循环里面总共移动的次数是不超过n的，我们可以应用某些单调的性质实现这一点。快速排序，归并排序，KMP算法本质上都是双指针算法。</p><p>双指针算法的解题思路大概是这样：暴力枚举-&gt;分析两个指针之间的单调性（探索有没有可能一个指针随着另一个指针的变化而变化）-&gt;通过单调性将暴力解法的时间复杂度降低一维</p><br><h3 id="模板题"><a href="#模板题" class="headerlink" title="模板题"></a>模板题</h3><hr><p><img src="/../img/algorithm_two_pointer/p3.png"></p><ol><li><p>双指针问题一般可以先从暴力做法开始思考，对于上述问题，可以暴力枚举子串的起点和终点</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i =<span class="hljs-number">0</span>, j =<span class="hljs-number">0</span>; i &lt; n; i ++)<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j  = <span class="hljs-number">0</span>; i &lt;= i; j ++)<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">check</span>(j, i)) <span class="hljs-comment">//合法 满足最长不重复子串性质</span><br>            res = <span class="hljs-built_in">max</span>(res, i - j + <span class="hljs-number">1</span>); <span class="hljs-comment">//对于所有i的最长不重复子串 找到最长的</span><br></code></pre></td></tr></table></figure></li><li><p>分析i和j是否存在单调性</p></li></ol><p>首先i是指向子串终点的指针，枚举i指针，我们去找合法的j指针（这里的合法也就是最长不重复子串）：在每次迭代中，我们让i往后移一个位置，随着i往后移动，j只能随之一起向后移动，不可能往前移动（因为要维护最长不重复子串合法，可以反证法证明）</p><p>因此，我们发现了双指针存在单调性，可以优化枚举空间，优化后的伪代码如下：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>, j=<span class="hljs-number">0</span>; i&lt;n; i++) &#123;<br>    <span class="hljs-keyword">while</span>(j&lt;=i &amp;&amp; <span class="hljs-built_in">check</span>(j, i)) j++;<br>    res = <span class="hljs-built_in">max</span>(res, i-j+<span class="hljs-number">1</span>);<br>&#125;<br></code></pre></td></tr></table></figure><p>这个算法当中，i和j两个指针它们只会加起来最多移动2n次，因此时间复杂度降到了O(n)</p><p>所以说双指针算法本质上就是要发现朴素算法中的一些性质，尤其是单调性，让我们由需要枚举n^2个状态变成需要枚举n个状态</p><br><h4 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">100010</span>;<br><br><span class="hljs-type">int</span> n;<br><span class="hljs-type">int</span> q[N], s[N];<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;n);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ ) <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;q[i]);<br><br>    <span class="hljs-type">int</span> res = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>; i &lt; n; i ++ )<br>    &#123;<br>        s[q[i]] ++ ;<br>        <span class="hljs-keyword">while</span> (j &lt; i &amp;&amp; s[q[i]] &gt; <span class="hljs-number">1</span>) s[q[j ++ ]] -- ;<br>        res = <span class="hljs-built_in">max</span>(res, i - j + <span class="hljs-number">1</span>);<br>    &#125;<br><br>    cout &lt;&lt; res &lt;&lt; endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure><br><h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul><li>这里的S[N]实际上就是数组构建的哈希表，用来维护区间合法（最长不重复子串）</li><li>相似题目 <a href="https://leetcode.cn/problems/longest-substring-without-repeating-characters/">leetocde no.3</a></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>双指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>C++ primer chapter3 复习笔记</title>
     <link href="/2022/04/04/primer-chapter3/"/>
     <url>/2022/04/04/primer-chapter3/</url>
