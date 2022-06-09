@@ -78,7 +78,7 @@
   <script  src="/js/color-schema.js" ></script>
 
   
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 6.2.0"></head>
 
 
 <body>
@@ -426,63 +426,11 @@
 <p>如果两个字符串字面值位置紧邻且仅有空格，缩进，换行符分隔，则它们实际上是一个整体。因此当字符串字面值比较长，就可以采取分行书写的方式：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++">std::cout &lt;&lt; <span class="hljs-string">&quot;a really long string literal&quot;</span><br>             <span class="hljs-string">&quot;that spans two lines&quot;</span> &lt;&lt; endl;<br></code></pre></td></tr></table></figure>
 
-<p><strong>转义序列</strong><br>有两类字符程序员不能直接使用：一类是不可打印的字符，如退格或其他控制字符，另一类是在C++语言中含有特殊含义的字符（单引号，双引号，问号，反斜线）。所以我们需要用到转义序列，以\开头。</p>
-<table>
-<thead>
-<tr>
-<th>含义</th>
-<th>转义字符</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>newline</td>
-<td>\n</td>
-</tr>
-<tr>
-<td>horizontal tab</td>
-<td>\t</td>
-</tr>
-<tr>
-<td>alert (bell)</td>
-<td>\a</td>
-</tr>
-<tr>
-<td>vertical tab</td>
-<td>\v</td>
-</tr>
-<tr>
-<td>backspace</td>
-<td>\b</td>
-</tr>
-<tr>
-<td>double quote</td>
-<td>\“</td>
-</tr>
-<tr>
-<td>backslash</td>
-<td>\|</td>
-</tr>
-<tr>
-<td>question mark</td>
-<td>\?</td>
-</tr>
-<tr>
-<td>single quote</td>
-<td>\‘</td>
-</tr>
-<tr>
-<td>carriage return</td>
-<td>\r</td>
-</tr>
-<tr>
-<td>formfeed</td>
-<td>\f</td>
-</tr>
-</tbody></table>
+<p><strong>转义序列</strong><br>有两类字符程序员不能直接使用：一类是不可打印的字符，如退格或其他控制字符，另一类是在C++语言中含有特殊含义的字符（单引号，双引号，问号，反斜线）。所以我们需要用到转义序列，以\开头。<br>| 含义 | 转义字符 |<br>| — | — |<br>| newline |    \n |<br>| horizontal tab |    \t |<br>| alert (bell) |    \a |<br>| vertical tab |    \v |<br>| backspace |    \b |<br>| double quote | \“ |<br>| backslash |    \|<br>| question mark |    \? |<br>|single quote |    \‘ |<br>| carriage return |    \r |<br>| formfeed |    \f |</p>
 <p>八进制数和十六进制数可以拿来转义字符，可称为八进制字符和十六进制字符。<br>泛化转义序列的形式是\x后紧跟1个或多个十六进制数字，或者\后紧跟1个、2个或3个八进制数字，其中数字部分表示字符对应的数值。如果\后面跟着的八进制数字超过3个，则只有前3个数字与\构成转义序列。相反，\x要用到后面跟着的所有数字。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-string">&quot;\1234&quot;</span>  <span class="hljs-comment">//两个字符 八进制123对应的字符（八进制字符）和字符4</span><br><span class="hljs-string">&quot;\x1234&quot;</span>  <span class="hljs-comment">//一个字符 四个十六进制数所对应的比特唯一确定（十六进制字符）</span><br><span class="hljs-string">&quot;1234&quot;</span>    <span class="hljs-comment">//四个char字符</span><br></code></pre></td></tr></table></figure>
 
-<p><strong>指定字面值的类型</strong><br><img src="/../img/primer/chapter2.1.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>指定字面值的类型</strong><br><img src="../img/primer/chapter2.1.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>布尔字面值和和指针字面值</strong></p>
 <ul>
 <li>true和false和布尔类型的字面值</li>
@@ -496,7 +444,7 @@
 <br>
 
 <h3 id="变量定义"><a href="#变量定义" class="headerlink" title="变量定义"></a>变量定义</h3><hr>
-<p><strong>定义形式：</strong> 类型说明符（type specifier） + 一个或多个变量名组成的列表，变量名以逗号分隔，最后以分号结束。如int sum &#x3D; 0, value, units_sold &#x3D; 0;</p>
+<p><strong>定义形式：</strong> 类型说明符（type specifier） + 一个或多个变量名组成的列表，变量名以逗号分隔，最后以分号结束。如int sum = 0, value, units_sold = 0;</p>
 <p><strong>初始化：</strong>：初始化不等于赋值（assignment）。初始化的含义是创建变量时赋予其一个初始值，而赋值的含义是把对象的当前值擦除，再用一个新值来替代。</p>
 <p><strong>列表初始化</strong><br>用花括号初始化变量称为列表初始化（list initialization）。当用于内置类型的变量时，如果使用了列表初始化并且初始值存在丢失信息的风险，则编译器会报错。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">long</span> <span class="hljs-type">double</span> ld = <span class="hljs-number">3.1415926536</span>;<br><span class="hljs-type">int</span> a&#123;ld&#125;, b = &#123;ld&#125;;    <span class="hljs-comment">// error: narrowing conversion required</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">c</span><span class="hljs-params">(ld)</span>, d </span>= ld;      <span class="hljs-comment">// ok: but value will be truncated</span><br></code></pre></td></tr></table></figure>
@@ -521,7 +469,7 @@
 
 <h3 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h3><hr>
 <p>C++的标识符由字母、数字和下划线组成，其中必须以字母或下划线开头。标识符的长度没有限制，但是对大小写字母敏感。C++为标准库保留了一些名字。用户自定义的标识符不能连续出现两个下划线，也不能以下划线紧连大写字母开头。此外，定义在函数体外的标识符不能以下划线开头。</p>
-<p>C++保留了关键字和操作符替代名供本身使用，这些名字不能用作标识符。<br><img src="/../img/primer/chapter2.2.png" srcset="/img/loading.gif" lazyload></p>
+<p>C++保留了关键字和操作符替代名供本身使用，这些名字不能用作标识符。<br><img src="../img/primer/chapter2.2.png" srcset="/img/loading.gif" lazyload></p>
 <br>
 
 <h3 id="名字的作用域"><a href="#名字的作用域" class="headerlink" title="名字的作用域"></a>名字的作用域</h3><hr>
@@ -593,7 +541,7 @@
 <h3 id="复合类型的声明"><a href="#复合类型的声明" class="headerlink" title="复合类型的声明"></a>复合类型的声明</h3><hr>
 <p>指向指针的指针（Pointers to Pointers）：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> ival = <span class="hljs-number">1024</span>;<br><span class="hljs-type">int</span> *pi = &amp;ival;    <span class="hljs-comment">// pi points to an int</span><br><span class="hljs-type">int</span> **ppi = &amp;pi;    <span class="hljs-comment">// ppi points to a pointer to an int</span><br></code></pre></td></tr></table></figure>
-<p><img src="/../img/primer/2-4.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="../img/primer/2-4.png" srcset="/img/loading.gif" lazyload></p>
 <p>对指针的引用（References to Pointers）：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> i = <span class="hljs-number">42</span>;<br><span class="hljs-type">int</span> *p;         <span class="hljs-comment">// p is a pointer to int</span><br><span class="hljs-type">int</span> *&amp;r = p;    <span class="hljs-comment">// r is a reference to the pointer p</span><br>r = &amp;i;         <span class="hljs-comment">// r refers to a pointer; assigning &amp;i to r makes p point to i</span><br>*r = <span class="hljs-number">0</span>;         <span class="hljs-comment">// dereferencing r yields i, the object to which p points; changes i to 0</span><br></code></pre></td></tr></table></figure>
 <blockquote>
@@ -688,8 +636,7 @@
 <p>编译器推断出来的auto类型有时和初始值的类型并不完全一样。</p>
 <ul>
 <li><p>当引用被用作初始值时，编译器以引用对象的类型作为auto的类型。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> i = <span class="hljs-number">0</span>, &amp;r = i;<br><span class="hljs-keyword">auto</span> a = r;     <span class="hljs-comment">// a is an int (r is an alias for i, which has type int)</span><br></code></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> i = <span class="hljs-number">0</span>, &amp;r = i;<br><span class="hljs-keyword">auto</span> a = r;     <span class="hljs-comment">// a is an int (r is an alias for i, which has type int)</span><br></code></pre></td></tr></table></figure></li>
 <li><p>auto一般会忽略顶层const。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">const</span> <span class="hljs-type">int</span> ci = i, &amp;cr = ci;<br><span class="hljs-keyword">auto</span> b = ci;    <span class="hljs-comment">// b is an int (top-level const in ci is dropped)</span><br><span class="hljs-keyword">auto</span> c = cr;    <span class="hljs-comment">// c is an int (cr is an alias for ci whose const is top-level)</span><br><span class="hljs-keyword">auto</span> d = &amp;i;    <span class="hljs-comment">// d is an int*(&amp; of an int object is int*)</span><br><span class="hljs-keyword">auto</span> e = &amp;ci;   <span class="hljs-comment">// e is const int*(&amp; of a const object is low-level const)</span><br></code></pre></td></tr></table></figure></li>
 </ul>
@@ -725,7 +672,7 @@
 <p>预处理变量无视C++语言中关于作用域的规则。</p>
 <p>整个程序中的预处理变量，包括头文件保护符必须唯一。预处理变量的名字一般均为大写。</p>
 <p>头文件即使目前还没有被包含在任何其他头文件中，也应该设置保护符。</p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
               
             </div>
             <hr/>

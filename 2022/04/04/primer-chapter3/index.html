@@ -78,7 +78,7 @@
   <script  src="/js/color-schema.js" ></script>
 
   
-<meta name="generator" content="Hexo 6.1.0"></head>
+<meta name="generator" content="Hexo 6.2.0"></head>
 
 
 <body>
@@ -295,11 +295,11 @@
 <br>
 
 <h2 id="标准库类型string"><a href="#标准库类型string" class="headerlink" title="标准库类型string"></a>标准库类型string</h2><h3 id="定义和初始化string对象"><a href="#定义和初始化string对象" class="headerlink" title="定义和初始化string对象"></a>定义和初始化string对象</h3><hr>
-<p>初始化string对象的方式：<br><img src="/../img/primer/3.2num1.png" srcset="/img/loading.gif" lazyload><br>如果使用等号初始化一个变量，实际上执行的是拷贝初始化（copy initialization），编译器把等号右侧的初始值拷贝到新创建的对象中去。如果不使用等号，则执行的是直接初始化（direct initialization).</p>
+<p>初始化string对象的方式：<br><img src="../img/primer/3.2num1.png" srcset="/img/loading.gif" lazyload><br>如果使用等号初始化一个变量，实际上执行的是拷贝初始化（copy initialization），编译器把等号右侧的初始值拷贝到新创建的对象中去。如果不使用等号，则执行的是直接初始化（direct initialization).</p>
 <br>
 
 <h3 id="string对象上的操作"><a href="#string对象上的操作" class="headerlink" title="string对象上的操作"></a>string对象上的操作</h3><hr>
-<p><strong>string的操作：</strong><br><img src="/../img/primer/3.2num2.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>string的操作：</strong><br><img src="../img/primer/3.2num2.png" srcset="/img/loading.gif" lazyload></p>
 <p>在执行读取操作时，string对象会自动忽略开头的空白（空格符、换行符、制表符等）并从第一个真正的字符开始读取，直到遇见下一处空白为止。</p>
 <p>使用getline函数可以读取一整行字符。<br>该函数只要遇到换行符就结束读取并返回结果，如果输入的开始就是一个换行符，则得到空string。触发getline函数返回的那个换行符实际上被丢弃掉了，得到的string对象中并不包含该换行符。</p>
 <p>size函数返回string对象的长度，返回值是string::size_type类型，这是一种无符号类型。需要注意混用int和unsigned可能带来的问题。</p>
@@ -314,8 +314,8 @@
 <br>
 
 <h3 id="处理string对象中的字符"><a href="#处理string对象中的字符" class="headerlink" title="处理string对象中的字符"></a>处理string对象中的字符</h3><hr>
-<p><strong>cctype头文件中定义了一组标准库函数处理string对象中的字符。</strong><br><img src="/../img/primer/3.2num3.png" srcset="/img/loading.gif" lazyload></p>
-<p><strong>cctype vs ctype.h</strong><br><img src="/../img/primer/3.2num4.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>cctype头文件中定义了一组标准库函数处理string对象中的字符。</strong><br><img src="../img/primer/3.2num3.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>cctype vs ctype.h</strong><br><img src="../img/primer/3.2num4.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>range for</strong><br>C++11提供了范围for（range for）语句，可以遍历给定序列中的每个元素并执行某种操作。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">for</span> (declaration : expression)<br>    statement<br></code></pre></td></tr></table></figure>
 <p><code>expression</code>部分是一个对象，用于表示一个序列。<code>declaration</code>部分负责定义一个变量，该变量被用于访问序列中的基础元素。每次迭代，<code>declaration</code>部分的变量都会被初始化为<code>expression</code>部分的下一个元素值。</p>
@@ -342,7 +342,7 @@
 <br>
 
 <h3 id="定义和初始化vector对象"><a href="#定义和初始化vector对象" class="headerlink" title="定义和初始化vector对象"></a>定义和初始化vector对象</h3><hr>
-<p><strong>初始化vector对象的方法</strong><br><img src="/../img/primer/3.3num1.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>初始化vector对象的方法</strong><br><img src="../img/primer/3.3num1.png" srcset="/img/loading.gif" lazyload></p>
 <br>
 
 <p><strong>初始化方式比较</strong></p>
@@ -350,8 +350,7 @@
 <li><p>初始化vector对象时如果使用圆括号，可以说提供的值是用来构造（construct）vector对象的，一个初始值指示容量，两个初始值指示容量和初始值</p>
 </li>
 <li><p>如果使用的是花括号，则是在尽可能地列表初始化（list initialize）该vector对象，如果提供的值无法列表初始化，编译器会尝试构造初始化<br>eg:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++">vector&lt;string&gt; v5&#123;<span class="hljs-string">&quot;hi&quot;</span>&#125;       <span class="hljs-comment">//列表初始化 一个元素&quot;hi&quot;</span><br><span class="hljs-function">vector&lt;string&gt; <span class="hljs-title">v6</span><span class="hljs-params">(<span class="hljs-string">&quot;hi&quot;</span>)</span>       <span class="hljs-comment">//错误：不能使用字符串字面值构造初始化</span></span><br><span class="hljs-function">vector&lt;string&gt; v7</span>&#123;<span class="hljs-number">10</span>&#125;         <span class="hljs-comment">//值无法列表初始化，自动构造初始化 10个元素</span><br>vector&lt;string&gt; v8&#123;<span class="hljs-number">10</span>, <span class="hljs-string">&quot;hi&quot;</span>&#125;   <span class="hljs-comment">//值无法列表初始化，自动构造初始化 10个元素&quot;hi&quot;</span><br></code></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++">vector&lt;string&gt; v5&#123;<span class="hljs-string">&quot;hi&quot;</span>&#125;       <span class="hljs-comment">//列表初始化 一个元素&quot;hi&quot;</span><br><span class="hljs-function">vector&lt;string&gt; <span class="hljs-title">v6</span><span class="hljs-params">(<span class="hljs-string">&quot;hi&quot;</span>)</span>       <span class="hljs-comment">//错误：不能使用字符串字面值构造初始化</span></span><br><span class="hljs-function">vector&lt;string&gt; v7</span>&#123;<span class="hljs-number">10</span>&#125;         <span class="hljs-comment">//值无法列表初始化，自动构造初始化 10个元素</span><br>vector&lt;string&gt; v8&#123;<span class="hljs-number">10</span>, <span class="hljs-string">&quot;hi&quot;</span>&#125;   <span class="hljs-comment">//值无法列表初始化，自动构造初始化 10个元素&quot;hi&quot;</span><br></code></pre></td></tr></table></figure></li>
 <li><p>可以只提供vector对象容纳的元素数量而省略初始值，此时会创建一个值初始化（value-initialized）的元素初值，并把它赋给容器中的所有元素。这个初值由vector对象中的元素类型决定。</p>
 </li>
 </ul>
@@ -366,7 +365,7 @@
 <br>
 
 <h3 id="其他vector操作"><a href="#其他vector操作" class="headerlink" title="其他vector操作"></a>其他vector操作</h3><hr>
-<p><img src="/../img/primer/3.3num2.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="../img/primer/3.3num2.png" srcset="/img/loading.gif" lazyload></p>
 <br>
 
 <ul>
@@ -414,39 +413,7 @@
 <li><p><strong>谨记</strong>：任何可能改变容器对象容量的操作，都会使该对象的迭代器失效。但凡是使用了<strong>迭代器</strong>的循环体，都<strong>不要</strong>向迭代器所属的容器<strong>添加元素</strong>。</p>
 </li>
 </ul>
-<p>标准容器迭代器的运算符:</p>
-<table>
-<thead>
-<tr>
-<th>运算符</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>*iter</code></td>
-<td>返回迭代器<code>iter</code>所指向的<strong>元素的引用</strong></td>
-</tr>
-<tr>
-<td><code>iter-&gt;mem</code></td>
-<td>等价于<code>(*iter).mem</code></td>
-</tr>
-<tr>
-<td><code>++iter</code></td>
-<td>令<code>iter</code>指示容器中的下一个元素</td>
-</tr>
-<tr>
-<td><code>--iter</code></td>
-<td>令<code>iter</code>指示容器中的上一个元素</td>
-</tr>
-<tr>
-<td><code>iter1 == iter2</code></td>
-<td>判断两个迭代器是否相等</td>
-</tr>
-<tr>
-<td><code>iter1 != iter2</code></td>
-<td>不是指向同一元素，也不是同一个容器的尾后迭代器，不相等</td>
-</tr>
-</tbody></table>
+<p>标准容器迭代器的运算符:<br>| 运算符 | 解释 |<br>|—–|—–|<br>| <code>*iter</code> | 返回迭代器<code>iter</code>所指向的<strong>元素的引用</strong> |<br>| <code>iter-&gt;mem</code> | 等价于<code>(*iter).mem</code> |<br>| <code>++iter</code> | 令<code>iter</code>指示容器中的下一个元素 |<br>| <code>--iter</code> | 令<code>iter</code>指示容器中的上一个元素 |<br>| <code>iter1 == iter2</code> | 判断两个迭代器是否相等 |<br>| <code>iter1 != iter2</code> | 不是指向同一元素，也不是同一个容器的尾后迭代器，不相等 |</p>
 <br>
 
 <h3 id="迭代器运算"><a href="#迭代器运算" class="headerlink" title="迭代器运算"></a>迭代器运算</h3><hr>
@@ -529,11 +496,9 @@
 <h3 id="C风格字符串"><a href="#C风格字符串" class="headerlink" title="C风格字符串"></a>C风格字符串</h3><hr>
 <ul>
 <li><p>C风格字符串是将字符串存放在字符数组中，并以空字符结束（null terminated）。这不是一种类型，而是一种为了表达和使用字符串而形成的书写方法。</p>
-<br>
-</li>
+<br></li>
 <li><p>C++标准支持C风格字符串，但是最好不要在C++程序中使用它们。对大多数程序来说，使用标准库string要比使用C风格字符串更加安全和高效。</p>
-<br>
-</li>
+<br></li>
 <li><p>C风格字符串的函数：</p>
 </li>
 </ul>
@@ -565,8 +530,7 @@
 
 <ul>
 <li><p>C风格字符串函数不负责验证其参数的正确性，传入此类函数的指针必须指向以空字符作为结尾的数组。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">char</span> ca[] = &#123;<span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;+&#x27;</span>, <span class="hljs-string">&#x27;+&#x27;</span>&#125;;  <span class="hljs-comment">//不以空字符结束</span><br>cout &lt;&lt; <span class="hljs-built_in">strlen</span>(ca) &lt;&lt; endl;   <span class="hljs-comment">//严重错误： ca没有以空字符结束</span><br></code></pre></td></tr></table></figure>
-</li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">char</span> ca[] = &#123;<span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;+&#x27;</span>, <span class="hljs-string">&#x27;+&#x27;</span>&#125;;  <span class="hljs-comment">//不以空字符结束</span><br>cout &lt;&lt; <span class="hljs-built_in">strlen</span>(ca) &lt;&lt; endl;   <span class="hljs-comment">//严重错误： ca没有以空字符结束</span><br></code></pre></td></tr></table></figure></li>
 <li><p>C风格字符串和标准库string对象的同类操作差别很大，包括比较，连接，拷贝。</p>
 <br></li>
 <li><p>对大多数应用来说，使用标准库 string比使用C风格字符串更安全、更高效。</p>
@@ -609,7 +573,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> ia[<span class="hljs-number">3</span>][<span class="hljs-number">4</span>];       <span class="hljs-comment">// array of size 3; each element is an array of ints of size 4</span><br><span class="hljs-built_in">int</span> (*p)[<span class="hljs-number">4</span>] = ia;   <span class="hljs-comment">// p points to an array of four ints</span><br>p = &amp;ia[<span class="hljs-number">2</span>];         <span class="hljs-comment">// p now points to the last element in ia</span><br></code></pre></td></tr></table></figure>
 
 <p><strong>声明指向数组类型的指针时，必须带有圆括号。</strong></p>
-<p>int *ip[4];     &#x2F;&#x2F; array of pointers to int<br>int (*ip)[4];   &#x2F;&#x2F; pointer to an array of four ints</p>
+<p>int *ip[4];     // array of pointers to int<br>int (*ip)[4];   // pointer to an array of four ints</p>
 <p><strong>使用auto和decltype能省略复杂的指针定义。</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// print the value of each element in ia, with each inner array on its own line</span><br><span class="hljs-comment">// p points to an array of four ints</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> p = ia; p != ia + <span class="hljs-number">3</span>; ++p)<br>&#123;<br>    <span class="hljs-comment">// q points to the first element of an array of four ints; that is, q points to an int</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> q = *p; q != *p + <span class="hljs-number">4</span>; ++q)<br>        cout &lt;&lt; *q &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span>;<br>    cout &lt;&lt; endl;<br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -623,7 +587,7 @@
 
 
 
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
               
             </div>
             <hr/>
