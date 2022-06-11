@@ -355,9 +355,9 @@
 <td>expr * expr</td>
 </tr>
 <tr>
-<td>/</td>
+<td>&#x2F;</td>
 <td>除法</td>
-<td>expr / expr</td>
+<td>expr &#x2F; expr</td>
 </tr>
 <tr>
 <td>%</td>
@@ -413,9 +413,9 @@
 </tr>
 <tr>
 <td>左</td>
-<td>&lt;=</td>
+<td>&lt;&#x3D;</td>
 <td>小于等于</td>
-<td>expr &lt;= expr</td>
+<td>expr &lt;&#x3D; expr</td>
 </tr>
 <tr>
 <td>左</td>
@@ -425,21 +425,21 @@
 </tr>
 <tr>
 <td>左</td>
-<td>&gt;=</td>
+<td>&gt;&#x3D;</td>
 <td>大于等于</td>
-<td>expr &gt;= expr</td>
+<td>expr &gt;&#x3D; expr</td>
 </tr>
 <tr>
 <td>左</td>
-<td>==</td>
+<td>&#x3D;&#x3D;</td>
 <td>相等</td>
-<td>expr == expr</td>
+<td>expr &#x3D;&#x3D; expr</td>
 </tr>
 <tr>
 <td>左</td>
-<td>!=</td>
+<td>!&#x3D;</td>
 <td>不等</td>
-<td>expr != expr</td>
+<td>expr !&#x3D; expr</td>
 </tr>
 <tr>
 <td>左</td>
@@ -558,7 +558,7 @@
 <li>函数调用时也会发生类型转换</li>
 <li>大多数用到数组的表达式会将数组自动转换为指向数组首元素的指针（数组作为decltype关键字参数、取地址符&amp;、sizeof和typeid等运算符的运算对象时，上述自动转换不会发生）</li>
 <li>常量整数值0或者字面值<code>nullptr</code>能转换成任意指针类型，指向任意非常量的指针能转换为<code>void*</code>，指向任意对象的指针能转换为<code>const void*</code></li>
-<li>转换成常量：允许指向非常量类型的指针/引用转换为指向相应的常量类型的指针/引用</li>
+<li>转换成常量：允许指向非常量类型的指针&#x2F;引用转换为指向相应的常量类型的指针&#x2F;引用</li>
 </ul>
 <p><strong>2. 算数转换</strong></p>
 <p>算数转换的含义是指把一种算数类型转换为另一种算数类型，有如下一些规则：</p>
@@ -942,8 +942,8 @@
 <tr>
 <td>13</td>
 <td>左</td>
-<td>`</td>
-<td>`</td>
+<td>&#96;</td>
+<td>&#96;</td>
 <td>位或</td>
 </tr>
 <tr>
@@ -956,9 +956,9 @@
 <tr>
 <td>15</td>
 <td>左</td>
-<td>`</td>
+<td>&#96;</td>
 <td></td>
-<td>`</td>
+<td>&#96;</td>
 </tr>
 <tr>
 <td>16</td>

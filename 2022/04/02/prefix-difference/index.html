@@ -290,11 +290,11 @@
               <h2 id="前缀和"><a href="#前缀和" class="headerlink" title="前缀和"></a>前缀和</h2><blockquote>
 <p>前缀和是指某序列的前n项和，可以把它理解为数学上的数列的前n项和。它是一种重要的预处理，能大大降低查询的时间复杂度。</p>
 </blockquote>
-<p>这里，我们把前缀和问题大致分为一维前缀和与二维前缀和。<br><img src="../img/algorithm_prefix/prefix_1.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里，我们把前缀和问题大致分为一维前缀和与二维前缀和。<br><img src="/../img/algorithm_prefix/prefix_1.png" srcset="/img/loading.gif" lazyload></p>
 <br>
 
 <h3 id="一维前缀和"><a href="#一维前缀和" class="headerlink" title="一维前缀和"></a>一维前缀和</h3><hr>
-<p>这里直接看一道一维前缀和的模板题，方便更好地分析。<br><img src="../img/algorithm_prefix/prefixq1.PNG" srcset="/img/loading.gif" lazyload></p>
+<p>这里直接看一道一维前缀和的模板题，方便更好地分析。<br><img src="/../img/algorithm_prefix/prefixq1.PNG" srcset="/img/loading.gif" lazyload></p>
 <br>
 
 <h4 id="暴力解法"><a href="#暴力解法" class="headerlink" title="暴力解法"></a>暴力解法</h4><p>这里很容易直接想到暴力解法，遍历区间求和。</p>
@@ -308,7 +308,7 @@
 
 <p><strong>2. 用公式求区间和</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// 对于每次查询，只需执行sum[r]-sum[l-1] ，时间复杂度为O(1)</span><br>sum[l, r] = sum[r] - sum[l - <span class="hljs-number">1</span>]<br></code></pre></td></tr></table></figure>
-<p>证明如下：<br>$sum[r] =a[1]+a[2]+a[3]+a[l-1]+a[l]+a[l+1]……a[r];$<br>$sum[l-1]=a[1]+a[2]+a[3]+a[l-1];$<br>$sum[r]-sum[l-1]=a[l]+a[l+1]+……+a[r]$</p>
+<p>证明如下：<br>$sum[r] &#x3D;a[1]+a[2]+a[3]+a[l-1]+a[l]+a[l+1]……a[r];$<br>$sum[l-1]&#x3D;a[1]+a[2]+a[3]+a[l-1];$<br>$sum[r]-sum[l-1]&#x3D;a[l]+a[l+1]+……+a[r]$</p>
 <br>
 
 <h4 id="代码模板"><a href="#代码模板" class="headerlink" title="代码模板"></a>代码模板</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">100010</span>;<br><br><span class="hljs-type">int</span> n, m;<br><span class="hljs-type">int</span> a[N], s[N];<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">scanf</span>( <span class="hljs-string">&quot;%d%d&quot;</span>, &amp;n, &amp;m );<br><br>    <span class="hljs-comment">// a[0] == 0，下标从 1 开始输入</span><br>    <span class="hljs-keyword">for</span>( <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++ ) <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;a[i]);<br><br>    <span class="hljs-comment">// s[0] == 0，下标从 1 开始计算</span><br>    <span class="hljs-keyword">for</span>( <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++ ) s[i] = s[i - <span class="hljs-number">1</span>] + a[i]; <span class="hljs-comment">// 计算前缀和</span><br><br>    <span class="hljs-keyword">while</span>( m-- )<br>    &#123;<br>        <span class="hljs-type">int</span> l, r;<br>        <span class="hljs-built_in">scanf</span>( <span class="hljs-string">&quot;%d%d&quot;</span>, &amp;l, &amp;r );<br>        <span class="hljs-built_in">printf</span>( <span class="hljs-string">&quot;%d\n&quot;</span>, s[r] - s[ l - <span class="hljs-number">1</span> ] ); <span class="hljs-comment">// 区间和的计算 </span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -318,12 +318,12 @@
 <h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>原数组与前缀和数组下标从1开始</p>
 <ul>
 <li>由于计算区间和的公式是<code>s[r] − s [l−1]</code>,如果实际存数的区间从0开始，那么0 − 1就越界了，所以前缀和数组最开头要放一个0，实际存数的区间是<code>[1, n]</code>。</li>
-<li>统一区间内求和的公式，便于理解，即前x个数的和为S[x]，第x个数的下标为x。 </li>
+<li>统一区间内求和的公式，便于理解，即前x个数的和为S[x]，第x个数的下标为x。</li>
 </ul>
 <br>
 
 <h3 id="二维前缀和"><a href="#二维前缀和" class="headerlink" title="二维前缀和"></a>二维前缀和</h3><hr>
-<p>二维前缀和相比于一维前缀和略微复杂一些，这里同样给出模板题，便于分析。<br><img src="../img/algorithm_prefix/prefixq2.PNG" srcset="/img/loading.gif" lazyload></p>
+<p>二维前缀和相比于一维前缀和略微复杂一些，这里同样给出模板题，便于分析。<br><img src="/../img/algorithm_prefix/prefixq2.PNG" srcset="/img/loading.gif" lazyload></p>
 <br>
 
 <h4 id="暴力解法-1"><a href="#暴力解法-1" class="headerlink" title="暴力解法"></a>暴力解法</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> sum = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span>( <span class="hljs-type">int</span> i = x1; i &lt;= x2; i++ )<br>    <span class="hljs-keyword">for</span>( <span class="hljs-type">int</span> j = y1; j &lt;= y2; j++ )<br>        sum += a[i][j];<br></code></pre></td></tr></table></figure>
@@ -332,10 +332,10 @@
 
 <h4 id="基本思想-1"><a href="#基本思想-1" class="headerlink" title="基本思想"></a>基本思想</h4><p>大体思路与一维前缀和模板相同，但是这里预处理前缀和数组，以及求区间和的公式稍微要复杂一些。这里给出相应的图帮助理解。</p>
 <p><strong>1. 预处理前缀和数组</strong><br>其实也就是问$S[i, j]$该如何计算</p>
-<p>这里先给出前缀和S[x][y]的定义，x为行坐标，y为列坐标（这里x,y不是横纵坐标！）<br><img src="../img/algorithm_prefix/prefix_2.png" srcset="/img/loading.gif" lazyload></p>
-<p>前缀和$S[i, j]$的计算公式<br>$S[i][j] = S[i][j - 1] + S[i - 1][j] - S[i - 1][j - 1] + a[i][j]$</p>
-<p><img src="../img/algorithm_prefix/prefix_3.png" srcset="/img/loading.gif" lazyload></p>
-<p><strong>2. 用公式求区间和</strong><br>求(x1, y1), (x2, y2)子矩阵中的和<br>$Sum = S[x_2][y_2] - S[x_2][y_1 - 1] - S[x_1 - 1][y_2] + S[x_1 - 1][y_1 - 1]$<br><img src="../img/algorithm_prefix/prefix_4.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里先给出前缀和S[x][y]的定义，x为行坐标，y为列坐标（这里x,y不是横纵坐标！）<br><img src="/../img/algorithm_prefix/prefix_2.png" srcset="/img/loading.gif" lazyload></p>
+<p>前缀和$S[i, j]$的计算公式<br>$S[i][j] &#x3D; S[i][j - 1] + S[i - 1][j] - S[i - 1][j - 1] + a[i][j]$</p>
+<p><img src="/../img/algorithm_prefix/prefix_3.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>2. 用公式求区间和</strong><br>求(x1, y1), (x2, y2)子矩阵中的和<br>$Sum &#x3D; S[x_2][y_2] - S[x_2][y_1 - 1] - S[x_1 - 1][y_2] + S[x_1 - 1][y_1 - 1]$<br><img src="/../img/algorithm_prefix/prefix_4.png" srcset="/img/loading.gif" lazyload></p>
 <br>
 
 <h4 id="代码模板-1"><a href="#代码模板-1" class="headerlink" title="代码模板"></a>代码模板</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">1010</span>;<br><br><span class="hljs-type">int</span> n, m, q;<br><span class="hljs-type">int</span> a[N][N], s[N][N];<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d%d%d&quot;</span>, &amp;n, &amp;m, &amp;q);<br><br>    <span class="hljs-comment">// a[0][0] == 0，下标从 a[1][1] 开始输入</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i =<span class="hljs-number">1</span>; i &lt;= n; i++)<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j++)<br>            <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;a[i][j]);<br><br>    <span class="hljs-comment">// s[0][0] == 0，下标从 s[1][1] 开始计算</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j++)<br>            <span class="hljs-comment">// 计算二维前缀和 </span><br>            s[i][j] = s[i - <span class="hljs-number">1</span>][j] + s[i][j - <span class="hljs-number">1</span>] - s[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + a[i][j]; <br><br>    <span class="hljs-keyword">while</span>(q--)<br>    &#123;<br>        <span class="hljs-type">int</span> x1, y1, x2, y2;<br>        <span class="hljs-built_in">scanf</span>( <span class="hljs-string">&quot;%d%d%d%d&quot;</span>, &amp;x1, &amp;y1, &amp;x2,&amp;y2 );<br>    <span class="hljs-comment">// 计算子矩阵的和 </span><br>        <span class="hljs-type">int</span> sum = s[x2][y2] - s[x1 - <span class="hljs-number">1</span>][y2] - s[x2][y1 - <span class="hljs-number">1</span>] + s[x1 - <span class="hljs-number">1</span>][y1 - <span class="hljs-number">1</span>]; <br>        <span class="hljs-built_in">printf</span>( <span class="hljs-string">&quot;%d\n&quot;</span>, sum );<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;   <br>&#125; <br></code></pre></td></tr></table></figure>
@@ -347,13 +347,13 @@
 
 <h2 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h2><hr>
 <blockquote>
-<p>类似于数学中的求导和积分，差分可以看成前缀和的逆运算。对于一个数组$a$，其差分数组$b$的每一项都是$a[i]$和前一项$a[i−1]$的差，即$b[i]=a[i]−a[i−1]$。</p>
+<p>类似于数学中的求导和积分，差分可以看成前缀和的逆运算。对于一个数组$a$，其差分数组$b$的每一项都是$a[i]$和前一项$a[i−1]$的差，即$b[i]&#x3D;a[i]−a[i−1]$。</p>
 </blockquote>
-<p>同样地我们这里也将差分问题大致分为一维差分和与二维差分问题。<br><img src="../img/algorithm_prefix/difference1.png" srcset="/img/loading.gif" lazyload></p>
+<p>同样地我们这里也将差分问题大致分为一维差分和与二维差分问题。<br><img src="/../img/algorithm_prefix/difference1.png" srcset="/img/loading.gif" lazyload></p>
 <br>
 
 <h3 id="一维差分"><a href="#一维差分" class="headerlink" title="一维差分"></a>一维差分</h3><hr>
-<p>这里直接给出模板题，方便论述。<br><img src="../img/algorithm_prefix/differenceq1.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里直接给出模板题，方便论述。<br><img src="/../img/algorithm_prefix/differenceq1.png" srcset="/img/loading.gif" lazyload></p>
 <br>
 
 <h4 id="暴力解法-2"><a href="#暴力解法-2" class="headerlink" title="暴力解法"></a>暴力解法</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = l; i &lt;= r; i++ ) <br>    a[i] = a[i] + c<br></code></pre></td></tr></table></figure>
@@ -363,8 +363,8 @@
 
 <h4 id="基本思想-2"><a href="#基本思想-2" class="headerlink" title="基本思想"></a>基本思想</h4><p>为了方便理解我们这里给出三个数组，原数组a[], 前缀和数组s[], 差分数组b[]。</p>
 <p>首先我们回顾一下前缀和数组s的性质，对于原数组a，只要给某个数加上x，那么后面所有的数在求前缀和数组s的时候都会被加上x。然后原数组a其实就是差分数组b的前缀和数组。</p>
-<p>根据这个性质，在原数组a的(l, r)区间内加上一个数可以用b[l] += x, b[r + 1] -= x来实现，让数组从l开始到最后都加上x，但超出r的范围也加上了x，所以我们需要让r后面的都减去x，保持原来的值。<br><img src="../img/algorithm_prefix/difference2.png" srcset="/img/loading.gif" lazyload></p>
-<p><strong>1. 预处理差分数组</strong><br>其实也就是问b[i]该如何计算<br>$b[i] = a[i] - a[i - 1]$</p>
+<p>根据这个性质，在原数组a的(l, r)区间内加上一个数可以用b[l] +&#x3D; x, b[r + 1] -&#x3D; x来实现，让数组从l开始到最后都加上x，但超出r的范围也加上了x，所以我们需要让r后面的都减去x，保持原来的值。<br><img src="/../img/algorithm_prefix/difference2.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>1. 预处理差分数组</strong><br>其实也就是问b[i]该如何计算<br>$b[i] &#x3D; a[i] - a[i - 1]$</p>
 <p><strong>2. 差分核心操作</strong><br>给a数组中的[l, r]区间中的每一个数都加上c,只需对差分数组b做<code>b[l] += c, b[r+1] -= c</code></p>
 <p><strong>3. 还原原数组</strong><br>对差分数组求前缀和，还原原数组。</p>
 <br>
@@ -380,7 +380,7 @@
 <br>
 
 <h3 id="二维差分"><a href="#二维差分" class="headerlink" title="二维差分"></a>二维差分</h3><hr>
-<p>二维差分相比于一维差分略微复杂一些，这里同样给出模板题，便于分析。<br><img src="../img/algorithm_prefix/differenceq2.png" srcset="/img/loading.gif" lazyload></p>
+<p>二维差分相比于一维差分略微复杂一些，这里同样给出模板题，便于分析。<br><img src="/../img/algorithm_prefix/differenceq2.png" srcset="/img/loading.gif" lazyload></p>
 <br>
 
 <h4 id="暴力解法-3"><a href="#暴力解法-3" class="headerlink" title="暴力解法"></a>暴力解法</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-type">int</span> sum = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span>( <span class="hljs-type">int</span> i = x1; i &lt;= x2; i++ )<br>    <span class="hljs-keyword">for</span>( <span class="hljs-type">int</span> j = y1; j &lt;= y2; j++ )<br>        a[i][j] += c;<br></code></pre></td></tr></table></figure>
@@ -389,7 +389,7 @@
 
 <h4 id="基本思想-3"><a href="#基本思想-3" class="headerlink" title="基本思想"></a>基本思想</h4><p>同样的三步走<br><strong>1. 预处理差分数组</strong><br>这里构造差分数组不像一维差分那么容易，所以我们这里直接用$insert()$的方式在每个位置$(i,j) → (i,j)$（指左上角是$(i,j)$，右下角也是$(i,j)$的子矩阵）插入值$a[i][j]$就可以了。</p>
 <p>其实也可以通过前缀和公式逆运算，构造差分数组，因为第三步还原原数组肯定会用到前缀和公式，所以很容易逆推出差分数组的公式。</p>
-<p><strong>2. 差分核心操作</strong><br>设A(x1, y1)为需要加值的子矩阵的左上角，B(x2, y2)为需要加值的子矩阵的右下角。<br>给(x1, y1), (x2, y2)子矩阵中每个数加上c。<br><img src="../img/algorithm_prefix/difference3.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>2. 差分核心操作</strong><br>设A(x1, y1)为需要加值的子矩阵的左上角，B(x2, y2)为需要加值的子矩阵的右下角。<br>给(x1, y1), (x2, y2)子矩阵中每个数加上c。<br><img src="/../img/algorithm_prefix/difference3.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++">B[x1][y1] += x; <span class="hljs-comment">//给A到最后的矩阵加x</span><br>B[x1][y2 + <span class="hljs-number">1</span>] -= x; <span class="hljs-comment">//减去超出范围的右边</span><br>B[x2 + <span class="hljs-number">1</span>][y1] -= x; <span class="hljs-comment">//减去超出范围的下边</span><br>B[x2 + <span class="hljs-number">1</span>][y2 + <span class="hljs-number">1</span>] += x; <span class="hljs-comment">//把重复删减的部分给加回来</span><br></code></pre></td></tr></table></figure>
 <p>然后将上述操作封装为一个insert函数，来方便构建差分数组。</p>
 <p><strong>3. 还原原数组</strong><br>这里要利用二维前缀和计算公式，还原原数组</p>
