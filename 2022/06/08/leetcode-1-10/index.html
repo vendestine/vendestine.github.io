@@ -27,7 +27,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://vendestine.github.io/img/LeetCode.png">
 <meta property="article:published_time" content="2022-06-08T22:28:01.000Z">
-<meta property="article:modified_time" content="2022-06-09T07:37:53.282Z">
+<meta property="article:modified_time" content="2022-06-10T01:50:22.128Z">
 <meta property="article:author" content="Wenzhe Li">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary_large_image">
@@ -279,7 +279,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年6月9日 凌晨
+                    本文最后更新于：2022年6月9日 晚上
                   
                 
               </p>
@@ -356,7 +356,7 @@
         思路1 - TLE
     </div>
     <div class='spoiler-content'>
-        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// brute force </span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-type">int</span> maxLen = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span>(!s.<span class="hljs-built_in">size</span>())<br>            <span class="hljs-keyword">return</span> maxLen;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; s.<span class="hljs-built_in">size</span>(); i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; s.<span class="hljs-built_in">size</span>(); j++)&#123;<br>                <span class="hljs-keyword">if</span>(<span class="hljs-built_in">isUniq</span>(s, i, j))<br>                    maxLen = <span class="hljs-built_in">max</span>(maxLen, j-i+<span class="hljs-number">1</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> maxLen;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isUniq</span><span class="hljs-params">(string s, <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> end)</span></span>&#123;<br>        set&lt;<span class="hljs-type">char</span>&gt; uniqSet;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = start; i &lt;= end; i++)&#123;<br>            <span class="hljs-keyword">if</span>(uniqSet.<span class="hljs-built_in">count</span>(s[i]))<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            uniqSet.<span class="hljs-built_in">insert</span>(s[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// brute force </span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-type">int</span> maxLen = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span>(!s.<span class="hljs-built_in">size</span>())<br>            <span class="hljs-keyword">return</span> maxLen;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; s.<span class="hljs-built_in">size</span>(); i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; s.<span class="hljs-built_in">size</span>(); j++)&#123;<br>                <span class="hljs-keyword">if</span>(<span class="hljs-built_in">isUniq</span>(s, i, j))<br>                    maxLen = <span class="hljs-built_in">max</span>(maxLen, j-i+<span class="hljs-number">1</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> maxLen;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isUniq</span><span class="hljs-params">(string s, <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> end)</span></span>&#123;<br>        unordered_map&lt;<span class="hljs-type">char</span>, <span class="hljs-type">int</span>&gt; heap;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = start; i &lt;= end; i++)&#123;<br>            <span class="hljs-keyword">if</span>(heap.<span class="hljs-built_in">count</span>(s[i]))<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            heap[s[i]]++;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
     </div>
 </div>
 
@@ -460,6 +460,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/06/09/primer-chapter4/" title="C++ primer chapter4 复习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C++ primer chapter4 复习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
