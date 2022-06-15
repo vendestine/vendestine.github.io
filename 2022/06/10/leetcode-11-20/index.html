@@ -27,7 +27,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://vendestine.github.io/img/LeetCode.png">
 <meta property="article:published_time" content="2022-06-11T00:09:13.000Z">
-<meta property="article:modified_time" content="2022-06-13T06:39:04.103Z">
+<meta property="article:modified_time" content="2022-06-15T12:44:09.247Z">
 <meta property="article:author" content="Wenzhe Li">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary_large_image">
@@ -279,7 +279,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2022年6月13日 凌晨
+                    本文最后更新于：2022年6月15日 早上
                   
                 
               </p>
@@ -319,13 +319,13 @@
 
 <h3 id="LeetCode-12-整数转罗马数字"><a href="#LeetCode-12-整数转罗马数字" class="headerlink" title="LeetCode 12. 整数转罗马数字"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/integer-to-roman/">LeetCode 12. 整数转罗马数字</a></h3><hr>
 <h4 id="基本思路-1"><a href="#基本思路-1" class="headerlink" title="基本思路"></a>基本思路</h4><hr>
-<p>讲阿拉伯数字转化为罗马数字，<strong>模拟题</strong></p>
+<p><strong>操作题</strong>，将阿拉伯数字转化为罗马数字，可以模拟来做</p>
 <ol>
 <li><p>暴力匹配<br>直接把每个数字在每个位上的表示形式，整理成一张硬编码表,然后暴力匹配每一位<br>时间复杂度：$O(1)$ 计算量与输入数字的大小无关。<br>空间复杂度：$O(1)$</p>
 <br>
 </li>
 <li><p>贪心<br>罗马数字的设计初衷就是要<strong>字符尽可能的少</strong>（联想到找零钱问题：尽量选择面值大的纸币（硬币）给顾客，这样才会使得给顾客的纸币（硬币）张数最少），所以用这题可以用贪心，<strong>尽可能先选出大的数字进行转换。</strong><br>时间复杂度：$O(1)$ 计算量与输入位数有关<br>空间复杂度：$O(1)$</p>
-</li>
+<br></li>
 </ol>
 <h4 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a>参考代码</h4><hr>
 <div class='spoiler collapsed'>
