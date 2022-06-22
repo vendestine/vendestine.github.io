@@ -18,23 +18,24 @@
   <meta name="author" content="Wenzhe Li">
   <meta name="keywords" content="">
   
-    <meta name="description" content="LeetCode 题号11-20，主要阐述思路，附AC代码">
+    <meta name="description" content="C++ primer chapter6 内容复习，回顾了书中一些比较重要的概念并列出需要深入的习题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode 11-20">
-<meta property="og:url" content="https://vendestine.github.io/2022/06/10/leetcode-11-20/index.html">
+<meta property="og:title" content="C++ primer chapter6 复习笔记">
+<meta property="og:url" content="https://vendestine.github.io/2022/06/13/primer-chapter6/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="LeetCode 题号11-20，主要阐述思路，附AC代码">
+<meta property="og:description" content="C++ primer chapter6 内容复习，回顾了书中一些比较重要的概念并列出需要深入的习题">
 <meta property="og:locale">
-<meta property="og:image" content="https://vendestine.github.io/img/LeetCode.png">
-<meta property="article:published_time" content="2022-06-11T00:09:13.000Z">
-<meta property="article:modified_time" content="2022-06-15T12:44:09.247Z">
+<meta property="og:image" content="https://vendestine.github.io/img/C++.png">
+<meta property="article:published_time" content="2022-06-13T14:36:37.000Z">
+<meta property="article:modified_time" content="2022-06-21T22:42:11.094Z">
 <meta property="article:author" content="Wenzhe Li">
-<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="C++ Primer">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://vendestine.github.io/img/LeetCode.png">
+<meta name="twitter:image" content="https://vendestine.github.io/img/C++.png">
   
   
-  <title>LeetCode 11-20 - Hexo</title>
+  <title>C++ primer chapter6 复习笔记 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -191,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LeetCode 11-20"></span>
+            <span id="subtitle" data-typed-text="C++ primer chapter6 复习笔记"></span>
           
         </div>
 
@@ -202,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-10 20:09" pubdate>
-          June 10, 2022 pm
+        <time datetime="2022-06-13 10:36" pubdate>
+          June 13, 2022 am
         </time>
       </span>
     
@@ -215,7 +216,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          2.4k 字
+          644 字
         
       </span>
     
@@ -227,7 +228,7 @@
         
         
           <!-- compatible with older versions-->
-          20 分钟
+          6 分钟
         
       </span>
     
@@ -273,86 +274,46 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LeetCode 11-20</h1>
+            <h1 style="display: none">C++ primer chapter6 复习笔记</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：June 15, 2022 am
+                    本文最后更新于：June 21, 2022 pm
                   
                 
               </p>
             
             <div class="markdown-body">
               
-              <h3 id="LeetCode-11-盛最多水的容器"><a href="#LeetCode-11-盛最多水的容器" class="headerlink" title="LeetCode 11. 盛最多水的容器"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/container-with-most-water/">LeetCode 11. 盛最多水的容器</a></h3><hr>
-<h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><hr>
-<p>此题目需要求解，所以枚举所有情况得到答案，属于<strong>枚举题</strong>，双指针+贪心优化后也可以说是<strong>贪心题</strong></p>
-<ol>
-<li><p>暴力枚举<br>枚举左直线和右直线$O(n^2)$，每组直线计算面积$O(1)$<br>时间复杂度：$O(n^2)$</p>
-<br>
+              <h1 id="第六章：函数"><a href="#第六章：函数" class="headerlink" title="第六章：函数"></a>第六章：函数</h1><h2 id="函数基础"><a href="#函数基础" class="headerlink" title="函数基础"></a>函数基础</h2><ul>
+<li><strong>函数定义</strong>：包括返回类型、函数名字和0个或者多个<strong>形参</strong>（parameter）组成的列表和函数体。</li>
+<li><strong>调用运算符</strong>：调用运算符的形式是一对圆括号 <code>()</code>，作用于一个表达式，该表达式是函数或者指向函数的指针。</li>
+<li>圆括号内是用逗号隔开的<strong>实参</strong>（argument）列表。</li>
+<li>函数调用过程：<ul>
+<li>1.主调函数（calling function）的执行被中断。</li>
+<li>2.被调函数（called function）开始执行。</li>
+</ul>
 </li>
-<li><p>双指针+贪心<br>对于暴力枚举的题目，第一反应用双指针优化（裁剪搜索空间），尝试探索指针之间的单调性，发现两个指针没有单调性，所以不是常规的双指针解法（即顺序枚举一个指针，然后根据单调性不回退地移动另一个指针），但是这道题目因为<strong>性质</strong>（让两直线初始位于左右两侧，木桶容量由短板决定, 移动长板的话, 水面高度不可能再上升, 而宽度变小了, 所以只有通过移动短板, 才有可能使水位上升）所以利用贪心，非顺序性移动指针求解（本质也是裁剪搜索空间）<br>时间复杂度：$O(n)$</p>
-<br></li>
-</ol>
-<h4 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h4><hr>
-<div class='spoiler collapsed'>
-    <div class='spoiler-title'>
-        思路1 - TLE
-    </div>
-    <div class='spoiler-content'>
-        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxArea</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; height)</span> </span>&#123;<br>        <span class="hljs-type">int</span> res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; height.<span class="hljs-built_in">size</span>(); i ++)<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = i + <span class="hljs-number">1</span>; j &lt; height.<span class="hljs-built_in">size</span>(); j ++)<br>                res = <span class="hljs-built_in">max</span>(res, <span class="hljs-built_in">min</span>(height[i], height[j]) * (j - i));<br><br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-    </div>
-</div>
-
-<div class='spoiler collapsed'>
-    <div class='spoiler-title'>
-        思路2
-    </div>
-    <div class='spoiler-content'>
-        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxArea</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; height)</span> </span>&#123;<br>        <span class="hljs-type">int</span> res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>, j = height.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>; i &lt; j;) &#123;<br>            res = <span class="hljs-built_in">max</span>(res, <span class="hljs-built_in">min</span>(height[i], height[j]) * (j - i));<br>            <span class="hljs-keyword">if</span> (height[i] &gt; height[j]) j -- ;<br>            <span class="hljs-keyword">else</span> i ++ ;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-    </div>
-</div>
-
+<li><strong>形参和实参</strong>：形参和实参的<strong>个数</strong>和<strong>类型</strong>必须匹配上。</li>
+<li><strong>返回类型</strong>： <code>void</code>表示函数不返回任何值。函数的返回类型不能是数组类型或者函数类型，但可以是指向数组或者函数的指针。</li>
+<li><strong>名字</strong>：名字的作用于是程序文本的一部分，名字在其中可见。</li>
+</ul>
+<h3 id="局部对象"><a href="#局部对象" class="headerlink" title="局部对象"></a>局部对象</h3><ul>
+<li><strong>生命周期</strong>：对象的生命周期是程序执行过程中该对象存在的一段时间。</li>
+<li><strong>局部变量</strong>（local variable）：形参和函数体内部定义的变量统称为局部变量。它对函数而言是局部的，对函数外部而言是<strong>隐藏</strong>的。</li>
+<li><strong>自动对象</strong>：只存在于块执行期间的对象。当块的执行结束后，它的值就变成<strong>未定义</strong>的了。</li>
+<li><strong>局部静态对象</strong>： <code>static</code>类型的局部变量，生命周期贯穿函数调用前后。</li>
+</ul>
+<h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><ul>
+<li><strong>函数声明</strong>：函数的声明和定义唯一的区别是声明无需函数体，用一个分号替代。函数声明主要用于描述函数的接口，也称<strong>函数原型</strong>。</li>
+<li><strong>在头文件中进行函数声明</strong>：建议变量在头文件中声明；在源文件中定义。</li>
+<li><strong>分离编译</strong>： <code>CC a.cc b.cc</code>直接编译生成可执行文件；<code>CC -c a.cc b.cc</code>编译生成对象代码<code>a.o b.o</code>； <code>CC a.o b.o</code>编译生成可执行文件。</li>
+</ul>
 <br>
 
-<h3 id="LeetCode-12-整数转罗马数字"><a href="#LeetCode-12-整数转罗马数字" class="headerlink" title="LeetCode 12. 整数转罗马数字"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/integer-to-roman/">LeetCode 12. 整数转罗马数字</a></h3><hr>
-<h4 id="基本思路-1"><a href="#基本思路-1" class="headerlink" title="基本思路"></a>基本思路</h4><hr>
-<p><strong>操作题</strong>，将阿拉伯数字转化为罗马数字，可以模拟来做</p>
-<ol>
-<li><p>暴力匹配<br>直接把每个数字在每个位上的表示形式，整理成一张硬编码表,然后暴力匹配每一位<br>时间复杂度：$O(1)$ 计算量与输入数字的大小无关。<br>空间复杂度：$O(1)$</p>
-<br>
-</li>
-<li><p>贪心<br>罗马数字的设计初衷就是要<strong>字符尽可能的少</strong>（联想到找零钱问题：尽量选择面值大的纸币（硬币）给顾客，这样才会使得给顾客的纸币（硬币）张数最少），所以用这题可以用贪心，<strong>尽可能先选出大的数字进行转换。</strong><br>时间复杂度：$O(1)$ 计算量与输入位数有关<br>空间复杂度：$O(1)$</p>
-<br></li>
-</ol>
-<h4 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a>参考代码</h4><hr>
-<div class='spoiler collapsed'>
-    <div class='spoiler-title'>
-        思路1
-    </div>
-    <div class='spoiler-content'>
-        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">intToRoman</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> </span>&#123;<br>        string I[] = &#123;<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;I&quot;</span>, <span class="hljs-string">&quot;II&quot;</span>, <span class="hljs-string">&quot;III&quot;</span>, <span class="hljs-string">&quot;IV&quot;</span>, <span class="hljs-string">&quot;V&quot;</span>, <span class="hljs-string">&quot;VI&quot;</span>, <span class="hljs-string">&quot;VII&quot;</span>, <span class="hljs-string">&quot;VIII&quot;</span>, <span class="hljs-string">&quot;IX&quot;</span>&#125;;<br>        string X[] = &#123;<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;X&quot;</span>, <span class="hljs-string">&quot;XX&quot;</span>, <span class="hljs-string">&quot;XXX&quot;</span>, <span class="hljs-string">&quot;XL&quot;</span>, <span class="hljs-string">&quot;L&quot;</span>, <span class="hljs-string">&quot;LX&quot;</span>, <span class="hljs-string">&quot;LXX&quot;</span>, <span class="hljs-string">&quot;LXXX&quot;</span>, <span class="hljs-string">&quot;XC&quot;</span>&#125;;<br>        string C[] = &#123;<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;C&quot;</span>, <span class="hljs-string">&quot;CC&quot;</span>, <span class="hljs-string">&quot;CCC&quot;</span>, <span class="hljs-string">&quot;CD&quot;</span>, <span class="hljs-string">&quot;D&quot;</span>, <span class="hljs-string">&quot;DC&quot;</span>, <span class="hljs-string">&quot;DCC&quot;</span>, <span class="hljs-string">&quot;DCCC&quot;</span>, <span class="hljs-string">&quot;CM&quot;</span>&#125;;<br>        string M[] = &#123;<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;M&quot;</span>, <span class="hljs-string">&quot;MM&quot;</span>, <span class="hljs-string">&quot;MMM&quot;</span>&#125;;<br><br>        <span class="hljs-keyword">return</span> M[num / <span class="hljs-number">1000</span>] + C[(num % <span class="hljs-number">1000</span>) / <span class="hljs-number">100</span>] + X[(num % <span class="hljs-number">100</span>) / <span class="hljs-number">10</span>] + I[num % <span class="hljs-number">10</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-    </div>
-</div>
-
-<div class='spoiler collapsed'>
-    <div class='spoiler-title'>
-        思路2
-    </div>
-    <div class='spoiler-content'>
-        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">intToRoman</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> </span>&#123;<br>        <span class="hljs-type">int</span> values[] = &#123;<br>            <span class="hljs-number">1000</span>,<br>            <span class="hljs-number">900</span>, <span class="hljs-number">500</span>, <span class="hljs-number">400</span>, <span class="hljs-number">100</span>,<br>            <span class="hljs-number">90</span>, <span class="hljs-number">50</span>, <span class="hljs-number">40</span>, <span class="hljs-number">10</span>,<br>            <span class="hljs-number">9</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span><br>        &#125;;<br>        string reps[] = &#123;<br>            <span class="hljs-string">&quot;M&quot;</span>,<br>            <span class="hljs-string">&quot;CM&quot;</span>, <span class="hljs-string">&quot;D&quot;</span>, <span class="hljs-string">&quot;CD&quot;</span>, <span class="hljs-string">&quot;C&quot;</span>,<br>            <span class="hljs-string">&quot;XC&quot;</span>, <span class="hljs-string">&quot;L&quot;</span>, <span class="hljs-string">&quot;XL&quot;</span>, <span class="hljs-string">&quot;X&quot;</span>,<br>            <span class="hljs-string">&quot;IX&quot;</span>, <span class="hljs-string">&quot;V&quot;</span>, <span class="hljs-string">&quot;IV&quot;</span>, <span class="hljs-string">&quot;I&quot;</span>,<br>        &#125;;<br><br>        string res;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">13</span>; i ++ ) &#123; <span class="hljs-comment">//贪心，从面值大的开始拼</span><br>            <span class="hljs-keyword">while</span> (num &gt;= values[i]) &#123; <span class="hljs-comment">//注意是&gt;=!!!!!!</span><br>                num -= values[i];<br>                res += reps[i];<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-    </div>
-</div>
-
-<br>
-
-
-
-
-
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+<h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
               
             </div>
             <hr/>
@@ -369,12 +330,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E7%AE%97%E6%B3%95/LeetCode/" class="category-chain-item">LeetCode</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/" class="category-chain-item">C++</a>
   
   
 
@@ -391,7 +352,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/LeetCode/">#LeetCode</a>
+        <a href="/tags/C/">#C++</a>
+      
+        <a href="/tags/C-Primer/">#C++ Primer</a>
       
     </div>
   
@@ -403,8 +366,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LeetCode 11-20</div>
-      <div>https://vendestine.github.io/2022/06/10/leetcode-11-20/</div>
+      <div>C++ primer chapter6 复习笔记</div>
+      <div>https://vendestine.github.io/2022/06/13/primer-chapter6/</div>
     </div>
     <div class="license-meta">
       
@@ -416,7 +379,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>June 10, 2022</div>
+          <div>June 13, 2022</div>
         </div>
       
       
@@ -446,18 +409,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/11/leetcode-21-30/" title="LeetCode 21-30">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 21-30</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/09/primer-chapter4/" title="C++ primer chapter4 复习笔记">
-                        <span class="hidden-mobile">C++ primer chapter4 复习笔记</span>
+                      <a href="/2022/06/12/primer-chapter5/" title="C++ primer chapter5 复习笔记">
+                        <span class="hidden-mobile">C++ primer chapter5 复习笔记</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
