@@ -18,24 +18,23 @@
   <meta name="author" content="Wenzhe Li">
   <meta name="keywords" content="">
   
-    <meta name="description" content="C++ primer chapter7 内容复习，回顾了书中一些比较重要的概念并列出需要深入的习题">
+    <meta name="description" content="LeetCode 题号41-50，主要阐述思路，附AC代码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++ primer chapter7 复习笔记">
-<meta property="og:url" content="https://vendestine.github.io/2022/06/15/primer-chapter7/index.html">
+<meta property="og:title" content="LeetCode 41-50">
+<meta property="og:url" content="https://vendestine.github.io/2022/06/16/leetcode-41-50/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="C++ primer chapter7 内容复习，回顾了书中一些比较重要的概念并列出需要深入的习题">
+<meta property="og:description" content="LeetCode 题号41-50，主要阐述思路，附AC代码">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://vendestine.github.io/img/C++.png">
-<meta property="article:published_time" content="2022-06-15T14:36:37.000Z">
-<meta property="article:modified_time" content="2022-06-23T18:01:14.247Z">
+<meta property="og:image" content="https://vendestine.github.io/img/LeetCode.png">
+<meta property="article:published_time" content="2022-06-17T01:27:11.000Z">
+<meta property="article:modified_time" content="2022-06-29T04:12:14.576Z">
 <meta property="article:author" content="Wenzhe Li">
-<meta property="article:tag" content="C++">
-<meta property="article:tag" content="C++ Primer">
+<meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://vendestine.github.io/img/C++.png">
+<meta name="twitter:image" content="https://vendestine.github.io/img/LeetCode.png">
   
   
-  <title>C++ primer chapter7 复习笔记 - Hexo</title>
+  <title>LeetCode 41-50 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -192,7 +191,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="C++ primer chapter7 复习笔记"></span>
+            <span id="subtitle" data-typed-text="LeetCode 41-50"></span>
           
         </div>
 
@@ -203,8 +202,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-15 10:36" pubdate>
-          June 15, 2022 am
+        <time datetime="2022-06-16 21:27" pubdate>
+          June 16, 2022 pm
         </time>
       </span>
     
@@ -216,7 +215,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          2.8k 字
+          387 字
         
       </span>
     
@@ -228,7 +227,7 @@
         
         
           <!-- compatible with older versions-->
-          24 分钟
+          4 分钟
         
       </span>
     
@@ -274,88 +273,41 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">C++ primer chapter7 复习笔记</h1>
+            <h1 style="display: none">LeetCode 41-50</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：June 23, 2022 pm
+                    本文最后更新于：June 29, 2022 am
                   
                 
               </p>
             
             <div class="markdown-body">
               
-              <h1 id="第七章：-类"><a href="#第七章：-类" class="headerlink" title="第七章： 类"></a>第七章： 类</h1><h2 id="定义抽象数据类型"><a href="#定义抽象数据类型" class="headerlink" title="定义抽象数据类型"></a>定义抽象数据类型</h2><ul>
-<li><strong>类背后的基本思想</strong>：<strong>数据抽象</strong>（data abstraction）和<strong>封装</strong>（encapsulation）。</li>
-<li>数据抽象是一种依赖于<strong>接口</strong>（interface）和<strong>实现</strong>（implementation）分离的编程技术。</li>
-</ul>
+              <h3 id="LeetCode-41-缺失的第一个正数"><a href="#LeetCode-41-缺失的第一个正数" class="headerlink" title="LeetCode 41. 缺失的第一个正数"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/first-missing-positive/">LeetCode 41. 缺失的第一个正数</a></h3><h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><hr>
+<p>求解缺失的第一个正数，<strong>枚举题</strong>，从1开始枚举，找到缺失的第一个正数</p>
+<ol>
+<li><p>暴力枚举 + 哈希表<br>寻找一个数很容易联想到哈希表，从1开始枚举正整数，然后找这个数是否存在（利用哈希表），不存在就找到了这个缺失的第一个正整数。<br>时间复杂度：$O(n)$<br>空间复杂度$O(n)$</p>
+<br>
+</li>
+<li><p>桶排序</p>
+</li>
+</ol>
 <br>
 
-<h3 id="类成员"><a href="#类成员" class="headerlink" title="类成员"></a>类成员</h3><hr>
-<ul>
-<li>必须在类的内部声明，不能在其他地方增加成员。</li>
-<li>成员可以是数据，函数，类型别名。<blockquote>
-<p>Tips：用来定义类型的成员和普通成员不同，必须先定义后使用，因此类型成员通常出现在类开始的地方。</p>
-</blockquote>
-</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Screen</span> &#123;<br> <span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// 类型别名, 等价于: using pos = std::string::size_type</span><br>    <span class="hljs-keyword">typedef</span> std::string::size_type pos;<br> <span class="hljs-keyword">private</span>:<br>    pos cursor = <span class="hljs-number">0</span>;<br>    pos height = <span class="hljs-number">0</span>, width = <span class="hljs-number">0</span>;<br>    std::string contents;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<h4 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h4><hr>
+<div class='spoiler collapsed'>
+    <div class='spoiler-title'>
+        思路1
+    </div>
+    <div class='spoiler-content'>
+        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">firstMissingPositive</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        unordered_set&lt;<span class="hljs-type">int</span>&gt; hash;<br>        <span class="hljs-type">int</span> res = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> x: nums) hash.<span class="hljs-built_in">insert</span>(x);<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; ; i ++ ) <span class="hljs-keyword">if</span> (!hash.<span class="hljs-built_in">count</span>(i)) <span class="hljs-keyword">return</span> i;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+    </div>
+</div>
 
-<h3 id="成员函数"><a href="#成员函数" class="headerlink" title="成员函数"></a>成员函数</h3><hr>
-<h4 id="1-声明与定义"><a href="#1-声明与定义" class="headerlink" title="1. 声明与定义"></a>1. 声明与定义</h4><ul>
-<li>成员函数的<strong>声明</strong>必须在类的内部。</li>
-<li>成员函数的<strong>定义</strong>既可以在类的内部也可以在外部。</li>
-</ul>
-<h4 id="2-this指针"><a href="#2-this指针" class="headerlink" title="2. this指针"></a>2. this指针</h4><ul>
-<li>每个成员函数都有一个额外的，隐含的形参<code>this</code>。</li>
-<li><code>this</code>总是指向当前对象，因此<code>this</code>是一个常量指针。</li>
-<li>形参表后面的<code>const</code>，改变了隐含的<code>this</code>形参的类型，如 <code>bool same_isbn(const Sales_item &amp;rhs) const</code>，这种函数称为“常量成员函数”（<code>this</code>指向的当前对象是常量）。</li>
-<li><code>return *this;</code>可以让成员函数连续调用。</li>
-<li>普通的非<code>const</code>成员函数：<code>this</code>是指向类类型的<code>const</code>指针（可以改变<code>this</code>所指向的值，不能改变<code>this</code>保存的地址）。</li>
-<li><code>const</code>成员函数：<code>this</code>是指向const类类型的<code>const</code>指针（既不能改变<code>this</code>所指向的值，也不能改变<code>this</code>保存的地址）。</li>
-</ul>
-<h4 id="3-const限定符"><a href="#3-const限定符" class="headerlink" title="3. const限定符"></a>3. const限定符</h4><ul>
-<li><p>默认情况下，this的类型是指向类类型非常量版本的常量指针。this也遵循初始化规则，所以默认不能把this绑定到一个常量对象上，即不能在常量对象上调用普通的成员函数。</p>
-</li>
-<li><p>C++允许在成员函数的参数列表后面添加关键字const，表示this是一个指向常量的指针。使用关键字const的成员函数被称作常量成员函数</p>
-</li>
-<li><p>常量对象和指向常量对象的引用或指针都只能调用常量成员函数。</p>
-</li>
-</ul>
-<br>
-
-<h3 id="非成员函数"><a href="#非成员函数" class="headerlink" title="非成员函数"></a>非成员函数</h3><hr>
-<p>类的作者通常会定义一些辅助函数，尽管这些函数从概念上来说属于类接口的组成部分，但实际上它们并不属于类本身。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// input transactions contain ISBN, number of copies sold, and sales price</span><br><span class="hljs-function">istream &amp;<span class="hljs-title">read</span><span class="hljs-params">(istream &amp;is, Sales_data &amp;item)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">double</span> price = <span class="hljs-number">0</span>;<br>    is &gt;&gt; item.bookNo &gt;&gt; item.units_sold &gt;&gt; price;<br>    item.revenue = price * item.units_sold;<br>    <span class="hljs-keyword">return</span> is;<br>&#125;<br><br><span class="hljs-function">ostream &amp;<span class="hljs-title">print</span><span class="hljs-params">(ostream &amp;os, <span class="hljs-type">const</span> Sales_data &amp;item)</span></span><br><span class="hljs-function"></span>&#123;<br>    os &lt;&lt; item.<span class="hljs-built_in">isbn</span>() &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; item.units_sold &lt;&lt; <span class="hljs-string">&quot; &quot;</span><br>        &lt;&lt; item.revenue &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; item.<span class="hljs-built_in">avg_price</span>();<br>    <span class="hljs-keyword">return</span> os;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>如果非成员函数是类接口的组成部分，则这些函数的声明应该与类放在同一个头文件中。</p>
-<p>一般来说，执行输出任务的函数应该尽量减少对格式的控制。</p>
-<br>
-
-<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><hr>
-<ul>
-<li><p>类通过一个或几个特殊的成员函数来控制其对象的初始化操作，这些函数被称作构造函数。只要类的对象被创建，就会执行构造函数。</p>
-</li>
-<li><p>构造函数的名字和类名相同，没有返回类型，且不能被声明为const函数。构造函数在const对象的构造过程中可以向其写值。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Sales_data</span><br>&#123;<br>    <span class="hljs-comment">// constructors added</span><br>    <span class="hljs-built_in">Sales_data</span>() = <span class="hljs-keyword">default</span>;<br>    <span class="hljs-built_in">Sales_data</span>(<span class="hljs-type">const</span> std::string &amp;s): <span class="hljs-built_in">bookNo</span>(s) &#123; &#125;<br>    <span class="hljs-built_in">Sales_data</span>(<span class="hljs-type">const</span> std::string &amp;s, <span class="hljs-type">unsigned</span> n, <span class="hljs-type">double</span> p):<br>        <span class="hljs-built_in">bookNo</span>(s), <span class="hljs-built_in">units_sold</span>(n), <span class="hljs-built_in">revenue</span>(p*n) &#123; &#125;<br>    <span class="hljs-built_in">Sales_data</span>(std::istream &amp;);<br>    <span class="hljs-comment">// other members as before</span><br>&#125;;<br></code></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="默认构造函数"><a href="#默认构造函数" class="headerlink" title="默认构造函数"></a>默认构造函数</h4><p>在C++11中，如果类需要默认的函数行为，可以通过在参数列表后面添加&#x3D;default来要求编译器生成构造函数。其中&#x3D;default既可以和函数声明一起出现在类的内部，也可以作为定义出现在类的外部。和其他函数一样，如果&#x3D;default在类的内部，则默认构造函数是内联的。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-built_in">Sales_data</span>() = <span class="hljs-keyword">default</span>;<br></code></pre></td></tr></table></figure>
-
-<h4 id="构造函数初始值列表"><a href="#构造函数初始值列表" class="headerlink" title="构造函数初始值列表"></a>构造函数初始值列表</h4><p>构造函数初始值列表（constructor initializer list）负责为新创建对象的一个或几个数据成员赋初始值。形式是每个成员名字后面紧跟括号括起来的（或者在花括号内的）成员初始值，不同成员的初始值通过逗号分隔。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-built_in">Sales_data</span>(<span class="hljs-type">const</span> std::string &amp;s): <span class="hljs-built_in">bookNo</span>(s) &#123; &#125;<br><span class="hljs-built_in">Sales_data</span>(<span class="hljs-type">const</span> std::string &amp;s, <span class="hljs-type">unsigned</span> n, <span class="hljs-type">double</span> p):<br>    <span class="hljs-built_in">bookNo</span>(s), <span class="hljs-built_in">units_sold</span>(n), <span class="hljs-built_in">revenue</span>(p*n) &#123; &#125;<br></code></pre></td></tr></table></figure>
-<p>当某个数据成员被构造函数初始值列表忽略时，它会以与合成默认构造函数相同的方式隐式初始化。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// has the same behavior as the original constructor defined above</span><br><span class="hljs-built_in">Sales_data</span>(<span class="hljs-type">const</span> std::string &amp;s):<br>    <span class="hljs-built_in">bookNo</span>(s), <span class="hljs-built_in">units_sold</span>(<span class="hljs-number">0</span>), <span class="hljs-built_in">revenue</span>(<span class="hljs-number">0</span>) &#123; &#125;<br></code></pre></td></tr></table></figure>
-<p>构造函数不应该轻易覆盖掉类内初始值，除非新值与原值不同。如果编译器不支持类内初始值，则所有构造函数都应该显式初始化每个内置类型的成员。</p>
-<br>
-
-
-<h3 id="拷贝、赋值和析构（Copy、Assignment，and-Destruction）"><a href="#拷贝、赋值和析构（Copy、Assignment，and-Destruction）" class="headerlink" title="拷贝、赋值和析构（Copy、Assignment，and Destruction）"></a>拷贝、赋值和析构（Copy、Assignment，and Destruction）</h3><hr>
-<p>编译器能合成拷贝、赋值和析构函数，但是对于某些类来说合成的版本无法正常工作。特别是当类需要分配类对象之外的资源时，合成的版本通常会失效。</p>
-<br>
-
-<h2 id="访问控制与封装"><a href="#访问控制与封装" class="headerlink" title="访问控制与封装"></a>访问控制与封装</h2><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
               
             </div>
             <hr/>
@@ -372,12 +324,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
+  <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/C/" class="category-chain-item">C++</a>
+  <a href="/categories/%E7%AE%97%E6%B3%95/LeetCode/" class="category-chain-item">LeetCode</a>
   
   
 
@@ -394,9 +346,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/C/">#C++</a>
-      
-        <a href="/tags/C-Primer/">#C++ Primer</a>
+        <a href="/tags/LeetCode/">#LeetCode</a>
       
     </div>
   
@@ -408,8 +358,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>C++ primer chapter7 复习笔记</div>
-      <div>https://vendestine.github.io/2022/06/15/primer-chapter7/</div>
+      <div>LeetCode 41-50</div>
+      <div>https://vendestine.github.io/2022/06/16/leetcode-41-50/</div>
     </div>
     <div class="license-meta">
       
@@ -421,7 +371,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>June 15, 2022</div>
+          <div>June 16, 2022</div>
         </div>
       
       
@@ -451,18 +401,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/16/leetcode-41-50/" title="LeetCode 41-50">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 41-50</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/14/leetcode-31-40/" title="LeetCode 31-40">
-                        <span class="hidden-mobile">LeetCode 31-40</span>
+                      <a href="/2022/06/15/primer-chapter7/" title="C++ primer chapter7 复习笔记">
+                        <span class="hidden-mobile">C++ primer chapter7 复习笔记</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
