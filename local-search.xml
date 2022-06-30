@@ -4,11 +4,38 @@
   
   
   <entry>
+    <title>操作系统实战 45 讲</title>
+    <link href="/2022/06/30/geek-os/"/>
+    <url>/2022/06/30/geek-os/</url>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>]]></content>
+    
+    
+    <categories>
+      
+      <category>计算机基础</category>
+      
+      <category>操作系统</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>操作系统</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>深入浅出计算机组成原理</title>
     <link href="/2022/06/29/geek-computer-system/"/>
     <url>/2022/06/29/geek-computer-system/</url>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>]]></content>
+    <content type="html"><![CDATA[<h2 id="00-导语：为什么你需要学习计算机组成原理？"><a href="#00-导语：为什么你需要学习计算机组成原理？" class="headerlink" title="00 | 导语：为什么你需要学习计算机组成原理？"></a>00 | 导语：为什么你需要学习计算机组成原理？</h2><h3 id="核心内容"><a href="#核心内容" class="headerlink" title="核心内容"></a>核心内容</h3><ul><li>在硬件和软件之间需要一座桥梁，而“计算机组成原理”就扮演了这样一个角色，它既隔离了软件和硬件，也提供了让软件无需关心硬件，就能直接操作<strong>硬件的接口</strong>。</li><li>明白了高级语言是如何对应着 CPU 能够处理的一条条指令，能为你打开编译原理这扇门；搞清楚程序是如何加载运行的，能够让你对操作系统有更深入的理解。</li></ul><p><img src="/../img/geek-computer-system/ch1-1.jpg"></p><h3 id="思考答疑"><a href="#思考答疑" class="headerlink" title="思考答疑"></a>思考答疑</h3><blockquote><p>Q1. 显然，在硬件和软件之间需要一座桥梁，而“计算机组成原理”就扮演了这样一个角色，它既隔离了软件和硬件，也提供了让软件无需关心硬件，就能直接操作硬件的接口。<br>这里的计算机组成原理改成操作系统是不是更好，而且感觉这句话说的就是操作系统呀</p></blockquote><blockquote><p>A1: 其实 操作系统 也是一个“软件”，而开发操作系统，其实只需要关注到“组成原理”或者说“体系结构”就好了，而不需要真的了解硬件，比如电路层面的实现。<br>操作系统，其实是在“组成原理”所讲到的“指令集”上的一层封装。</p></blockquote><br><blockquote><p>Q2. 计算机体系结构是系统软件？图中计算机体系架构和操作系统、编译原理、计算机网络画成颜色都是深绿色，是否指计算机体系架构就是这三个呢~还请老师指点</p></blockquote><blockquote><p>A2. Geek_流星同学你好，体系结构和其他三个都可以认为是组成原理的后继课程。体系结构更多地是讲如何量化地设计和研究体系结构和指令集，不是一个系统软件。操作系统，编译原理和计算机网络都是基于体系结构之上的系统软件。</p></blockquote><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>]]></content>
     
     
     <categories>
