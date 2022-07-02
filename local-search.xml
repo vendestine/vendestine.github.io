@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>C++ 常见问题汇总</title>
+    <link href="/2022/07/02/c-question/"/>
+    <url>/2022/07/02/c-question/</url>
+    
+    <content type="html"><![CDATA[<h2 id="1-在main执行之前和之后执行的代码可能是什么？"><a href="#1-在main执行之前和之后执行的代码可能是什么？" class="headerlink" title="1. 在main执行之前和之后执行的代码可能是什么？"></a>1. 在main执行之前和之后执行的代码可能是什么？</h2><p><strong>main之前可能会执行什么</strong>：</p><p>首先一般认知来讲，main函数是程序的入口，这句话在开发的角度来讲是没有什么问题的，但是从操作系统的角度来看，它就不是很准确了。</p><p>拿gcc编译器来说，_start函数才是真正的入口点，所以我们就从_start函数来分析这个问题<br>—start函数伪代码如下</p><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs lua">　　　　__start:<br><br>　　　　<br><br>　　　　 :<br><br>　　　　 init stack;<br><br>　　　　 init heap;<br><br>　　　　 <span class="hljs-built_in">open</span> <span class="hljs-built_in">stdin</span>;<br><br>　　　　 <span class="hljs-built_in">open</span> <span class="hljs-built_in">stdout</span>;<br><br>　　　　 <span class="hljs-built_in">open</span> <span class="hljs-built_in">stderr</span>;<br><br>　　　　 :<br><br>　　　　 push argv;<br><br>　　　　 push argc;<br><br>　　　　 call _main; (调用 main)<br><br>　　　　 :<br><br>　　　　 destory heap;<br><br>　　　　 <span class="hljs-built_in">close</span> <span class="hljs-built_in">stdin</span>;<br><br>　　　　 <span class="hljs-built_in">close</span> <span class="hljs-built_in">stdout</span>;<br><br>　　　　 <span class="hljs-built_in">close</span> <span class="hljs-built_in">stderr</span>;<br><br>　　　　 :<br><br>　　　　 call __exit;<br></code></pre></td></tr></table></figure><p>所以看的出来在main函数之前是初始化系统的相关资源，如栈，堆，IO，异常，全局静态对象等等<br>初始化资源的话大致的顺序就是</p><ol><li>设置栈（初始化栈指针）</li><li>初始化静态static变量和global全局变量，(.data段的内容) 如果对象是非内置类型，就会调用构造函数</li><li>将未初始化部分的全局变量赋初值，(.bss段的内容)</li><li>然后就将main函数的参数argc，argv和envp压入栈中</li></ol><p><strong>attribute</strong>((constructor))关键字放在函数前，会将该函数修饰成构造函数，所以在也在main之前</p><br><p><strong>main之后可能会执行什么</strong>：</p><ul><li>main函数执行完毕后，返回到入口函数，入口函数进行清理工作，包括全局变量的析构、堆销毁、关闭I&#x2F;O等，然后系统调用结束进程</li></ul><p>可以用 atexit 注册一个函数，或者给函数修饰__attribute__((destructor))，都可以在main函数后执行这个函数再结束进程。</p><br><p><strong>Reference:</strong><br><a href="https://blog.51cto.com/u_15072903/3542475">[1. c&#x2F;c++ main函数执行之前&#x2F;后]</a><br><a href="https://juejin.cn/post/6844904032004374541">[2. 搞定技术面试-在 main函数之前发生了什么 ]</a><br><a href="https://www.techiedelight.com/zh/c-program-without-main-function/">[3. 在不使用 main 函数的情况下编写 C&#x2F;C++ 程序]</a><br><a href="https://www.jianshu.com/p/ddfb284c1f7a">[4. 深入理解BSS段与data段的区别]</a></p><br><h2 id="结构体内存问题"><a href="#结构体内存问题" class="headerlink" title="结构体内存问题"></a>结构体内存问题</h2><p>它有内存对齐的现象</p><ol><li><p>为什么要内存对齐<br>字节对齐主要是为了提高内存的访问效率，操作系统在访问内存的时候，每次读取一定长度，如果没有对齐，访问一个变量可能会产生二次访问的问题。</p></li><li><p>内存对齐的原则<br>总结了一下公式：<br>公式1:前面的地址必须是后面的地址正数倍,不是就补齐<br>公式2:整个Struct的地址必须是最大字节的整数倍</p></li><li><p>可以手动设置对齐方式<br><code>#pragma pack(n)</code></p></li></ol><p><strong>Reference</strong><br><a href="https://www.zhihu.com/question/27862634">[1. 如何理解 struct 的内存对齐？]</a><br><a href="https://blog.51cto.com/yang/4374041">[2. 结构体字节对齐问题探究 ]</a><br><a href="https://cloud.tencent.com/developer/article/1703257">[3. C语言 | 关于结构体内存对齐，看这篇就够了]</a></p><br><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+      <category>C++</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>面试</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>操作系统实战 45 讲</title>
     <link href="/2022/06/30/geek-os/"/>
     <url>/2022/06/30/geek-os/</url>
