@@ -18,16 +18,16 @@
   <meta name="author" content="Wenzhe Li">
   <meta name="keywords" content="">
   
-    <meta name="description" content="动态规划基础课讲解">
+    <meta name="description" content="动态规划基础和常见模型笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基础算法-动态规划">
+<meta property="og:title" content="算法-动态规划">
 <meta property="og:url" content="https://vendestine.github.io/2022/07/04/dp-basic/index.html">
 <meta property="og:site_name" content="vendestine Blog">
-<meta property="og:description" content="动态规划基础课讲解">
+<meta property="og:description" content="动态规划基础和常见模型笔记">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://vendestine.github.io/img/algorithm.jpg">
 <meta property="article:published_time" content="2022-07-04T14:32:54.000Z">
-<meta property="article:modified_time" content="2022-07-11T22:58:41.583Z">
+<meta property="article:modified_time" content="2022-07-12T19:29:46.125Z">
 <meta property="article:author" content="Wenzhe Li">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="动态规划">
@@ -35,7 +35,7 @@
 <meta name="twitter:image" content="https://vendestine.github.io/img/algorithm.jpg">
   
   
-  <title>基础算法-动态规划 - vendestine Blog</title>
+  <title>算法-动态规划 - vendestine Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -192,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="基础算法-动态规划"></span>
+            <span id="subtitle" data-typed-text="算法-动态规划"></span>
           
         </div>
 
@@ -216,7 +216,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          8k words
+          12k words
         
       </span>
     
@@ -228,7 +228,7 @@
         
         
           <!-- compatible with older versions-->
-          67 minutes
+          104 minutes
         
       </span>
     
@@ -274,13 +274,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">基础算法-动态规划</h1>
+            <h1 style="display: none">算法-动态规划</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：July 11, 2022 pm
+                    本文最后更新于：July 12, 2022 pm
                   
                 
               </p>
@@ -375,6 +375,90 @@
 <h4 id="参考代码-3"><a href="#参考代码-3" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs C++">版本<span class="hljs-number">1</span> 朴素版<br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">110</span>;<br><br><span class="hljs-type">int</span> f[N][N];<br><span class="hljs-type">int</span> v[N][N], w[N][N], s[N];<br><span class="hljs-type">int</span> n, m;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    cin &gt;&gt; n &gt;&gt; m;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++)&#123;<br>        cin &gt;&gt; s[i];<span class="hljs-comment">//第i组物品的数量</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= s[i]; j ++)&#123;<span class="hljs-comment">//依次读入第i组第j个物品的体积和价值</span><br>            cin &gt;&gt; v[i][j] &gt;&gt; w[i][j];<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++)&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j ++)&#123;<br>            f[i][j] = f[i - <span class="hljs-number">1</span>][j];<span class="hljs-comment">//第i组物品一个都不选</span><br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> k = <span class="hljs-number">1</span>; k &lt;= s[i]; k ++)&#123;<br>                <span class="hljs-keyword">if</span>(j &gt;= v[i][k])&#123;<br>                   f[i][j] = <span class="hljs-built_in">max</span>(f[i][j], f[i - <span class="hljs-number">1</span>][j - v[i][k]] + w[i][k]);<br>                &#125;<br>            &#125; <br>        &#125;<br>    &#125;<br><br>    cout &lt;&lt; f[n][m] &lt;&lt; endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br>版本<span class="hljs-number">2</span> 优化一维数组<br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">110</span>;<br><br><span class="hljs-type">int</span> n, m;<br><span class="hljs-type">int</span> v[N][N], w[N][N], s[N];<br><span class="hljs-type">int</span> f[N];<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n &gt;&gt; m;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>    &#123;<br>        cin &gt;&gt; s[i];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; s[i]; j ++ )<br>            cin &gt;&gt; v[i][j] &gt;&gt; w[i][j];<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = m; j &gt;= <span class="hljs-number">0</span>; j -- )<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> k = <span class="hljs-number">0</span>; k &lt; s[i]; k ++ )<br>                <span class="hljs-keyword">if</span> (v[i][k] &lt;= j)<br>                    f[j] = <span class="hljs-built_in">max</span>(f[j], f[j - v[i][k]] + w[i][k]);<br><br>    cout &lt;&lt; f[m] &lt;&lt; endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 
 <p>Reference<br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/17559/">[1]. AcWing 9. 分组背包问题</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/25415/">[2]. AcWing 9. 分组背包问题</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/110072/">[3]. AcWing 9. 分组背包问题（良心正解）</a></p>
+<br>
+
+<h2 id="数字三角形问题"><a href="#数字三角形问题" class="headerlink" title="数字三角形问题"></a>数字三角形问题</h2><hr>
+<h3 id="数字三角形"><a href="#数字三角形" class="headerlink" title="数字三角形"></a>数字三角形</h3><hr>
+<h4 id="基本思路-4"><a href="#基本思路-4" class="headerlink" title="基本思路"></a>基本思路</h4><p>这道题目首先考虑有多少种选法，$2^{n-1}$种选法，然后选出最优解，如果用DFS爆搜的话，结合数据范围必然会超时，所以我们采用DP的方法。</p>
+<p>DP问题两步走</p>
+<ol>
+<li><p>状态表示：i表示行，j表示列（这里是三角形，所以j可以理解为该行的第几个 &#x3D; 列）<br>这里可以从上到下看，也可以从下到上看，这里我们先讨论从上到下看<br>f[i][j]的定义就是从（1，1）到（i，j)的所有路径的最大值</p>
+</li>
+<li><p>状态计算<br>这里我们进行集合的划分，可以发现（i，j）只能从左上方or右上方走到该点<br>所以集合可以划分为两部分，然后得到状态转移方程<code>f[i][j]=max(f[i-1][j-1],f[i-1][j])</code><br>最后枚举最后一层元素，取f的最大值即可</p>
+<blockquote>
+<p>这里要注意 三角形两边的元素没有左上&#x2F;右上元素，需要把没有元素的地方数字置为负无穷</p>
+</blockquote>
+</li>
+</ol>
+<p>或者我们可以从下往上看</p>
+<ol>
+<li><p>状态表示 f[i][j]的定义就是从（i，j）到（1，1)的所有路径的最大值 </p>
+<blockquote>
+<p>这样的话不用考虑边界问题，也不用枚举最后一层才可以得到答案,代码会简洁一些</p>
+</blockquote>
+</li>
+<li><p>状态计算<br>也是集合划分为两部分，从左下角or右下角走到该点（i，j)<br>所以状态转移方程<code>f[i][j]=max(f[i+1][j],f[i+1][j+1])</code>，最后我们求解的就是f(1,1)</p>
+<br></li>
+</ol>
+<h4 id="参考代码-4"><a href="#参考代码-4" class="headerlink" title="参考代码"></a>参考代码</h4><hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs C++">版本<span class="hljs-number">1</span> 从上到下<br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">510</span>, INF = <span class="hljs-number">1e9</span>;<br><span class="hljs-type">int</span> n;<br><span class="hljs-type">int</span> a[N][N];    <span class="hljs-comment">//三角型</span><br><span class="hljs-type">int</span> f[N][N];    <span class="hljs-comment">//状态表示</span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    cin&gt;&gt;n;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)        <span class="hljs-comment">//输入三角形</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>;j&lt;=i;j++)<br>            cin&gt;&gt;a[i][j];<br><br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;=i+<span class="hljs-number">1</span>;j++)  <span class="hljs-comment">//初始化f</span><br>            f[i][j] = -INF; <br><br>    f[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = a[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>];           <span class="hljs-comment">//初始化起点</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">2</span>;i&lt;=n;i++)        <span class="hljs-comment">//状态转移，计算所有的f</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>;j&lt;=i;j++)<br>            f[i][j] = <span class="hljs-built_in">max</span>(f[i<span class="hljs-number">-1</span>][j],f[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]) + a[i][j];<br><br>    <span class="hljs-type">int</span> res = -INF;    <br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)        <span class="hljs-comment">//在最后一行选终点（选最大的f）    </span><br>        res = <span class="hljs-built_in">max</span>(res,f[n][i]);<br><br>    cout&lt;&lt;res&lt;&lt;endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br>版本<span class="hljs-number">2</span> 从下到上<br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">510</span>, INF = <span class="hljs-number">1e9</span>;<br><span class="hljs-type">int</span> n;<br><span class="hljs-type">int</span> a[N][N];    <span class="hljs-comment">//三角型</span><br><span class="hljs-type">int</span> f[N][N];    <span class="hljs-comment">//状态表示</span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    cin&gt;&gt;n;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)        <span class="hljs-comment">//输入三角形</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>;j&lt;=i;j++)<br>            cin&gt;&gt;a[i][j];<br><br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++) f[n][i] = a[n][i];   <span class="hljs-comment">//初始化起点</span><br><br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=n;i&gt;=<span class="hljs-number">1</span>;i--)        <span class="hljs-comment">//状态转移，计算所有的f</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=i;j&gt;=<span class="hljs-number">1</span>;j--)<br>            f[i][j] = <span class="hljs-built_in">max</span>(f[i+<span class="hljs-number">1</span>][j],f[i+<span class="hljs-number">1</span>][j+<span class="hljs-number">1</span>]) + a[i][j];<br><br>    cout&lt;&lt;f[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]&lt;&lt;endl;       <span class="hljs-comment">//终点只要一个，答案即f[1][1]</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>reference:<br><a target="_blank" rel="noopener" href="https://www.acwing.com/activity/content/code/content/740895/">[1]. AcWing 898. 数字三角形</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/3485/">[2]. AcWing 898. 数字三角形</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/59764/">[3]. AcWing 898. 数字三角形的正序解法, 倒序解法, 正序的空间复杂度优化(二维转一维滚动数组)</a></p>
+<blockquote>
+<p>tips: 如何计算动态规划的时间复杂度，就是用状态数 * 状态计算的时间复杂度，这里状态数是O(N^2),计算是O(1)。然后一个题目的数据范围非常重要，我们可以通过<a target="_blank" rel="noopener" href="https://www.acwing.com/blog/content/32/">数据范围推测大概能用的算法</a></p>
+</blockquote>
+<br>
+
+<h2 id="最长上升子序列问题"><a href="#最长上升子序列问题" class="headerlink" title="最长上升子序列问题"></a>最长上升子序列问题</h2><hr>
+<h3 id="最长上升子序列1"><a href="#最长上升子序列1" class="headerlink" title="最长上升子序列1"></a>最长上升子序列1</h3><hr>
+<p>最优问题，动态规划，DFS，因为数据范围是1000，所以显然用DFS大概率超时，所以选择动态规划</p>
+<h4 id="基本思路-5"><a href="#基本思路-5" class="headerlink" title="基本思路"></a>基本思路</h4><p>动态规划两步走</p>
+<ol>
+<li><p>状态表示，这里可以不需要二维了，直接一维f(i)定义为以i结尾的所有上升子序列的最大值</p>
+</li>
+<li><p>状态计算，怎么划分集合呢，一般观察最后一步，最后一步就是倒数第二个数，所以可以根据倒数第二个数划分（枚举倒数第二个数），如果合法就得到状态转移方程<code>f[i] = max(f[i], f[j] + 1)</code></p>
+</li>
+</ol>
+<BR>
+
+<h4 id="参考代码-5"><a href="#参考代码-5" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">1010</span>;<br><span class="hljs-type">int</span> a[N]; <span class="hljs-comment">//输入用的数组</span><br><span class="hljs-type">int</span> f[N]; <span class="hljs-comment">//用来存储每个答案，在最后要for循环遍历找最大值（被坑了）</span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> n; <span class="hljs-comment">//字符个数</span><br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;n);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;i ++) <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;a[i]);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;i ++)&#123;<br>        f[i] = <span class="hljs-number">1</span>; <span class="hljs-comment">//付初值。即使这个数后面没有比它大的数，它本身也算一个</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>;j &lt;= i;j ++)&#123;<br>            <span class="hljs-keyword">if</span>(a[i] &gt; a[j]) f[i] = <span class="hljs-built_in">max</span>(f[i],f[j] + <span class="hljs-number">1</span>); <span class="hljs-comment">//如果这个数大于前面那个数，说明是合法的，把它等于max(f[i],f[j] + 1)</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-type">int</span> res = <span class="hljs-number">-0x3f3f3f3f</span>; <span class="hljs-comment">//最长上升子序列的答案，因为a数组中的数字有可能为负数，所以要付成很小的数</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;i ++) res = <span class="hljs-built_in">max</span>(res,f[i]); <span class="hljs-comment">//找最大值~</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>,res); <span class="hljs-comment">//输出最后答案~</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>reference<br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/90245/">[1]. AcWing 895. 最长上升子序列</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/4807/">[2]. AcWing 895. 最长上升子序列</a></p>
+<br>
+
+
+<h3 id="最长公共子序列问题"><a href="#最长公共子序列问题" class="headerlink" title="最长公共子序列问题"></a>最长公共子序列问题</h3><hr>
+<h4 id="基本思路-6"><a href="#基本思路-6" class="headerlink" title="基本思路"></a>基本思路</h4><p>dp两步走</p>
+<ol>
+<li><p>状态表示 f(i,j)定义为所有a[1..i]和b[1…j]的公共子序列集合的最大值</p>
+</li>
+<li><p>状态计算 这里还是按照最后一步去集合划分，是否包含i和j，分成四种情况，00，01，10，11。其中要注意01，10，他不是简单的等价于f(i-1, j)和f(i, j -1)，因为f(i-1, j)结果里j不一定出现，但是01的话j一定出现，所以f(i-1, j)实际上是包含了01这种情况，10也是同理，由于我们求得是max而不是数量，所以只需要做到不漏，不需要做到不重复，得到状态转移方程：<code>f(i,j) = max(f[i - 1][j] , f[i][j - 1]), if(a[i] == b[j]) f[i][j] = max(f[i][j] , f[i - 1][j - 1] + 1)</code></p>
+</li>
+</ol>
+<h4 id="参考代码-6"><a href="#参考代码-6" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">1010</span>;<br><br><span class="hljs-type">int</span> n , m;<br><span class="hljs-type">char</span> a[N] , b[N];<br><span class="hljs-type">int</span> f[N][N];<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cin &gt;&gt; n &gt;&gt; m;<br>    cin &gt;&gt; a + <span class="hljs-number">1</span> &gt;&gt; b + <span class="hljs-number">1</span>;<br><br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span> ; i &lt;= n ; i++)<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">1</span> ; j &lt;= m ; j++)<br>            &#123;<br>                f[i][j] = <span class="hljs-built_in">max</span>(f[i - <span class="hljs-number">1</span>][j] , f[i][j - <span class="hljs-number">1</span>]);<span class="hljs-comment">//01和10的情况一定存在，所以可以无条件优先判断</span><br>                <span class="hljs-keyword">if</span>(a[i] == b[j]) f[i][j] = <span class="hljs-built_in">max</span>(f[i][j] , f[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>);<br>            &#125;                                                       <br><br>    cout &lt;&lt; f[n][m] &lt;&lt; endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>referenece<br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/13254/">[1]. AcWing 897. 最长公共子序列</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/8111/">[2]. AcWing 897. 最长公共子序列</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/45802/">[3]. AcWing 897. 最长公共子序列 </a></p>
+<br>
+
+<h2 id="区间DP问题"><a href="#区间DP问题" class="headerlink" title="区间DP问题"></a>区间DP问题</h2><hr>
+<h3 id="石子合并"><a href="#石子合并" class="headerlink" title="石子合并"></a>石子合并</h3><hr>
+<h4 id="基本思路-7"><a href="#基本思路-7" class="headerlink" title="基本思路"></a>基本思路</h4><p>DP问题两步走</p>
+<ol>
+<li><p>状态表示 f(i,j)定义的是所有将[i,j]合成一堆的方案的集合的最小值</p>
+</li>
+<li><p>状态计算 如何划分集合，这里还是看最后一步，最后一步是两个堆合并，左边的堆可以是[i, k], k属于[i, j - 1]，所以根据这个进行集合的划分，得到状态转移方程：<code>f[l][r] = min(f[l][r],f[l][k] + f[k + 1][r] + s[r] - s[l - 1]) </code></p>
+</li>
+</ol>
+<BR>
+
+<h4 id="参考代码-7"><a href="#参考代码-7" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">310</span>;<br><span class="hljs-type">int</span> n;<br><span class="hljs-type">int</span> s[N]; <span class="hljs-comment">//1~k的石子个数累加起来，也就是前缀和</span><br><span class="hljs-type">int</span> f[N][N];<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    cin&gt;&gt;n;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;i ++)&#123; <span class="hljs-comment">//读入每堆石子的个数（合并代价）</span><br>        cin&gt;&gt;s[i]; <span class="hljs-comment">//读入第i堆石子的个数（合并代价）</span><br>        s[i] += s[i - <span class="hljs-number">1</span>]; <span class="hljs-comment">//计算前缀和，具体见注释①</span><br>    &#125;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> len = <span class="hljs-number">2</span>;len &lt;= n;len ++)&#123; <span class="hljs-comment">//见注释②</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;i + len - <span class="hljs-number">1</span> &lt;= n;i ++)&#123; <span class="hljs-comment">//枚举左端点</span><br>            <span class="hljs-type">int</span> l = i,r = i + len - <span class="hljs-number">1</span>; <span class="hljs-comment">//现在我们就可以通过左端点找到右端点</span><br>            <span class="hljs-comment">//l为左端点（弄这个数字其实是为了好看），r为右端点</span><br>            f[l][r] = <span class="hljs-number">0x3f3f3f3f</span>; <span class="hljs-comment">//要求最小值，所以要把这个数赋值为+∞，如果不赋值的话答案会等于0</span><br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> k = l;k &lt; r;k ++)&#123; <span class="hljs-comment">//枚举中间分隔的这个点，上面的图有讲</span><br>                f[l][r] = <span class="hljs-built_in">min</span>(f[l][r],f[l][k] + f[k + <span class="hljs-number">1</span>][r] + s[r] - s[l - <span class="hljs-number">1</span>]); <span class="hljs-comment">//状态转移方程</span><br>            &#125;<br>        &#125;<br>    &#125;<br>    cout&lt;&lt;f[<span class="hljs-number">1</span>][n]&lt;&lt;endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>reference<br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/116495/">[1]. AcWing 282. 石子合并</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/45996/">[2]. AcWing 282. 石子合并</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/5939/">[3]. AcWing 282. 石子合并</a></p>
+<br>
+
+
+
+
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
               
             </div>
@@ -421,7 +505,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>基础算法-动态规划</div>
+      <div>算法-动态规划</div>
       <div>https://vendestine.github.io/2022/07/04/dp-basic/</div>
     </div>
     <div class="license-meta">
