@@ -18,23 +18,23 @@
   <meta name="author" content="Wenzhe Li">
   <meta name="keywords" content="">
   
-    <meta name="description" content="LeetCode 题号81-90，主要阐述思路，附AC代码">
+    <meta name="description" content="LeetCode 题号91-100，主要阐述思路，附AC代码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LeetCode 81-90">
-<meta property="og:url" content="https://vendestine.github.io/2022/06/22/leetocde-81-90/index.html">
+<meta property="og:title" content="LeetCode 91-100">
+<meta property="og:url" content="https://vendestine.github.io/2022/06/25/leetcode-91-100/index.html">
 <meta property="og:site_name" content="vendestine Blog">
-<meta property="og:description" content="LeetCode 题号81-90，主要阐述思路，附AC代码">
+<meta property="og:description" content="LeetCode 题号91-100，主要阐述思路，附AC代码">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://vendestine.github.io/img/LeetCode.png">
-<meta property="article:published_time" content="2022-06-22T19:45:37.000Z">
-<meta property="article:modified_time" content="2022-07-08T17:15:37.311Z">
+<meta property="article:published_time" content="2022-06-25T19:45:37.000Z">
+<meta property="article:modified_time" content="2022-07-17T05:10:04.560Z">
 <meta property="article:author" content="Wenzhe Li">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://vendestine.github.io/img/LeetCode.png">
   
   
-  <title>LeetCode 81-90 - vendestine Blog</title>
+  <title>LeetCode 91-100 - vendestine Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -191,7 +191,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LeetCode 81-90"></span>
+            <span id="subtitle" data-typed-text="LeetCode 91-100"></span>
           
         </div>
 
@@ -202,8 +202,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-22 15:45" pubdate>
-          June 22, 2022 pm
+        <time datetime="2022-06-25 15:45" pubdate>
+          June 25, 2022 pm
         </time>
       </span>
     
@@ -215,7 +215,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.3k words
+          3.1k words
         
       </span>
     
@@ -227,7 +227,7 @@
         
         
           <!-- compatible with older versions-->
-          11 minutes
+          26 minutes
         
       </span>
     
@@ -273,64 +273,110 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LeetCode 81-90</h1>
+            <h1 style="display: none">LeetCode 91-100</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：July 8, 2022 pm
+                    本文最后更新于：July 17, 2022 am
                   
                 
               </p>
             
             <div class="markdown-body">
               
-              <h3 id="LeetCode-82-删除排序链表中的重复元素-II"><a href="#LeetCode-82-删除排序链表中的重复元素-II" class="headerlink" title="LeetCode 82. 删除排序链表中的重复元素 II"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/">LeetCode 82. 删除排序链表中的重复元素 II</a></h3><hr>
+              <h3 id="LeetCode-91-解码方法"><a href="#LeetCode-91-解码方法" class="headerlink" title="LeetCode 91. 解码方法"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/decode-ways/">LeetCode 91. 解码方法</a></h3><hr>
 <h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><hr>
-<p>常规链表操作题</p>
-<ul>
-<li>要删除重复的一段数，所以就要找到这段的头和尾，然后因为链表的删除实际就是把这段数的前一个点的next指向后一个数，所以我们就要找到这一段的前一个节点和后一个节点。</li>
-<li>所以这两个节点之间，只有一个数，代表不重复，直接移动前一个指针，否则就是重复的数。</li>
-<li>会涉及到删除头节点。所以增加dummy节点防止特判<br>时间复杂度：$O(n)$<br>空间复杂度：$O(1)$</li>
-</ul>
+<p>本题寻找总方案数 考虑用DFS或者是DP，这里的数据范围DFS会超时<br>所以选择DP的方法</p>
+<p>DP问题两步走</p>
+<ol>
+<li><p>状态表示：f(i)表示<code>s[1,i]</code>解码的方案书（前i个数字解码的方案数）</p>
+</li>
+<li><p>状态计算：集合划分为两块，最后一个字符对应一位数字，或者最后一个字符对应两位数字<br>所以得到状态转移方程<code>f[i] = f[i-1] + f[i-2]</code></p>
+</li>
+</ol>
+<p>时间复杂度：状态数是$n$个，状态转移的时间复杂度是$O(1)$，所以总时间复杂度是$O(n)$<br>空间复杂度：$O(n)$</p>
 <br>
 
 <h4 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h4><hr>
 <div class='spoiler collapsed'>
     <div class='spoiler-title'>
-        代码 - yxc
+        yxc
     </div>
     <div class='spoiler-content'>
-        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for singly-linked list.</span><br><span class="hljs-comment"> * struct ListNode &#123;</span><br><span class="hljs-comment"> *     int val;</span><br><span class="hljs-comment"> *     ListNode *next;</span><br><span class="hljs-comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="hljs-comment"> * &#125;;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">deleteDuplicates</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;<br>        <span class="hljs-keyword">auto</span> dummy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">-1</span>);<br>        dummy-&gt;next = head;<br>        <span class="hljs-keyword">auto</span> p = dummy;<br>        <span class="hljs-keyword">while</span> (p-&gt;next) &#123;<br>            <span class="hljs-keyword">auto</span> q = p-&gt;next-&gt;next;<br>            <span class="hljs-keyword">while</span> (q &amp;&amp; q-&gt;val == p-&gt;next-&gt;val) q = q-&gt;next;<br>            <span class="hljs-keyword">if</span> (p-&gt;next-&gt;next == q) p = p-&gt;next;<br>            <span class="hljs-keyword">else</span> p-&gt;next = q;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dummy-&gt;next;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">numDecodings</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = s.<span class="hljs-built_in">size</span>();<br>        s = <span class="hljs-string">&#x27; &#x27;</span> + s;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">f</span><span class="hljs-params">(n + <span class="hljs-number">1</span>)</span></span>;<br>        f[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ ) &#123;<br>            <span class="hljs-keyword">if</span> (s[i] &gt;= <span class="hljs-string">&#x27;1&#x27;</span> &amp;&amp; s[i] &lt;= <span class="hljs-string">&#x27;9&#x27;</span>) f[i] += f[i - <span class="hljs-number">1</span>];<br>            <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">1</span>) &#123;<br>                <span class="hljs-type">int</span> t = (s[i - <span class="hljs-number">1</span>] - <span class="hljs-string">&#x27;0&#x27;</span>) * <span class="hljs-number">10</span> + s[i] - <span class="hljs-string">&#x27;0&#x27;</span>;<br>                <span class="hljs-keyword">if</span> (t &gt;= <span class="hljs-number">10</span> &amp;&amp; t &lt;= <span class="hljs-number">26</span>) f[i] += f[i - <span class="hljs-number">2</span>];<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> f[n];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
     </div>
 </div>
-
 <br>
 
-<h3 id="LeetCode-83-删除排序链表中的重复元素"><a href="#LeetCode-83-删除排序链表中的重复元素" class="headerlink" title="LeetCode 83. 删除排序链表中的重复元素"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-duplicates-from-sorted-list/">LeetCode 83. 删除排序链表中的重复元素</a></h3><hr>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h4><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/decode-ways/solution/gong-shui-san-xie-gen-ju-shu-ju-fan-wei-ug3dd/">[1]. 【宫水三叶】根据数据范围切换「递归」与「递推」</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/4396/">[2]. DP: Decode Ways</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/15235/">[3]. 解码方法</a></p>
+<br>
+
+<h3 id="LeetCode-92-反转链表-II"><a href="#LeetCode-92-反转链表-II" class="headerlink" title="LeetCode 92. 反转链表 II"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/activity/content/problem/content/2445/">LeetCode 92. 反转链表 II</a></h3><hr>
 <h4 id="基本思路-1"><a href="#基本思路-1" class="headerlink" title="基本思路"></a>基本思路</h4><hr>
-<p>基本链表操作题</p>
-<ul>
-<li>跟数组的删除重复元素，原理一样，找到所有第一次出现的数。</li>
-<li>这里因为是链表，所以找第一个数就就没法像数组那样直接通过i和i-1判断</li>
-<li>我们这里可以用看当前数和新联表里的尾节点是否一样来判断<blockquote>
-<p>这里不会改变头节点，所以不需要加dummy</p>
-</blockquote>
-</li>
-</ul>
-<p>时间复杂度：$O(n)$<br>空间复杂度：$O(1)$</p>
-<br>
-
+<p>在链表反转的基础下加了一些操作，要拿到反转区间的前后两个节点，链表的题思路一般简单，主要注意画图<br>时间复杂度：$O(n)$<br>空间复杂度：$O(1)$</p>
 <h4 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a>参考代码</h4><hr>
 <div class='spoiler collapsed'>
     <div class='spoiler-title'>
-        代码 - yxc
+        yxc
     </div>
     <div class='spoiler-content'>
-        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for singly-linked list.</span><br><span class="hljs-comment"> * struct ListNode &#123;</span><br><span class="hljs-comment"> *     int val;</span><br><span class="hljs-comment"> *     ListNode *next;</span><br><span class="hljs-comment"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="hljs-comment"> * &#125;;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">deleteDuplicates</span><span class="hljs-params">(ListNode* head)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (!head) <span class="hljs-keyword">return</span> head;<br>        <span class="hljs-keyword">auto</span> cur = head;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> p = head-&gt;next; p; p = p-&gt;next)<br>            <span class="hljs-keyword">if</span> (p-&gt;val != cur-&gt;val)<br>                cur = cur-&gt;next = p;<br><br>        cur-&gt;next = <span class="hljs-literal">NULL</span>;<br>        <span class="hljs-keyword">return</span> head;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">ListNode* <span class="hljs-title">reverseBetween</span><span class="hljs-params">(ListNode* head, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span> </span>&#123;<br>        <span class="hljs-keyword">auto</span> dummy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ListNode</span>(<span class="hljs-number">-1</span>);<br>        dummy-&gt;next = head;<br><br>        <span class="hljs-keyword">auto</span> a = dummy;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; left - <span class="hljs-number">1</span>; i++) a = a-&gt;next; <span class="hljs-comment">// 注意走 left-1 步</span><br><br>        <span class="hljs-keyword">auto</span> b = a-&gt;next, c = b-&gt;next;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; right - left; i++)&#123;<br>            <span class="hljs-keyword">auto</span> d = c-&gt;next;<br>            c-&gt;next = b;<br>            b = c, c = d;<br>        &#125;<br><br>        a-&gt;next-&gt;next = c;<br>        a-&gt;next = b;<br>        <span class="hljs-keyword">return</span> dummy-&gt;next;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
     </div>
 </div>
+
+<h4 id="Reference-1"><a href="#Reference-1" class="headerlink" title="Reference"></a>Reference</h4><p><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/54214/">[1]. 有心人</a></p>
+<br>
+
+<h3 id="LeetCode-93-复原IP地址"><a href="#LeetCode-93-复原IP地址" class="headerlink" title="LeetCode 93. 复原IP地址"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/restore-ip-addresses/">LeetCode 93. 复原IP地址</a></h3><hr>
+<h4 id="基本思路-2"><a href="#基本思路-2" class="headerlink" title="基本思路"></a>基本思路</h4><hr>
+<p>题目要求得到所有方案，所以很明显先考虑DFS爆搜，数据范围很明确不会超时，所以DFS来做<br>DFS主要就是注意搜索的顺序，这里是一段IP一段IP的搜</p>
+<p>时间复杂度：$O(3^{n-1}n)$ $O(n)$记录方案<br>空间复杂度：$O(n)$ 存答案</p>
+<h4 id="参考代码-2"><a href="#参考代码-2" class="headerlink" title="参考代码"></a>参考代码</h4><hr>
+<div class='spoiler collapsed'>
+    <div class='spoiler-title'>
+        yxc
+    </div>
+    <div class='spoiler-content'>
+        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    vector&lt;string&gt; ans;<br>    <span class="hljs-function">vector&lt;string&gt; <span class="hljs-title">restoreIpAddresses</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-built_in">dfs</span>(s, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-string">&quot;&quot;</span>);<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(string&amp; s, <span class="hljs-type">int</span> u, <span class="hljs-type">int</span> k, string path)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (u == s.<span class="hljs-built_in">size</span>()) &#123;<br>            <span class="hljs-keyword">if</span> (k == <span class="hljs-number">4</span>) &#123;<br>                path.<span class="hljs-built_in">pop_back</span>();<br>                ans.<span class="hljs-built_in">push_back</span>(path);<br>            &#125;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (k == <span class="hljs-number">4</span>) <span class="hljs-keyword">return</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = u, t = <span class="hljs-number">0</span>; i &lt; s.<span class="hljs-built_in">size</span>(); i ++ ) &#123;<br>            <span class="hljs-keyword">if</span> (i &gt; u &amp;&amp; s[u] == <span class="hljs-string">&#x27;0&#x27;</span>) <span class="hljs-keyword">break</span>;  <span class="hljs-comment">// 有前导0</span><br>            t = t * <span class="hljs-number">10</span> + s[i] - <span class="hljs-string">&#x27;0&#x27;</span>;<br>            <span class="hljs-keyword">if</span> (t &lt;= <span class="hljs-number">255</span>) <span class="hljs-built_in">dfs</span>(s, i + <span class="hljs-number">1</span>, k + <span class="hljs-number">1</span>, path + <span class="hljs-built_in">to_string</span>(t) + <span class="hljs-string">&#x27;.&#x27;</span>);<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+    </div>
+</div>
+
+<h4 id="Reference-2"><a href="#Reference-2" class="headerlink" title="Reference"></a>Reference</h4><p><a target="_blank" rel="noopener" href="https://www.acwing.com/activity/content/code/content/554219/">[1]. LauZyHou </a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/98993/">[2]. Cloudddddd</a></p>
+<br>
+
+<h3 id="LeetCode-94-二叉树的中序遍历"><a href="#LeetCode-94-二叉树的中序遍历" class="headerlink" title="LeetCode 94. 二叉树的中序遍历"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-tree-inorder-traversal/">LeetCode 94. 二叉树的中序遍历</a></h3><hr>
+<h4 id="基本思路-3"><a href="#基本思路-3" class="headerlink" title="基本思路"></a>基本思路</h4><hr>
+<p>树的中序遍历，很常见的递归和迭代两种写法</p>
+<ol>
+<li><p>递归：<br>左中右顺序 然后DFS<br>时间复杂度：$O(n)$<br>空间复杂度：$O(h)$ h为二叉树的高度</p>
+</li>
+<li><p>迭代： 自己维护一个栈，模拟递归的过程<br>时间复杂度：$O(n)$<br>空间复杂度：$O(h)$ h为二叉树的高度</p>
+</li>
+</ol>
+<h4 id="参考代码-3"><a href="#参考代码-3" class="headerlink" title="参考代码"></a>参考代码</h4><hr>
+<div class='spoiler collapsed'>
+    <div class='spoiler-title'>
+        思路1
+    </div>
+    <div class='spoiler-content'>
+        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for a binary tree node.</span><br><span class="hljs-comment"> * struct TreeNode &#123;</span><br><span class="hljs-comment"> *     int val;</span><br><span class="hljs-comment"> *     TreeNode *left;</span><br><span class="hljs-comment"> *     TreeNode *right;</span><br><span class="hljs-comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span><br><span class="hljs-comment"> * &#125;;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    vector&lt;<span class="hljs-type">int</span>&gt; ans;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;<br>        <span class="hljs-built_in">dfs</span>(root);<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span>;<br>        <span class="hljs-built_in">dfs</span>(root-&gt;left);<br>        ans.<span class="hljs-built_in">push_back</span>(root-&gt;val);<br>        <span class="hljs-built_in">dfs</span>(root-&gt;right);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+    </div>
+</div>
+
+<div class='spoiler collapsed'>
+    <div class='spoiler-title'>
+        思路2
+    </div>
+    <div class='spoiler-content'>
+        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for a binary tree node.</span><br><span class="hljs-comment"> * struct TreeNode &#123;</span><br><span class="hljs-comment"> *     int val;</span><br><span class="hljs-comment"> *     TreeNode *left;</span><br><span class="hljs-comment"> *     TreeNode *right;</span><br><span class="hljs-comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span><br><span class="hljs-comment"> * &#125;;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;<br>        vector&lt;<span class="hljs-type">int</span>&gt; res;<br>        stack&lt;TreeNode*&gt; stk;<br><br>        <span class="hljs-keyword">while</span> (root || stk.<span class="hljs-built_in">size</span>()) &#123;<br>            <span class="hljs-keyword">while</span> (root) &#123;<br>                stk.<span class="hljs-built_in">push</span>(root);<br>                root = root-&gt;left;<br>            &#125;<br><br>            root = stk.<span class="hljs-built_in">top</span>();<br>            stk.<span class="hljs-built_in">pop</span>();<br>            res.<span class="hljs-built_in">push_back</span>(root-&gt;val);<br>            root = root-&gt;right;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+    </div>
+</div>
+
+<br>
+
+<h4 id="Reference-3"><a href="#Reference-3" class="headerlink" title="Reference"></a>Reference</h4><p><a target="_blank" rel="noopener" href="https://www.acwing.com/activity/content/code/content/554250/">[1]. LauZyHou</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/14185/">[2]. Coderoger</a></p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
               
             </div>
@@ -382,8 +428,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LeetCode 81-90</div>
-      <div>https://vendestine.github.io/2022/06/22/leetocde-81-90/</div>
+      <div>LeetCode 91-100</div>
+      <div>https://vendestine.github.io/2022/06/25/leetcode-91-100/</div>
     </div>
     <div class="license-meta">
       
@@ -395,7 +441,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>June 22, 2022</div>
+          <div>June 25, 2022</div>
         </div>
       
       
@@ -425,9 +471,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/25/leetcode-91-100/" title="LeetCode 91-100">
+                      <a href="/2022/06/29/geek-computer-system/" title="深入浅出计算机组成原理">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 91-100</span>
+                        <span class="hidden-mobile">深入浅出计算机组成原理</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -435,8 +481,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/20/bfs-dfs/" title="基础算法-搜索">
-                        <span class="hidden-mobile">基础算法-搜索</span>
+                      <a href="/2022/06/22/leetocde-81-90/" title="LeetCode 81-90">
+                        <span class="hidden-mobile">LeetCode 81-90</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
