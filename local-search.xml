@@ -697,7 +697,7 @@
   
   
   <entry>
-    <title>基础算法-高精度运算</title>
+    <title>算法-高精度运算</title>
     <link href="/2022/03/25/big-integer/"/>
     <url>/2022/03/25/big-integer/</url>
     
@@ -707,6 +707,8 @@
     <categories>
       
       <category>算法</category>
+      
+      <category>AcWing</category>
       
     </categories>
     
@@ -724,7 +726,7 @@
   
   
   <entry>
-    <title>基础算法-二分</title>
+    <title>算法-二分</title>
     <link href="/2022/03/19/binary-search/"/>
     <url>/2022/03/19/binary-search/</url>
     
