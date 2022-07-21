@@ -18,16 +18,16 @@
   <meta name="author" content="Wenzhe Li">
   <meta name="keywords" content="">
   
-    <meta name="description" content="AcWing算法基础课笔记，复习第二讲的内容，覆盖了前缀和与差分">
+    <meta name="description" content="一维前缀和，二维前缀和，一维差分，二维差分">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基础算法-前缀和与差分">
+<meta property="og:title" content="算法-前缀和与差分">
 <meta property="og:url" content="https://vendestine.github.io/2022/04/02/prefix-difference/index.html">
 <meta property="og:site_name" content="vendestine Blog">
-<meta property="og:description" content="AcWing算法基础课笔记，复习第二讲的内容，覆盖了前缀和与差分">
+<meta property="og:description" content="一维前缀和，二维前缀和，一维差分，二维差分">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://vendestine.github.io/img/algorithm.jpg">
 <meta property="article:published_time" content="2022-04-02T18:18:16.000Z">
-<meta property="article:modified_time" content="2022-07-07T14:35:17.735Z">
+<meta property="article:modified_time" content="2022-07-20T15:24:38.980Z">
 <meta property="article:author" content="Wenzhe Li">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="前缀和与差分">
@@ -35,7 +35,7 @@
 <meta name="twitter:image" content="https://vendestine.github.io/img/algorithm.jpg">
   
   
-  <title>基础算法-前缀和与差分 - vendestine Blog</title>
+  <title>算法-前缀和与差分 - vendestine Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -192,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="基础算法-前缀和与差分"></span>
+            <span id="subtitle" data-typed-text="算法-前缀和与差分"></span>
           
         </div>
 
@@ -216,7 +216,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          5.1k words
+          5.3k words
         
       </span>
     
@@ -228,7 +228,7 @@
         
         
           <!-- compatible with older versions-->
-          43 minutes
+          45 minutes
         
       </span>
     
@@ -274,13 +274,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">基础算法-前缀和与差分</h1>
+            <h1 style="display: none">算法-前缀和与差分</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：July 7, 2022 am
+                    本文最后更新于：July 20, 2022 am
                   
                 
               </p>
@@ -293,7 +293,7 @@
 <p>这里，我们把前缀和问题大致分为一维前缀和与二维前缀和。<br><img src="/../img/algorithm_prefix/prefix_1.png" srcset="/img/loading.gif" lazyload></p>
 <br>
 
-<h3 id="一维前缀和"><a href="#一维前缀和" class="headerlink" title="一维前缀和"></a>一维前缀和</h3><hr>
+<h3 id="一维前缀和"><a href="#一维前缀和" class="headerlink" title="一维前缀和"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/797/">一维前缀和</a></h3><hr>
 <p>这里直接看一道一维前缀和的模板题，方便更好地分析。<br><img src="/../img/algorithm_prefix/prefixq1.PNG" srcset="/img/loading.gif" lazyload></p>
 <br>
 
@@ -320,9 +320,8 @@
 <li>由于计算区间和的公式是<code>s[r] − s [l−1]</code>,如果实际存数的区间从0开始，那么0 − 1就越界了，所以前缀和数组最开头要放一个0，实际存数的区间是<code>[1, n]</code>。</li>
 <li>统一区间内求和的公式，便于理解，即前x个数的和为S[x]，第x个数的下标为x。</li>
 </ul>
-<br>
-
-<h3 id="二维前缀和"><a href="#二维前缀和" class="headerlink" title="二维前缀和"></a>二维前缀和</h3><hr>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><p><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/27238/">[1]. 前缀和 【c++详细题解】</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/26262/">[2].  Bug-Free</a><br><br></p>
+<h3 id="二维前缀和"><a href="#二维前缀和" class="headerlink" title="二维前缀和"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/798/">二维前缀和</a></h3><hr>
 <p>二维前缀和相比于一维前缀和略微复杂一些，这里同样给出模板题，便于分析。<br><img src="/../img/algorithm_prefix/prefixq2.PNG" srcset="/img/loading.gif" lazyload></p>
 <br>
 
@@ -345,8 +344,7 @@
 <h4 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h4><p>输入数据和计算前缀和时，下标从 1 开始。</p>
 <br>
 
-<h2 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h2><hr>
-<blockquote>
+<h2 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h2><blockquote>
 <p>类似于数学中的求导和积分，差分可以看成前缀和的逆运算。对于一个数组$a$，其差分数组$b$的每一项都是$a[i]$和前一项$a[i−1]$的差，即$b[i]&#x3D;a[i]−a[i−1]$。</p>
 </blockquote>
 <p>同样地我们这里也将差分问题大致分为一维差分和与二维差分问题。<br><img src="/../img/algorithm_prefix/difference1.png" srcset="/img/loading.gif" lazyload></p>
@@ -361,8 +359,8 @@
 <p>如果n和m的数据量稍微大一点就有可能超时，而我们如果使用差分的方法来做的话就能够将时间复杂度降到O(n+m),大大提高了运算效率。其中对于单次操作，时间复杂度减小到O(1)。</p>
 <br>
 
-<h4 id="基本思想-2"><a href="#基本思想-2" class="headerlink" title="基本思想"></a>基本思想</h4><p>为了方便理解我们这里给出三个数组，原数组a[], 前缀和数组s[], 差分数组b[]。</p>
-<p>首先我们回顾一下前缀和数组s的性质，对于原数组a，只要给某个数加上x，那么后面所有的数在求前缀和数组s的时候都会被加上x。然后原数组a其实就是差分数组b的前缀和数组。</p>
+<h4 id="基本思想-2"><a href="#基本思想-2" class="headerlink" title="基本思想"></a>基本思想</h4><p>为了方便理解我们这里给出三个数组，原数组a[], 前缀和数组s[], 差分数组b[]。<br><strong>前缀和和差分是一个互逆的关系，a[]是s[]的差分数组，b[]的前缀和数组</strong></p>
+<p>首先我们回顾一下前缀和数组s的性质，对于原数组a，只要给某个数加上x，那么后面所有的数在求前缀和数组s的时候都会被加上x。<strong>同理差分数组b只要给某个数加上x，那么后面所有的数在求原数组a的时候都会被加上x</strong></p>
 <p>根据这个性质，在原数组a的(l, r)区间内加上一个数可以用b[l] +&#x3D; x, b[r + 1] -&#x3D; x来实现，让数组从l开始到最后都加上x，但超出r的范围也加上了x，所以我们需要让r后面的都减去x，保持原来的值。<br><img src="/../img/algorithm_prefix/difference2.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>1. 预处理差分数组</strong><br>其实也就是问b[i]该如何计算<br>$b[i] &#x3D; a[i] - a[i - 1]$</p>
 <p><strong>2. 差分核心操作</strong><br>给a数组中的[l, r]区间中的每一个数都加上c,只需对差分数组b做<code>b[l] += c, b[r+1] -= c</code></p>
@@ -374,12 +372,13 @@
 <br>
 
 <h4 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
-<li>两个数组本没有时时联动关系，对某一数组操作以后需要通过手动操作同步</li>
+<li>从数学角度来讲，差分数组更改了，原数组会自动更新，但这里的代码的角度构造的时候两个数组本没有时时联动关系，对差分数组操作以后需要通过手动更新原数组</li>
 <li>原数组和差分数组下标都是从1开始</li>
 </ul>
+<h4 id="Reference-1"><a href="#Reference-1" class="headerlink" title="Reference"></a>Reference</h4><p><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/26588/">[1]. 差分 【c++详细题解】</a></p>
 <br>
 
-<h3 id="二维差分"><a href="#二维差分" class="headerlink" title="二维差分"></a>二维差分</h3><hr>
+<h3 id="二维差分"><a href="#二维差分" class="headerlink" title="二维差分"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/800/">二维差分</a></h3><hr>
 <p>二维差分相比于一维差分略微复杂一些，这里同样给出模板题，便于分析。<br><img src="/../img/algorithm_prefix/differenceq2.png" srcset="/img/loading.gif" lazyload></p>
 <br>
 
@@ -397,6 +396,7 @@
 
 <h4 id="代码模板-3"><a href="#代码模板-3" class="headerlink" title="代码模板"></a>代码模板</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">1010</span>;<br><br><span class="hljs-type">int</span> n, m, q;<br><span class="hljs-type">int</span> a[N][N], b[N][N];<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-type">int</span> x1, <span class="hljs-type">int</span> y1, <span class="hljs-type">int</span> x2, <span class="hljs-type">int</span> y2, <span class="hljs-type">int</span> c)</span></span><br><span class="hljs-function"></span>&#123;<br>    b[x1][y1] += c;<br>    b[x2 + <span class="hljs-number">1</span>][y1] -= c;<br>    b[x1][y2 + <span class="hljs-number">1</span>] -= c;<br>    b[x2 + <span class="hljs-number">1</span>][y2 + <span class="hljs-number">1</span>] += c;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d%d%d&quot;</span>, &amp;n, &amp;m, &amp;q);<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j ++ )<br>            <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;a[i][j]);<br><br>    <span class="hljs-comment">//构造差分数组</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j ++ )<br>            <span class="hljs-built_in">insert</span>(i, j, i, j, a[i][j]);<br><br>    <span class="hljs-keyword">while</span> (q -- )<br>    &#123;<br>        <span class="hljs-type">int</span> x1, y1, x2, y2, c;<br>        cin &gt;&gt; x1 &gt;&gt; y1 &gt;&gt; x2 &gt;&gt; y2 &gt;&gt; c;<br>        <span class="hljs-comment">//差分核心操作</span><br>        <span class="hljs-built_in">insert</span>(x1, y1, x2, y2, c);<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i ++ )<br>    &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= m; j ++ )<br>        &#123;<br>            <span class="hljs-comment">//前缀和运算，还原原数组</span><br>            a[i][j] = a[i - <span class="hljs-number">1</span>][j] + a[i][j - <span class="hljs-number">1</span>] - a[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + b[i][j];<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>, a[i][j]);<br>        &#125;<br>        <span class="hljs-comment">//换行</span><br>        <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot; &quot;</span>);<br>    &#125;    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h4 id="Reference-2"><a href="#Reference-2" class="headerlink" title="Reference"></a>Reference</h4><p><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/18986/">[1]. 差分矩阵</a></p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
               
             </div>
@@ -416,6 +416,13 @@
         
   <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%AE%97%E6%B3%95/AcWing/" class="category-chain-item">AcWing</a>
+  
+  
+
   
 
       </span>
@@ -443,7 +450,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>基础算法-前缀和与差分</div>
+      <div>算法-前缀和与差分</div>
       <div>https://vendestine.github.io/2022/04/02/prefix-difference/</div>
     </div>
     <div class="license-meta">

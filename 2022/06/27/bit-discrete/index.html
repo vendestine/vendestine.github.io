@@ -18,24 +18,26 @@
   <meta name="author" content="Wenzhe Li">
   <meta name="keywords" content="">
   
-    <meta name="description" content="双指针相关模板题">
+    <meta name="description" content="三个小模块的相关模板题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法-双指针算法">
-<meta property="og:url" content="https://vendestine.github.io/2022/06/07/two-pointer/index.html">
+<meta property="og:title" content="算法-位运算，离散化，区间合并">
+<meta property="og:url" content="https://vendestine.github.io/2022/06/27/bit-discrete/index.html">
 <meta property="og:site_name" content="vendestine Blog">
-<meta property="og:description" content="双指针相关模板题">
+<meta property="og:description" content="三个小模块的相关模板题">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://vendestine.github.io/img/algorithm.jpg">
-<meta property="article:published_time" content="2022-06-07T06:26:03.000Z">
-<meta property="article:modified_time" content="2022-07-21T02:18:31.911Z">
+<meta property="article:published_time" content="2022-06-28T02:23:03.000Z">
+<meta property="article:modified_time" content="2022-07-21T04:54:50.430Z">
 <meta property="article:author" content="Wenzhe Li">
 <meta property="article:tag" content="算法">
-<meta property="article:tag" content="双指针">
+<meta property="article:tag" content="位运算">
+<meta property="article:tag" content="离散化">
+<meta property="article:tag" content="区间合并">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://vendestine.github.io/img/algorithm.jpg">
   
   
-  <title>算法-双指针算法 - vendestine Blog</title>
+  <title>算法-位运算，离散化，区间合并 - vendestine Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -192,7 +194,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="算法-双指针算法"></span>
+            <span id="subtitle" data-typed-text="算法-位运算，离散化，区间合并"></span>
           
         </div>
 
@@ -203,8 +205,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-07 02:26" pubdate>
-          June 7, 2022 am
+        <time datetime="2022-06-27 22:23" pubdate>
+          June 27, 2022 pm
         </time>
       </span>
     
@@ -216,7 +218,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          2.9k words
+          655 words
         
       </span>
     
@@ -228,7 +230,7 @@
         
         
           <!-- compatible with older versions-->
-          24 minutes
+          6 minutes
         
       </span>
     
@@ -274,65 +276,39 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">算法-双指针算法</h1>
+            <h1 style="display: none">算法-位运算，离散化，区间合并</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：July 20, 2022 pm
+                    本文最后更新于：July 21, 2022 am
                   
                 
               </p>
             
             <div class="markdown-body">
               
-              <h2 id="双指针算法"><a href="#双指针算法" class="headerlink" title="双指针算法"></a>双指针算法</h2><h3 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h3><hr>
-<p>本质：<br>双指针算法顾名思义就是要维护两个指针，这两个指针可能指向同一个序列当中的不同位置，也有可能指向不同的序列。但其本质就是<strong>利用单调性缩减枚举空间</strong></p>
-<br>
-
-<p><img src="/../img/algorithm_two_pointer/p1.jpg" srcset="/img/loading.gif" lazyload alt="暴力枚举"><br><img src="/../img/algorithm_two_pointer/p2.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>枚举一个指针，找另一个合法的指针，这里check指的是维护合法性质（根据题目条件判定，简单来说while不合法移动指针到合法为止，这样就找到了合法的另一个指针）</p>
-<p>两个指针的位置的排列组合有$n^2$种，相应的时间复杂度也是$O(n^2)$，但如果应用双指针算法，可以将时间复杂度降至$O(n)$：比如说两个指针<strong>不回退</strong>扫描同一个序列，每一个指针在上图所有的循环里面总共移动的次数是不超过n的，我们可以应用某些单调的性质实现这一点。快速排序，归并排序，KMP算法本质上都是双指针算法。</p>
-<p>双指针算法的解题思路大概是这样：暴力枚举-&gt;分析两个指针之间的单调性（探索有没有可能一个指针随着另一个指针的变化而变化）-&gt;通过单调性将暴力解法的时间复杂度降低一维</p>
-<br>
-
-<h3 id="模板题"><a href="#模板题" class="headerlink" title="模板题"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/801/">模板题</a></h3><hr>
-<p><img src="/../img/algorithm_two_pointer/p3.png" srcset="/img/loading.gif" lazyload></p>
+              <h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><p>位运算我们一般只关注两个常用的操作</p>
 <ol>
-<li><p>双指针问题一般可以先从暴力做法开始思考，对于上述问题，可以暴力枚举子串的起点和终点</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i =<span class="hljs-number">0</span>, j =<span class="hljs-number">0</span>; i &lt; n; i ++)<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j  = <span class="hljs-number">0</span>; i &lt;= i; j ++)<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">check</span>(j, i)) <span class="hljs-comment">//合法 满足最长不重复子串性质</span><br>            res = <span class="hljs-built_in">max</span>(res, i - j + <span class="hljs-number">1</span>); <span class="hljs-comment">//对于所有i的最长不重复子串 找到最长的</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>分析i和j是否存在单调性</p>
-</li>
-</ol>
-<p>首先i是指向子串终点的指针，枚举i指针，我们去找合法的j指针（这里的合法也就是最长不重复子串）：在每次迭代中，我们让i往后移一个位置，随着i往后移动，j只能随之一起向后移动，不可能往前移动（因为要维护最长不重复子串合法，可以反证法证明）</p>
-<p>因此，我们发现了双指针存在单调性，可以优化枚举空间，优化后的伪代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>, j=<span class="hljs-number">0</span>; i&lt;n; i++) &#123;<br>    <span class="hljs-keyword">while</span>(j&lt;=i &amp;&amp; <span class="hljs-built_in">check</span>(j, i)) j++;<br>    res = <span class="hljs-built_in">max</span>(res, i-j+<span class="hljs-number">1</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>这个算法当中，i和j两个指针它们只会加起来最多移动2n次，因此时间复杂度降到了O(n)</p>
-<p>所以说双指针算法本质上就是要发现朴素算法中的一些性质，尤其是单调性，让我们由需要枚举n^2个状态变成需要枚举n个状态</p>
-<br>
-
-<h4 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">100010</span>;<br><br><span class="hljs-type">int</span> n;<br><span class="hljs-type">int</span> q[N], s[N];<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;n);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++ ) <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;q[i]);<br><br>    <span class="hljs-type">int</span> res = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>; i &lt; n; i ++ )<br>    &#123;<br>        s[q[i]] ++ ;<br>        <span class="hljs-keyword">while</span> (j &lt; i &amp;&amp; s[q[i]] &gt; <span class="hljs-number">1</span>) s[q[j ++ ]] -- ;<br>        res = <span class="hljs-built_in">max</span>(res, i - j + <span class="hljs-number">1</span>);<br>    &#125;<br><br>    cout &lt;&lt; res &lt;&lt; endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<br>
-
-<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
-<li>这里的S[N]实际上就是数组构建的哈希表，用来维护区间合法（最长不重复子串）</li>
+<li><p>n的二进制表示中，第k位是多少（注意这里的k是从低位（右）开始，的而不是从左开始）</p>
+<ul>
+<li>先把第k位移动到个位，也就是k移动到0位，需要移动k次，所以<code>x = n &gt;&gt; k</code></li>
+<li>取出最后一位 x &amp; 1</li>
+<li>合并在一起就是 x &#x3D; n &gt;&gt; k &amp; 1</li>
 </ul>
-<h2 id="相关题目"><a href="#相关题目" class="headerlink" title="相关题目"></a>相关题目</h2><h3 id="800-数组元素的目标和"><a href="#800-数组元素的目标和" class="headerlink" title="800. 数组元素的目标和"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/802/">800. 数组元素的目标和</a></h3><h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><p>暴力枚举两个数时间复杂度$O(n^2)$所以想办法优化，这里发现了指针之间的单调性，所以可以用双指针优化，然后这里是反向双指针<br>题目很简单，这里就注意两点</p>
-<ol>
-<li>因为是反向双指针，所以其实位置是两侧</li>
-<li>我们双指针算法找到的是<strong>对于每一个i的合法方案</strong>，这里的合法不能写<code>a[i] + b[j] == x</code>，因为不是每一个i都会有这种方案存在，<br>但是起初的时候i指向0，所以一定满足是所有i里最小的，再加上一定有解，所以合法条件是<code>a[i] + b[j] &lt;= x</code></li>
+</li>
+<li><p>lowbit(x): 返回x的最后一位1（从左向右）和后面的0 :实现就是x &amp; -x</p>
+</li>
 </ol>
-<h4 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">1e5</span> + <span class="hljs-number">10</span>;<br><br><span class="hljs-type">int</span> n, m, x;<br><span class="hljs-type">int</span> a[N], b[N];<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    ios::<span class="hljs-built_in">sync_with_stdio</span>(<span class="hljs-literal">false</span>);<br>    cin &gt;&gt; n &gt;&gt; m &gt;&gt; x;<br>    <span class="hljs-type">int</span> i, j;<br>    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; n; i++ ) cin &gt;&gt; a[i];<br>    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; m; i++ ) cin &gt;&gt; b[i];<br>    <br>    <br>    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>, j = m - <span class="hljs-number">1</span>; i &lt; n; i ++) &#123;<br>        <span class="hljs-keyword">while</span> (j &gt;= <span class="hljs-number">0</span> &amp;&amp; a[i] + b[j] &gt; x) j--;<br>        <span class="hljs-keyword">if</span> (a[i] + b[j] == x) cout &lt;&lt; i &lt;&lt;<span class="hljs-string">&quot; &quot;</span>&lt;&lt;  j &lt;&lt; endl;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="801-二进制中1的个数"><a href="#801-二进制中1的个数" class="headerlink" title="801. 二进制中1的个数"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/803/">801. 二进制中1的个数</a></h3><hr>
+<h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><p>这一题思路很简单，每次后减去x的最后一位1，然后计数，直到 &#x3D; 0循环结束</p>
+<h4 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">1e5</span> + <span class="hljs-number">10</span>;<br><br><span class="hljs-type">int</span> n, a[N];<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">get_count</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> </span>&#123;<br>    <span class="hljs-type">int</span> cnt = <span class="hljs-number">0</span>; <span class="hljs-comment">//函数内部变量一定要初始化！否则会随机赋值</span><br>    <span class="hljs-keyword">while</span> (x) &#123;<br>        <span class="hljs-type">int</span> lowbit = x &amp; -x;<br>        x -= lowbit;<br>        cnt++;<br>    &#125;<br>    <span class="hljs-keyword">return</span> cnt;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    cin &gt;&gt; n;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i= <span class="hljs-number">0</span>; i &lt; n; i++ ) cin &gt;&gt; a[i];<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++ ) cout &lt;&lt; <span class="hljs-built_in">get_count</span>(a[i]) &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="2816-判断子序列"><a href="#2816-判断子序列" class="headerlink" title="2816. 判断子序列"></a><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/2818/">2816. 判断子序列</a></h3><h4 id="基本思路-1"><a href="#基本思路-1" class="headerlink" title="基本思路"></a>基本思路</h4><p>这题很明显可以用暴力解法求解，枚举a[]里的数，然后对于每一个数扫描一遍b[]看是否在里面，时间复杂度显然是$O(n^2)$,所以我们尝试优化。<br>这里发现指针之间的单调性，假设i指向a数组，j指向b数组，对于当前i我们找到了合法的j，如果i后移，因为要保证子序列按原有次序排序，所以j也只能往后移，发现单调性，可以用双指针算法优化。</p>
-<p>注意这里合法的j实际上是有两个条件 1. 值相同 2. 并且j至少移动一位，代码实现就是a[i] &#x3D; b[j] and j &gt; 上一层的j, 在这里大于上一层的j不是很好拿到。<br>所以我们把j至少移动一位的条件分离了出来，这样更容易实现。</p>
-<h4 id="参考代码-2"><a href="#参考代码-2" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">1e5</span> + <span class="hljs-number">10</span>;<br><br><span class="hljs-type">int</span> n, m;<br><span class="hljs-type">int</span> a[N], b[N];<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    cin &gt;&gt; n &gt;&gt; m;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++ ) cin &gt;&gt; a[i];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; i ++) cin &gt;&gt; b[i];<br>    <br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>; i &lt; n; i ++ ) &#123;<br>        <span class="hljs-keyword">while</span> (j &lt; m &amp;&amp; a[i] != b[j]) j++;<br>        <span class="hljs-comment">// cout &lt;&lt; i &lt;&lt; &quot; &quot; &lt;&lt; j &lt;&lt;  endl;</span><br>        <span class="hljs-keyword">if</span> (j &gt; m - <span class="hljs-number">1</span>) &#123;<br>            cout &lt;&lt; <span class="hljs-string">&quot;No&quot;</span>;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-keyword">else</span> j++;<br>    &#125;<br>    cout &lt;&lt; <span class="hljs-string">&quot;Yes&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><p><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/2370/">[1]. 过眼云烟1</a><br><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/26595/">[2]. Bug-Free</a></p>
+<br>
 
-<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><p><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/22775/">[1]. 判断子序列</a></p>
-<h3 id="LeetCode"><a href="#LeetCode" class="headerlink" title="LeetCode"></a>LeetCode</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-substring-without-repeating-characters/">LeetCode 3. 无重复字符的最长子串</a><br><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/">LeetCode 167. 两数之和 II - 输入有序数组</a></p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
               
             </div>
             <hr/>
@@ -373,7 +349,11 @@
       
         <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
       
-        <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/">#双指针</a>
+        <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">#位运算</a>
+      
+        <a href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/">#离散化</a>
+      
+        <a href="/tags/%E5%8C%BA%E9%97%B4%E5%90%88%E5%B9%B6/">#区间合并</a>
       
     </div>
   
@@ -385,8 +365,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>算法-双指针算法</div>
-      <div>https://vendestine.github.io/2022/06/07/two-pointer/</div>
+      <div>算法-位运算，离散化，区间合并</div>
+      <div>https://vendestine.github.io/2022/06/27/bit-discrete/</div>
     </div>
     <div class="license-meta">
       
@@ -398,7 +378,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>June 7, 2022</div>
+          <div>June 27, 2022</div>
         </div>
       
       
@@ -428,9 +408,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/08/leetcode-1-10/" title="LeetCode 1-10">
+                      <a href="/2022/06/29/geek-computer-system/" title="深入浅出计算机组成原理">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LeetCode 1-10</span>
+                        <span class="hidden-mobile">深入浅出计算机组成原理</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -438,8 +418,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/04/primer-chapter3/" title="C++ primer chapter3 复习笔记">
-                        <span class="hidden-mobile">C++ primer chapter3 复习笔记</span>
+                      <a href="/2022/06/25/leetcode-91-100/" title="LeetCode 91-100">
+                        <span class="hidden-mobile">LeetCode 91-100</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
