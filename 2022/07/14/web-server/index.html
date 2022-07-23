@@ -27,7 +27,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://vendestine.github.io/img/linux.jpg">
 <meta property="article:published_time" content="2022-07-15T02:54:15.000Z">
-<meta property="article:modified_time" content="2022-07-15T16:26:08.402Z">
+<meta property="article:modified_time" content="2022-07-23T08:19:52.717Z">
 <meta property="article:author" content="Wenzhe Li">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="Linux">
@@ -216,7 +216,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          1.4k words
+          5.3k words
         
       </span>
     
@@ -228,7 +228,7 @@
         
         
           <!-- compatible with older versions-->
-          12 minutes
+          44 minutes
         
       </span>
     
@@ -280,7 +280,7 @@
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：July 15, 2022 pm
+                    本文最后更新于：July 23, 2022 am
                   
                 
               </p>
@@ -389,6 +389,197 @@
 <br>
 
 <h3 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h3><hr>
+<ol>
+<li>动态库的制作和使用</li>
+</ol>
+<ul>
+<li>命名规则：Linux : libxxx.so， Windows : libxxx.dll</li>
+<li>动态库的制作<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc -c –fpic/-fPIC a.c b.c // 得到和位置无关的代码<br>gcc -shared a.o b.o -o libcalc.so // 得到动态库  <br></code></pre></td></tr></table></figure>
+<br></li>
+</ul>
+<ol start="2">
+<li>动态库的工作原理</li>
+</ol>
+<ul>
+<li>GCC 进行链接时，会把静态库中代码打包到可执行程序中，<strong>动态库的代码不会被打包到可执行程序中。</strong></li>
+<li>程序启动之后，<strong>动态库会被动态加载到内存中</strong>，通过 <strong>ldd</strong> （list dynamic dependencies）命令检查动态库依赖关系</li>
+</ul>
+<br>
+
+<ol start="3">
+<li>动态库加载失败的可能原因</li>
+</ol>
+<ul>
+<li><strong>动态库没有加载到内存中</strong>，程序运行时，找不到动态库</li>
+<li>没有找到动态库，说明没有获取到动态库的绝对路径，此时就需要系统的<strong>动态载入器来获取该绝对路径</strong></li>
+<li>对于elf格式的可执行程序，是由ld-linux.so(动态载入器，是专门用来负责定位、加载程序所需要的所有动态库文件)来完成的，<br>它先后搜索elf文件的 DT_RPATH段 ——&gt; 环境变量<br>LD_LIBRARY_PATH ——&gt; &#x2F;etc&#x2F;ld.so.cache文件列表 ——&gt; &#x2F;lib&#x2F;，&#x2F;usr&#x2F;lib目录找到库文件后将其载入内存</li>
+</ul>
+<br>
+
+<ol start="4">
+<li>解决方案  <ol>
+<li>添加动态库的绝对路径到LD_LIBRARY_PATH环境变量里<ol>
+<li><code>export LD_LIBRARY_PATH = $LD_LIBRARY_PATH: 动态库的绝对路径   //缺点是只有当前终端有效</code></li>
+<li><code>.bashrc中加入上面的信息， 然后source .bashrc 生效     //用户级别的环境变量配置</code></li>
+<li><code>/etc/profile加入上面的信息， 然后source /etc/profile生效    //系统界别的环境变量配置</code></li>
+</ol>
+</li>
+<li>修改 &#x2F;etc&#x2F;ld.so.cache 文件<ul>
+<li>vim &#x2F;etc&#x2F;ld.so.conf 然后插入动态库的绝对路径</li>
+<li>sudo ldconfig 更新</li>
+</ul>
+</li>
+<li>&#x2F;lib&#x2F;, &#x2F;usr&#x2F;lib 中加入动态库文件    &#x2F;&#x2F;不推荐，这是系统的库文件所在</li>
+</ol>
+</li>
+</ol>
+<br>
+
+<ol start="5">
+<li>静态库VS动态库<blockquote>
+<p>静态库、动态库区别来自链接阶段如何处理，链接成可执行程序。分别称为静态链接方式和动态链接方式</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/0a467e0a47a49a069a21742c0610625a.png" srcset="/img/loading.gif" lazyload><br><img src="https://img-blog.csdnimg.cn/img_convert/87db61592bfdeee2607887ff91f66cd8.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>静态库</p>
+<ul>
+<li>优点：<ol>
+<li>静态库被打包到应用程序中加载速度快，</li>
+<li>发布程序无需提供静态库，移植方便</li>
+</ol>
+</li>
+<li>缺点：<ol>
+<li>消耗系统资源，浪费内存</li>
+<li>更新、部署、发布麻烦</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>动态库</p>
+<ul>
+<li>优点：<ol>
+<li>可以实现进程间资源共享（共享库）</li>
+<li>更新、部署、发布简单</li>
+<li>可以控制何时加载动态库</li>
+</ol>
+</li>
+<li>缺点：<ol>
+<li>加载速度比静态库慢</li>
+<li>发布程序时需要提供依赖的动态库</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h3><hr>
+<ol>
+<li>什么是Makefile</li>
+</ol>
+<ul>
+<li>Makefile可以自动化编译整个工程，Makefile 文件就像一个 Shell 脚本一样，也可以执行操作系统的命令</li>
+<li>make 是一个命令工具，是一个解释 Makefile 文件中指令的命令工具</li>
+</ul>
+<br>
+
+<ol start="2">
+<li>Makefile文件命名和规则</li>
+</ol>
+<ul>
+<li>makefile 或者 Makefile（我比较喜欢后者）</li>
+<li>Makefile规则<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">目标 <span class="hljs-string">...</span>: 依赖 <span class="hljs-string">...</span>    <span class="hljs-string">//</span>目标：最终生成文件   依赖：生成目标的所需文件<br>    命令（Shell 命令）    <span class="hljs-string">//</span>命令前必须tab缩进<br><span class="hljs-string">...</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<br>
+
+<ol start="3">
+<li>工作原理</li>
+</ol>
+<ul>
+<li>命令在执行之前，需要先检查规则中的依赖是否存在<ul>
+<li>如果存在，执行命令</li>
+<li>如果不存在，向下检查其它的规则，检查有没有一个规则是用来生成这个依赖的，如果找到了，则执行该规则中的命令</li>
+</ul>
+</li>
+<li>检测更新，在执行规则中的命令时，会比较目标和依赖文件的时间<ul>
+<li>如果依赖的时间比目标的时间晚，需要重新生成目标</li>
+<li>如果依赖的时间比目标的时间早，目标不需要更新，对应规则中的命令不需要被执行</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<ol start="4">
+<li>变量</li>
+</ol>
+<ul>
+<li>自定义变量<br>  变量名&#x3D; 变量值<br>  var&#x3D;hello</li>
+<li>预定义变量<br>  AR : 归档维护程序的名称，默认值为 ar<br>  CC : C 编译器的名称，默认值为 cc<br>  CXX : C++ 编译器的名称，默认值为 g++<br>  $@ : 目标的完整名称<br>  $&lt; : 第一个依赖文件的名称<br>  $^ : 所有的依赖文件</li>
+<li>获取变量的值<br>  $(变量名)</li>
+</ul>
+<br>
+
+<ol start="5">
+<li>模式匹配<br>%: 通配符，匹配一个字符串</li>
+</ol>
+<br>
+
+<ol start="6">
+<li>函数</li>
+</ol>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs llvm">$(wildcard PATTERN...)  //获取指定文件列表，pattern指定文件格式 如果有多个目录，一般使用空格间隔<br><span class="hljs-symbol"></span><br><span class="hljs-symbol">eg:</span> $(wildcard *.<span class="hljs-keyword">c</span> ./<span class="hljs-keyword">sub</span>/*.<span class="hljs-keyword">c</span>)<br>返回值格式: a.<span class="hljs-keyword">c</span> b.<span class="hljs-keyword">c</span> <span class="hljs-keyword">c</span>.<span class="hljs-keyword">c</span> d.<span class="hljs-keyword">c</span> e.<span class="hljs-keyword">c</span> f.<span class="hljs-keyword">c</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-constructor">$(<span class="hljs-params">patsubst</span> &lt;<span class="hljs-params">pattern</span>&gt;,&lt;<span class="hljs-params">replacement</span>&gt;,&lt;<span class="hljs-params">text</span>&gt;)</span>  <span class="hljs-comment">//替换字符串 查找&lt;text&gt;中的单词(单词以“空格”、“Tab”或“回车”“换行”分隔)是否符合</span><br>                                            <span class="hljs-comment">// 模式&lt;pattern&gt;，如果匹配的话，则以&lt;replacement&gt;替换。</span><br><br>eg: <span class="hljs-constructor">$(<span class="hljs-params">patsubst</span> %.<span class="hljs-params">c</span>, %.<span class="hljs-params">o</span>, <span class="hljs-params">x</span>.<span class="hljs-params">c</span> <span class="hljs-params">bar</span>.<span class="hljs-params">c</span>)</span><br>返回值格式: x.o bar.o<br></code></pre></td></tr></table></figure>
+
+<br>
+
+<ol start="7">
+<li>clean<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-meta"><span class="hljs-keyword">.PHONY</span>:clean</span><br><span class="hljs-section">clean:</span><br>    rm *.o -f<br></code></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><p>可以用来清除中间文件，比如我们有a.c,b.c,main.c先生成a.o,b.o,mian.o,再链接生成app，这个时候a.o,b.o,main.o就没有用了，我们可以在Makefile文件末尾添加上述代码执行rm指令用来删除中间文件。但是不是添加了这三行代码就可以删除，需要在shell中执行make clean来调用clean指令。</p>
+</li>
+<li><p>.PHONY:clean这一行的代码的作用是生成clean伪目标，不写这一行代码的话会生成名为clean的文件，如果已经有了clean文件(就会检测更新）因为没有依赖会被当成最新的，不会更新。make clean的话就不会实现我们想要的功能。添加了本行代码的话，即使目录里有clean文件，也可以make clean实现clean功能。</p>
+</li>
+</ul>
+<br>
+
+<ol start="8">
+<li>实战Makefile写法优化<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-comment">#原始版本</span><br><span class="hljs-section">app:sub.c add.c mult.c div.c main.c</span><br>	gcc sub.c add.c mult.c div.c main.c -o app<br><br><span class="hljs-comment">#分离编译 避免每次编译所有源文件</span><br><span class="hljs-section">app:sub.o add.o mult.o div.o main.o</span><br>	gcc sub.o add.o mult.o div.o main.o -o app<br><br><span class="hljs-section">sub.o:sub.c</span><br>	gcc -c sub.c -o sub.o<br><br><span class="hljs-section">add.o:add.c</span><br>	gcc -c add.c -o add.o<br><br><span class="hljs-section">mult.o:mult.c</span><br>	gcc -c mult.c -o mult.o<br><br><span class="hljs-section">div.o:div.c</span><br>	gcc -c div.c -o div.o<br><br><span class="hljs-section">main.o:main.c</span><br>	gcc -c main.c -o main.o<br><br><br><span class="hljs-comment">#变量名优化</span><br>src=sub.o add.o mult.o div.o main.o<br>target=app<br><span class="hljs-variable">$(target)</span>:<span class="hljs-variable">$(src)</span><br>	<span class="hljs-variable">$(CC)</span> <span class="hljs-variable">$(src)</span> -o <span class="hljs-variable">$(target)</span><br><br><span class="hljs-section">sub.o:sub.c</span><br>	gcc -c sub.c -o sub.o<br><br><span class="hljs-section">add.o:add.c</span><br>	gcc -c add.c -o add.o<br><br><span class="hljs-section">mult.o:mult.c</span><br>	gcc -c mult.c -o mult.o<br><br><span class="hljs-section">div.o:div.c</span><br>	gcc -c div.c -o div.o<br><br><span class="hljs-section">main.o:main.c</span><br>	gcc -c main.c -o main.o<br><br><span class="hljs-comment">#模式匹配优化</span><br>src=sub.o add.o mult.o div.o main.o<br>target=app<br><span class="hljs-variable">$(target)</span>:<span class="hljs-variable">$(src)</span><br>	<span class="hljs-variable">$(CC)</span> <span class="hljs-variable">$(src)</span> -o <span class="hljs-variable">$(target)</span><br><br><span class="hljs-section">%.o:%.c</span><br>	<span class="hljs-variable">$(CC)</span> -c <span class="hljs-variable">$&lt;</span> -o <span class="hljs-variable">$@</span><br><br><span class="hljs-comment">#函数优化</span><br><span class="hljs-comment"># add.c sub.c main.c mult.c div.c</span><br>src=<span class="hljs-variable">$(<span class="hljs-built_in">wildcard</span> ./*.c)</span><br>objs=<span class="hljs-variable">$(<span class="hljs-built_in">patsubst</span> %.c, %.o, <span class="hljs-variable">$(src)</span>)</span><br>target=app<br><span class="hljs-variable">$(target)</span>:<span class="hljs-variable">$(objs)</span><br>	<span class="hljs-variable">$(CC)</span> <span class="hljs-variable">$(objs)</span> -o <span class="hljs-variable">$(target)</span><br><br><span class="hljs-section">%.o:%.c</span><br>	<span class="hljs-variable">$(CC)</span> -c <span class="hljs-variable">$&lt;</span> -o <span class="hljs-variable">$@</span><br><br><span class="hljs-meta"><span class="hljs-keyword">.PHONY</span>:clean</span><br><span class="hljs-section">clean:</span><br>	rm <span class="hljs-variable">$(objs)</span> -f<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>Reference<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42518941/article/details/121738390">[1]. Day2-动态库、Makefile</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44387095/article/details/124530708">[2]. Linux编程 Makefile常用知识点总结（项目管理）</a></p>
+<br>
+
+<h3 id="GDB"><a href="#GDB" class="headerlink" title="GDB"></a>GDB</h3><ol>
+<li>什么是GDB</li>
+</ol>
+<ul>
+<li><p>GDB 是由 GNU 软件系统社区提供的调试工具，同 GCC 配套组成了一套完整的开发环境，GDB 是 Linux 和许多类 Unix 系统中的标准开发环境。</p>
+</li>
+<li><p>一般来说，GDB 主要帮助你完成下面四个方面的功能：</p>
+<ul>
+<li>启动程序，可以按照自定义的要求随心所欲的运行程序</li>
+<li>可让被调试的程序在所指定的调置的断点处停住（断点可以是条件表达式）</li>
+<li>当程序被停住时，可以检查此时程序中所发生的事</li>
+<li>可以改变程序，将一个 BUG 产生的影响修正从而测试其他 BUG</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>开启调试</li>
+</ol>
+<p><code>gcc -g -Wall program.c -o program</code></p>
+<p><code>-g</code> 选项的作用是在可执行文件中加入源代码的信息，比如可执行文件中第几条机<br>器指令对应源代码的第几行，但并不是把整个源文件嵌入到可执行文件中，所以在调<br>试时必须保证 gdb 能找到源文件</p>
+<p>另外，<code>-Wall</code>在尽量不影响程序行为的情况下选项打开所有<br>warning，也可以发现许多问题，避免一些不必要的 BUG。</p>
+<ol start="3">
+<li>GDB常用命令</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/35426e2f72b31f10e810eecdc29a8b49.png" srcset="/img/loading.gif" lazyload><br><img src="https://img-blog.csdnimg.cn/img_convert/59d49be3906117e8529f0ad272f152c9.png" srcset="/img/loading.gif" lazyload><br><img src="https://img-blog.csdnimg.cn/img_convert/550b79d5736b1c90ed2c49426323c18d.png" srcset="/img/loading.gif" lazyload></p>
+<br>
+
+<p>Reference<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42518941/article/details/121759315">[1]. Day3-GDB、I&#x2F;O库函数、虚拟内存、文件描述符</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44387095/article/details/124551100?spm=1001.2014.3001.5502">[2]. linux GDB调试工具常用知识点总结（如何debug你的代码）</a></p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
               
             </div>
