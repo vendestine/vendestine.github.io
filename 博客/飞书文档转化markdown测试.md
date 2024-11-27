@@ -27,8 +27,6 @@ hide: false
 
 基于以上，建议在飞书侧编写文档的时候，尽量采用支持的格式，目前已经支持的格式能满足文档撰写（如帮助文档、博客）等场景的文档格式需要。
 
----
-
 # 下面是完整格式演示
 
 ## This is heading 2
@@ -176,8 +174,6 @@ const name = "feishu-pages";
 ## Divider
 
 There is a divider
-
----
 
 To split contents.
 
