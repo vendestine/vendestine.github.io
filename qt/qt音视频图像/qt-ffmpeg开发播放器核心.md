@@ -40,12 +40,12 @@ QT工程中，要使用这两个库，需要去编辑配置文件，这里使用
 |   |   |   +---libavutil
 |   |   |   +---libpostproc
 |   |   |   +---libswresample
-|   |   |   \---libswscale
-|   |   \---lib
-|   |       \---pkgconfig
-|   \---libx264
-|       \---lib
-\---win
+|   |   |   /---libswscale
+|   |   /---lib
+|   |       /---pkgconfig
+|   /---libx264
+|       /---lib
+/---win
     +---libFFmpeg
     |   +---bin
     |   +---include
@@ -56,10 +56,10 @@ QT工程中，要使用这两个库，需要去编辑配置文件，这里使用
     |   |   +---libavutil
     |   |   +---libpostproc
     |   |   +---libswresample
-    |   |   \---libswscale
-    |   \---lib
-    \---libx264
-        \---lib
+    |   |   /---libswscale
+    |   /---lib
+    /---libx264
+        /---lib
 ```
 
 在工程目录中添加了ffmpeg和x264库，现在需要编辑pro文件，来去链接这些库，包含这些库的头文件，主要是使用`INLCUDEPATH +=`添加头文件，`LIBS+=`添加静态库文件，动态库文件我们需要自己拷贝到最终的可执行文件夹的同级目录下，这一步很关键
@@ -79,12 +79,12 @@ win32 {
 DEFINES += JCMPLAYER_WINDOWS
 
 INCLUDEPATH += $$PWD/3rdparty/win/libFFmpeg/include
-LIBS +=   $$PWD/3rdparty/win/libFFmpeg/lib/libavformat.dll.a \
-          $$PWD/3rdparty/win/libFFmpeg/lib/libavcodec.dll.a \
-          $$PWD/3rdparty/win/libFFmpeg/lib/libavutil.dll.a \
-          $$PWD/3rdparty/win/libFFmpeg/lib/libswresample.dll.a \
-          $$PWD/3rdparty/win/libFFmpeg/lib/libswscale.dll.a \
-          $$PWD/3rdparty/win/libFFmpeg/lib/libpostproc.dll.a \
+LIBS +=   $$PWD/3rdparty/win/libFFmpeg/lib/libavformat.dll.a /
+          $$PWD/3rdparty/win/libFFmpeg/lib/libavcodec.dll.a /
+          $$PWD/3rdparty/win/libFFmpeg/lib/libavutil.dll.a /
+          $$PWD/3rdparty/win/libFFmpeg/lib/libswresample.dll.a /
+          $$PWD/3rdparty/win/libFFmpeg/lib/libswscale.dll.a /
+          $$PWD/3rdparty/win/libFFmpeg/lib/libpostproc.dll.a /
           $$PWD/3rdparty/win/libFFmpeg/lib/libavfilter.dll.a
 
 LIBS += -lOpengl32

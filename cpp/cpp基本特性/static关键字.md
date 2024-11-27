@@ -24,7 +24,7 @@ hide: false
 int globalVar = 10; // 定义一个全局变量  
 
 void display() {  
-    printf("Global Variable: %d\n", globalVar);  
+    printf("Global Variable: %d/n", globalVar);  
 }
 ```
 

@@ -12,7 +12,7 @@ hide: false
 
 vscode配置C++开发环境，一般使用MinGW，直接参考官方教程：https://code.visualstudio.com/docs/cpp/config-mingw
 
-然后记得配置环境变量，工具链中所有的可执行文件都放入了`C:\msys64\ucrt64\bin`该目录，所以我们把这个目录添加到环境变量
+然后记得配置环境变量，工具链中所有的可执行文件都放入了`C:/msys64/ucrt64/bin`该目录，所以我们把这个目录添加到环境变量
 
 > 注意，使用不同的shell，环境变量的选取和加载顺序不同，例如git bash shell，它会先加载git bash相关的环境变量，再添加主机的环境变量，qt也是同理，先加载qt文件的环境变量，再添加主机的环境变量，但是msys2，它只会添加自己的环境变量，不会添加主机的环境变量，它和主机之间是完全隔离的
 
@@ -586,8 +586,8 @@ windows平台，在vscode上安装clangd比较简单。
 直接在extenstions里搜素clangd，然后install这个插件即可，安装好后，重新打开窗口检查是否安装成功。clangd.exe存储在如下目录：
 
 ```bash
-clangd path: C:\Users\ventu\AppData\Roaming\Code\User\globalStorage
-\llvm-vs-code-extensions.vscode-clangd\install\18.1.3\clangd_18.1.3\bin\clangd.exe
+clangd path: C:/Users/ventu/AppData/Roaming/Code/User/globalStorage
+/llvm-vs-code-extensions.vscode-clangd/install/18.1.3/clangd_18.1.3/bin/clangd.exe
 ```
 
 ### mac

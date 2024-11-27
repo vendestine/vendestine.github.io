@@ -12,7 +12,7 @@ hide: false
 
 飞书支持的内容非常强大，但是飞书导出的markdown，会丧失一部分功能，所以这里为了兼容mdbook渲染后的体验，对飞书内部文档的编写要做出一定的规范要求。
 
-规范要求主要是取决于文档 [飞书文档转化markdown测试](/博客\飞书文档转化markdown测试)
+规范要求主要是取决于文档 [飞书文档转化markdown测试](/博客/飞书文档转化markdown测试)
 
 ## 添加yaml header
 
@@ -156,7 +156,7 @@ enable = true
 
 ## 上传到github仓库
 
-(1) 将`cswiki\feishu-book\dist\docs`的所有内容，拷贝的md-book目录下，拷贝之后打开cmd，执行`mdbook serve --open` 本地检查是否渲染成功，如果是自己想要的页面，那么就执行`mdbook build` 生成最后需要部署的页面
+(1) 将`cswiki/feishu-book/dist/docs`的所有内容，拷贝的md-book目录下，拷贝之后打开cmd，执行`mdbook serve --open` 本地检查是否渲染成功，如果是自己想要的页面，那么就执行`mdbook build` 生成最后需要部署的页面
 
 (2) 将md-book目录下的内容上传到main分支
 
@@ -176,7 +176,7 @@ enable = true
 
 一般记录是在飞书的知识库下，那么我们要更新到网站的话只需要执行如下步骤
 
-首先所有的操作都发生在`C:\Users\ventu\Desktop\tmp\cswiki`目录下
+首先所有的操作都发生在`C:/Users/ventu/Desktop/tmp/cswiki`目录下
 
 (1) 准备好markdown文件
 
@@ -185,7 +185,7 @@ cd feishu-book
 yarn feishu-pages        # 生成dist目录，里面存放的是飞书知识库导出的所有markdown文件和资源
 ```
 
-(2) copy `C:\Users\ventu\Desktop\tmp\cswiki\feishu-book\dist\docs`所有文件到mdbook项目的根目录下，选择全部替换
+(2) copy `C:/Users/ventu/Desktop/tmp/cswiki/feishu-book/dist/docs`所有文件到mdbook项目的根目录下，选择全部替换
 
 (3) 查看网页渲染效果，没有问题就build
 

@@ -95,7 +95,7 @@ git branch -vv
 
 (2) 还是使用git push，但是此时输入的密码就是token了，git输入密码时，不能展示密码，先复制，然后直接右键按一下就是粘贴了
 
-(3) 为了防止每次输入token，使用git config --global credential.helper store，这样就会把token存入\~/.git-credentials中，文件内容类似于https://\&lt;USERNAME&gt;:\&lt;TOKEN&gt;@github.com
+(3) 为了防止每次输入token，使用git config --global credential.helper store，这样就会把token存入/~/.git-credentials中，文件内容类似于https:///&lt;USERNAME&gt;:/&lt;TOKEN&gt;@github.com
 
 参考：
 

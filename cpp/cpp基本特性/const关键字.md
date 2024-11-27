@@ -169,9 +169,9 @@ int main()
     //*pa = 30;
     *pb = 40;
 
-    printf("a = %d\n", a);
-    printf("b = %d\n", b);
-    printf("*pb = %d\n", *pb);
+    printf("a = %d/n", a);
+    printf("b = %d/n", b);
+    printf("*pb = %d/n", *pb);
     return 0;
 }
 
