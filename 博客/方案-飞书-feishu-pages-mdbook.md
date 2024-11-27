@@ -206,39 +206,43 @@ book目录，git push到gh-pages分支，将这些渲染后的pages文件上传�
 
 ## 为什么远程仓库取名username.github.io
 
-因为我这边的markdown的资源引用都是使用的绝对路径（<em>/assets/xxx.jpg</em>）
+因为我这边的markdown的资源引用都是使用的绝对路径（例如 <em>base-url/assets/xxx.jpg</em>）
 
-/代表的是根目录，我们部署到自己的网站话，根目录是域名，如果是上传到github上，根目录是所在分支的url
+base-url会拼接在请求的url里，site-url会拼接在存储的url里。
 
-为了正确加载资源，我们必须保证，资源的存储url和请求url相等，才能正确访问资源。因为存储和请求的话，都是使用一样的path，所以path一定相同。<b>简单的来讲，我们需要让site-url和根目录一致才可以正确加载</b>
+为了正确加载资源，我们必须保证，资源的存储url和请求url相等，才能正确访问资源。因为存储和请求的话，都是使用一样的prefix和path。<b>所以简单来讲，我们只需要让site-url和base-url一致就可以正确加载</b>
 
-如果创建的仓库名是别的，例如blog，那么site-url是username.github.io/blog，根目录是username.github.io/blog
+### 部署情况
 
-资源存储在site-url下username.github.io/blog；资源请求是在根目录下username.github.io/blog，所以网站上请求资源就会失败
+prefix为域名
+
+如果创建的仓库名是别的，例如blog，
+
+那么site-url是/blog，存储url是username.github.io/blog/path；base-url默认是/，请求url是username.github.io/path，所以此时网站上请求资源就会失败。
 
 解决方法有两种
 
-<b>由于根目录是一级域名无法修改，所以只能想办法修改site-url为一级域名</b>
+要么改变site-url，要么改变base-url，这里选择改变site-url为/
 
-(1) 直接使用username.github.io，这样就可以保证根目录和site-url都是username.github.io
+(1) 仓库名使用username.github.io，这样site-url就是/
 
-(2) 使用自定义的一级域名，如果我们使用自己的一级域名，那么也可以保证根目录和site-url都是一级域名，自然也就相同
+(2) 使用自定义的一级域名，site-url此时是/
 
 ## 为什么markdown文件放在mdbook项目的根目录下，而不是放在src目录下
 
 按照上个问题的的解决方案，我们已经可以在自己的网站上正确加载markdown中的资源引用，但是在github上查看还是不行。
 
-其实这个问题也是和上面的问题类似，<b>为了正确加载资源，我们必须保证site-url和根目录一致。</b>
+其实这个问题也是和上面的问题类似，<b>为了正确加载资源，我们必须保证site-url和base-url一致。</b>
 
-如果在github查看，那么根目录是分支url
+### 非部署情况
 
-如果markdown文件存放在src目录下，那么site-url是xxx.github/main/src，根目录是xxx.github/main
+如果在github查看或者本地查看，那么prefix为项目根目录
 
-资源存储在site-url下xxx.github/main/src；资源请求是在根目录下xxx.github/main，所以加载资源失败
+如果markdown文件存放在src目录下，那么存储url是root/src/path，此时site-url是/src，请求url是root/path，base-url是/，所以加载资源失败。
 
 解决方法：
 
-<b>由于根目录是分支url无法修改，所以只能让site-url和分支url一样</b>
+site-url改成/
 
-将markdown文件存放在mdbook项目目录下，这样子site-url和根目录就都是xxx.github/main这种分支url了
+将markdown文件存放在mdbook项目根目录下，这样子site-url和base-url就都是/，此时请求url和存储url都是root/path
 
