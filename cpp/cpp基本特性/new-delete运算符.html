@@ -1,0 +1,889 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>new delete 运算符 - md-book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">md-book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main/./cpp/cpp基本特性/new-delete运算符.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="new-delete-运算符"><a class="header" href="#new-delete-运算符">new delete 运算符</a></h1>
+<h2 id="介绍"><a class="header" href="#介绍">介绍</a></h2>
+<p>在C++中，<code>new</code>和<code>delete</code>是用于动态内存管理的运算符。它们允许程序在运行时分配和释放内存，这对于处理不确定大小的数据结构（如链表、树等）非常重要。下面是对这两个运算符的详细讲解：</p>
+<h3 id="1-new-运算符"><a class="header" href="#1-new-运算符">1. <code>new</code> 运算符</a></h3>
+<ul>
+<li>功能：<code>new</code>运算符用于在堆上动态分配内存。它返回一个指向所分配内存的指针。</li>
+<li>语法：</li>
+</ul>
+<pre><code class="language-cpp">Type* pointer = new Type; // 分配一个Type类型的对象  
+Type* arrayPointer = new Type[size]; // 分配一个Type类型的数组
+</code></pre>
+<ul>
+<li>示例：</li>
+</ul>
+<pre><code class="language-cpp">int* p = new int; // 分配一个int类型的内存  
+*p = 10; // 给分配的内存赋值  
+
+int* arr = new int[5]; // 分配一个包含5个int的数组  
+for (int i = 0; i &lt; 5; ++i) {    
+    arr[i] = i; // 初始化数组  
+}
+</code></pre>
+<h3 id="2-delete-运算符"><a class="header" href="#2-delete-运算符">2. <code>delete</code> 运算符</a></h3>
+<ul>
+<li>功能：<code>delete</code>运算符用于释放之前通过<code>new</code>分配的内存。使用<code>delete</code>可以避免内存泄漏。</li>
+<li>语法 + 示例：</li>
+</ul>
+<pre><code class="language-cpp">delete p; // 释放之前分配的int内存  
+delete[] arr; // 释放之前分配的int数组内存
+</code></pre>
+<h3 id="3-注意事项"><a class="header" href="#3-注意事项">3. 注意事项</a></h3>
+<ul>
+<li>内存泄漏：如果使用<code>new</code>分配的内存没有用<code>delete</code>释放，就会导致内存泄漏，程序的内存使用量会不断增加。</li>
+<li>双重释放：对同一块内存使用<code>delete</code>两次会导致未定义行为，因此在释放内存后，最好将指针设置为<code>nullptr</code>。</li>
+<li>构造和析构：使用<code>new</code>分配对象时，会调用对象的构造函数；使用<code>delete</code>释放对象时，会调用对象的析构函数。</li>
+</ul>
+<h2 id="用法"><a class="header" href="#用法">用法</a></h2>
+<p>new可以分配单个对象的内存，也可以分配数组对象的内存；分配的内存默认是在堆区；</p>
+<blockquote>
+<p>相关术语：
+new分配单个对象的内存 &lt;=&gt; new创建单个对象 &lt;=&gt; new单个对象
+new分配数组对象的内存 &lt;=&gt; new创建数组对象 &lt;=&gt; new数组对象</p>
+<blockquote>
+<p>new的时候 语法层面有三种写法,(..,), (), 没有()；分别对应有参初始化，无参初始化，不初始化；</p>
+</blockquote>
+</blockquote>
+<h3 id="new单个对象"><a class="header" href="#new单个对象">new单个对象</a></h3>
+<p>(1) 对象是普通变量，可以分配对应的内存</p>
+<ul>
+<li><code>(...)</code> 直接初始化，允许；</li>
+<li><code>()</code>值初始化，允许，初始化为0；</li>
+<li>没有<code>()</code> 默认初始化，允许，分配的内存未定义；</li>
+</ul>
+<p>(2) 对象是类对象，会调用构造函数，如果没有对应的构造函数，就会报错</p>
+<ul>
+<li><code>(...)</code> 直接初始化，允许，找到对应构造函数初始化，没有找到报错</li>
+<li><code>()</code> 值初始化，允许，调用默认构造函数初始化，没有找到报错</li>
+<li>没有<code>()</code> 默认始化，允许，调用默认构造函数初始化，没有找到报错</li>
+</ul>
+<h3 id="new数组对象"><a class="header" href="#new数组对象">new数组对象</a></h3>
+<p>(1) new普通变量数组，可以使用<code>()</code>将所有对象全部初始化为0</p>
+<ul>
+<li><code>(...)</code> 直接初始化，不允许；会报错</li>
+<li><code>()</code>值初始化，允许，数组中对象全部初始化为0；</li>
+<li>没有<code>()</code> 默认初始化，允许，分配的内存未定义；</li>
+</ul>
+<p>(2) new类对象数组，有没有<code>()</code>都一样，均使用默认构造函数，如果没有默认构造函数就 会报错</p>
+<ul>
+<li><code>(...)</code> 直接初始化，不允许；会报错</li>
+<li><code>()</code> 值初始化，允许，调用默认构造函数初始化，没有找到报错</li>
+<li>没有<code>()</code> 默认初始化，允许，调用默认构造函数初始化，没有找到报错</li>
+</ul>
+<p>代码：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+
+class Test
+{
+public:
+    Test() {}
+};
+
+class TestA
+{
+public:
+    TestA(int i_) : i(i_) {}
+
+private:
+    int i;
+};
+
+int main() {
+    // 1. new可以在堆上分配 单个对象 的内存  &lt;=&gt; new可以在堆上创建 单个对象   &lt;=&gt; new单个对象
+
+    // 以下对象 指 分配的对象/创建的对象/new的对象
+
+    // 1.1 对象是普通变量，分配对应的内存
+    
+    int *pi = new int(10);    // 堆上分配int对象的内存，直接初始化
+    std::cout &lt;&lt; *pi &lt;&lt; std::endl;
+   
+    int* pk = new int();     // 堆上分配int对象的内存，值初始化为0;
+    std::cout &lt;&lt; *pk &lt;&lt; std::endl;
+    
+    int *pj = new int;       // 堆上分配int对象的内存，默认初始化，分配内存未定义
+    std::cout &lt;&lt; *pj &lt;&lt; std::endl;
+    
+    delete pi;   
+    delete pj;
+    delete pk;
+
+    // 1.2 对象是类对象，会调用对应的构造函数，如果没有对应的构造函数，就会报错
+    
+    std::string *pString1 = new std::string("hello world");  // 找到对应的构造函数初始化
+    std::cout &lt;&lt; *pString1 &lt;&lt; std::endl;
+
+    std::string *pString2 = new std::string();              // 调用默认构造函数初始化
+    std::cout &lt;&lt; *pString2 &lt;&lt; std::endl;
+    
+    std::string *pString3 = new std::string;                // 调用默认构造函数初始化
+    std::cout &lt;&lt; *pString3 &lt;&lt; std::endl;
+
+    // 这里演示 new单个类对象，找不到对应构造函数报错
+    //Test* t1 = new Test(10);     // 找不到对应构造函数报错
+    
+    delete pString1;
+    delete pString2;
+    delete pString3;
+
+
+    // 2. new可以在堆上分配 数组对象 的内存 &lt;=&gt; new可以在堆上创建 数组对象 &lt;=&gt; new数组对象
+
+    // 2.1 new 普通变量 数组   可以使用（）将所有对象全部初始化为 0    =&gt; 只有()初始化合法
+
+    int *p1 = new int[100]();           // 分配数组对象内存，值参初始化，数组中所有对象全部初始化为0 
+    std::cout &lt;&lt; p1[20] &lt;&lt; std::endl;
+
+    int *p2 = new int[100];             // 分配数组对象内存，默认初始化，分配的内存未定义
+    std::cout &lt;&lt; p2[20] &lt;&lt; std::endl;   
+
+    //int* p3 = new int[100](10);        // 分配数组对象内存，直接初始化，报错，语法规定不允许
+    //std::cout &lt;&lt; p2[20] &lt;&lt; std::endl;   
+
+    delete[] p1;
+    delete[] p2;
+    //delete[] p3;
+
+    // 2.2 对于 类对象 数组   有没有“（）”都一样，均使用默认构造函数，如果没有默认构造函数就会报错
+
+    std::string *pString4 = new std::string[100]();                // 分配数组对象内存，数组中所有对象 使用默认构造函数初始化
+    std::cout &lt;&lt; pString4[20] &lt;&lt; std::endl;
+
+    std::string* pString5 = new std::string[100];                  // 分配数组对象内存，数组中所有对象 使用默认构造函数初始化
+    std::cout &lt;&lt; pString5[20] &lt;&lt; std::endl;
+
+    //std::string* pString6 = new std::string[100]("hello world");   // 分配数组对象内存，有参初始化，报错，语法规定不允许 
+    //std::cout &lt;&lt; pString6[20] &lt;&lt; std::endl;
+
+    // 这里演示 new类对象数组，找不到默认构造函数报错
+    //TestA* t2 = new TestA[100];
+    
+    delete[] pString4;
+    delete[] pString5;
+    //delete[] pStirng6;
+
+    return 0;
+}
+</code></pre>
+<p>运行结果：</p>
+<img src="/assets/LdgmbcnnVom01NxADArc2CiWnIh.png" src-width="542" src-height="200"/>
+<p>上面代码 注释的地方都是之前提到的的问题</p>
+<ul>
+<li>内存未定义</li>
+<li>没有找到对应的构造函数</li>
+<li>new数组对象不允许直接初始化</li>
+</ul>
+<img src="/assets/Idwpbp19OoRj0PxXI7tcluVEnwg.png" src-width="823" src-height="316" align="center"/>
+<p>总结：</p>
+<ul>
+<li>new单个对象，语法层面上有，直接/值/默认 初始化都可以；但是new数组对象上，语法层面上不允许直接初始化；</li>
+<li>new 单个类对象 和 new 类对象数组时，就是要找对应的构造函数，没有找到就会报错</li>
+</ul>
+<h2 id="new的所有初始化"><a class="header" href="#new的所有初始化">new的所有初始化</a></h2>
+<h3 id="1-基本初始化方式"><a class="header" href="#1-基本初始化方式">1. 基本初始化方式</a></h3>
+<h4 id="11-默认初始化"><a class="header" href="#11-默认初始化">1.1 默认初始化</a></h4>
+<pre><code class="language-cpp">int* ptr1 = new int;  // 未初始化，内置类型值是随机的
+</code></pre>
+<h4 id="12-值初始化"><a class="header" href="#12-值初始化">1.2 值初始化</a></h4>
+<pre><code class="language-cpp">int* ptr2 = new int();  // 初始化为0
+</code></pre>
+<h4 id="13-直接初始化"><a class="header" href="#13-直接初始化">1.3 直接初始化</a></h4>
+<pre><code class="language-cpp">int* ptr3 = new int(42);  // 初始化为42
+</code></pre>
+<h4 id="14-列表初始化c11引入"><a class="header" href="#14-列表初始化c11引入">1.4 列表初始化（C++11引入）</a></h4>
+<pre><code class="language-cpp">int* ptr4 = new int{42};  // 使用花括号初始化
+</code></pre>
+<h3 id="2-对象初始化方式"><a class="header" href="#2-对象初始化方式">2. 对象初始化方式</a></h3>
+<h4 id="21-默认构造函数"><a class="header" href="#21-默认构造函数">2.1 默认构造函数</a></h4>
+<pre><code class="language-cpp">class MyClass {  
+public:  
+    MyClass() { value = 0; }  
+    MyClass(int x) : value(x) {}  
+    int value;  
+};  
+
+// 默认构造函数  
+MyClass* obj1 = new MyClass();
+</code></pre>
+<h4 id="22-带参数构造函数"><a class="header" href="#22-带参数构造函数">2.2 带参数构造函数</a></h4>
+<pre><code class="language-cpp">// 带参数的构造函数  
+MyClass* obj2 = new MyClass(10);
+</code></pre>
+<h4 id="23-列表初始化构造函数"><a class="header" href="#23-列表初始化构造函数">2.3 列表初始化构造函数</a></h4>
+<pre><code class="language-cpp">// 列表初始化  
+MyClass* obj3 = new MyClass{10};
+</code></pre>
+<h3 id="3-数组初始化方式"><a class="header" href="#3-数组初始化方式">3. 数组初始化方式</a></h3>
+<h4 id="31-默认数组初始化"><a class="header" href="#31-默认数组初始化">3.1 默认数组初始化</a></h4>
+<pre><code class="language-cpp">// 默认初始化数组  
+int* arr1 = new int[5];  // 未初始化
+</code></pre>
+<h4 id="32-值初始化数组"><a class="header" href="#32-值初始化数组">3.2 值初始化数组</a></h4>
+<pre><code class="language-cpp">// 值初始化数组  
+int* arr2 = new int[5]();  // 全部元素初始化为0
+</code></pre>
+<h4 id="33-直接初始化数组"><a class="header" href="#33-直接初始化数组">3.3 直接初始化数组</a></h4>
+<pre><code class="language-cpp">// 部分初始化数组  
+int* arr3 = new int[5]{1, 2, 3, 4, 5};  // C++11开始支持
+</code></pre>
+<h3 id="4-多维数组初始化"><a class="header" href="#4-多维数组初始化">4. 多维数组初始化</a></h3>
+<h4 id="41-二维数组初始化"><a class="header" href="#41-二维数组初始化">4.1 二维数组初始化</a></h4>
+<pre><code class="language-cpp">// 二维数组初始化  
+int** matrix1 = new int*[3];  
+for (int i = 0; i &lt; 3; ++i) {    
+    matrix1[i] = new int[4]();  // 每行初始化为0  
+}  
+
+// 列表初始化二维数组（C++11）  
+int** matrix2 = new int*[2]{  
+    new int[3]{1, 2, 3},  
+    new int[3]{4, 5, 6}  
+};
+</code></pre>
+<h3 id="5-复杂对象初始化"><a class="header" href="#5-复杂对象初始化">5. 复杂对象初始化</a></h3>
+<h4 id="51-复杂类的构造函数初始化"><a class="header" href="#51-复杂类的构造函数初始化">5.1 复杂类的构造函数初始化</a></h4>
+<pre><code class="language-cpp">class ComplexClass {  
+public:  
+    ComplexClass() = default;  
+    ComplexClass(int a, double b, std::string c)        
+        : x(a), y(b), str(c) {}  
+    
+    int x;  
+    double y;
+    std::string str;  
+};  
+
+// 多参数构造函数初始化  
+ComplexClass* complex1 = new ComplexClass(10, 3.14, "Hello");
+</code></pre>
+<h3 id="6-智能指针初始化现代c推荐"><a class="header" href="#6-智能指针初始化现代c推荐">6. 智能指针初始化（现代C++推荐）</a></h3>
+<h4 id="61-unique_ptr"><a class="header" href="#61-unique_ptr">6.1 unique_ptr</a></h4>
+<pre><code class="language-cpp">#include &lt;memory&gt;  
+
+// 使用 make_unique  
+std::unique_ptr&lt;int&gt; uptr1 = std::make_unique&lt;int&gt;(42);  
+
+// 直接构造  
+std::unique_ptr&lt;MyClass&gt; uptr2 = std::make_unique&lt;MyClass&gt;(10);
+</code></pre>
+<h4 id="62-shared_ptr"><a class="header" href="#62-shared_ptr">6.2 shared_ptr</a></h4>
+<pre><code class="language-cpp">// 使用 make_shared  
+std::shared_ptr&lt;int&gt; sptr1 = std::make_shared&lt;int&gt;(42);  
+
+// 直接构造  
+std::shared_ptr&lt;MyClass&gt; sptr2 = std::make_shared&lt;MyClass&gt;(10);
+</code></pre>
+<h3 id="7-特殊初始化场景"><a class="header" href="#7-特殊初始化场景">7. 特殊初始化场景</a></h3>
+<h4 id="71-placement-new"><a class="header" href="#71-placement-new">7.1 placement new</a></h4>
+<pre><code class="language-cpp">// 在预分配的内存上构造对象  
+char buffer[sizeof(MyClass)];  
+MyClass* placementObj = new (buffer) MyClass(100);
+</code></pre>
+<h3 id="完整示例代码"><a class="header" href="#完整示例代码">完整示例代码</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;  
+#include &lt;string&gt;  
+#include &lt;memory&gt;  
+
+class MyClass {  
+public:  
+    MyClass() : value(0) {        
+        std::cout &lt;&lt; "默认构造函数" &lt;&lt; std::endl;
+    }
+      
+    MyClass(int x) : value(x) {        
+        std::cout &lt;&lt; "带参数构造函数: " &lt;&lt; value &lt;&lt; std::endl;
+    }  
+    ~MyClass() {        
+        std::cout &lt;&lt; "析构函数" &lt;&lt; std::endl;
+    }  
+    
+    int value;  
+};  
+
+int main() {  
+    // 基本类型初始化  
+    int* a = new int;           // 未初始化  
+    int* b = new int();         // 初始化为0  
+    int* c = new int(42);       // 初始化为42  
+    int* d = new int{42};       // 列表初始化  
+
+    // 对象初始化  
+    MyClass* obj1 = new MyClass();        // 默认构造  
+    MyClass* obj2 = new MyClass(10);      // 带参数构造  
+    MyClass* obj3 = new MyClass{20};      // 列表初始化  
+    
+    // 数组初始化  
+    int* arr1 = new int[5];                // 未初始化  
+    int* arr2 = new int[5]();              // 全0  
+    int* arr3 = new int[5]{1, 2, 3, 4, 5}; // 部分初始化  
+    
+    // 智能指针  
+    auto uptr = std::make_unique&lt;MyClass&gt;(30);  
+    auto sptr = std::make_shared&lt;MyClass&gt;(40);  
+    
+    // 释放内存  
+    delete a;  
+    delete b;  
+    delete c;  
+    delete d;  
+    delete obj1;  
+    delete obj2;  
+    delete obj3;  
+    delete arr1;  
+    delete arr2;  
+    delete arr3;  
+    
+    return 0;  
+}
+</code></pre>
+<h3 id="注意事项"><a class="header" href="#注意事项">注意事项</a></h3>
+<ol>
+<li>使用 <code>new</code> 分配的内存必须手动释放，否则会造成内存泄漏</li>
+<li>现代 C++ 推荐使用智能指针（<code>unique_ptr</code>、<code>shared_ptr</code>）</li>
+<li>不同的初始化方式适用于不同的场景</li>
+<li>列表初始化（<code>{}</code>）提供了更严格和安全的初始化方式</li>
+</ol>
+<h3 id="建议"><a class="header" href="#建议">建议</a></h3>
+<ul>
+<li>尽量使用栈上对象和智能指针</li>
+<li>避免手动管理动态内存</li>
+<li>使用 RAII（资源获取即初始化）原则</li>
+</ul>
+<h2 id="mallocfree-和-newdelete之间的区别"><a class="header" href="#mallocfree-和-newdelete之间的区别">malloc/free 和 new/delete之间的区别</a></h2>
+<p>参考视频：</p>
+<p>https://www.bilibili.com/video/BV1Qm411z7AH/?spm_id_from=333.337.search-card.all.click&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<p>自己的理解：</p>
+<p>背景：malloc、free c语言中库函数，new、delete是c+中操作符</p>
+<p>(1) malloc和new的区别</p>
+<p>内存大小的计算：new自动计算所需分配内存大小，malloc需要手动计算</p>
+<p>返回的指针类型：new返回的是对象类型的指针，malloc返回的是void*,之后进行类型转换</p>
+<p>分配失败后的处理：neW分配失败会抛出异常，malloc分配失败返回的是NULL;</p>
+<p>分配区域：new是在free store上分配内存，malloc堆上分配：</p>
+<p>(2) delete和free的区别</p>
+<p>参数区别：delete需要对象类型的指针，free是vo1d*类型的指针：</p>
+<p>new的简要流程</p>
+<ol>
+<li>operator new</li>
+<li>申请足够的空间</li>
+<li>调用构造函数，初始化成员变量</li>
+</ol>
+<p>delete的简要流程</p>
+<ol>
+<li>先调用析构函数</li>
+<li>operator delete</li>
+<li>释放空间</li>
+</ol>
+<p>引申问题：</p>
+<p>(1) malloc是怎么分配空间的？</p>
+<p>malloc内存分配的核心机制：</p>
+<p>1-内存分配基本流程</p>
+<pre><code class="language-cpp">void* malloc(size_t size) {  
+    // 1. 参数检查  
+    if (size == 0) return NULL;  
+    
+    // 2. 内存大小调整  
+    size_t actual_size = adjust_size(size);  
+    
+    // 3. 查找可用内存块  
+    voidmemory_block = find_free_block(actual_size);  
+    
+    // 4. 如果没有可用内存块，向系统申请  
+    if (memory_block == NULL) {
+        memory_block = request_system_memory(actual_size);
+    }  
+    
+    // 5. 标记内存块为已使用  
+    mark_block_used(memory_block);  
+    return memory_block;  
+}
+</code></pre>
+<p>2-内存分配的关键步骤</p>
+<p>2.1-大小调整</p>
+<ul>
+<li>对齐内存大小（通常是8或16字节对齐）</li>
+<li>增加内存块管理所需的额外空间</li>
+</ul>
+<pre><code class="language-cpp">size_t adjust_size(size_t size) {  
+    // 内存对齐  
+    size_t aligned_size = (size + 7) &amp; ~0x7;  
+    
+    // 额外的块管理信息  
+    return aligned_size + BLOCK_HEADER_SIZE;  
+}
+</code></pre>
+<p>2.2-内存块查找策略</p>
+<ul>
+<li>空闲链表查找</li>
+<li>最佳匹配算法</li>
+</ul>
+<pre><code class="language-cpp">void* find_free_block(size_t size) {  
+    // 遍历空闲链表  
+    for (free_block* block = free_list_head; block != NULL; block = block-&gt;next) {  
+        // 找到合适大小的块  
+        if (block-&gt;size &gt;= size) {  // 从空闲链表移除  
+            remove_from_free_list(block);  
+            return block;        
+        }    
+    }  
+    return NULL;  
+}
+</code></pre>
+<p>3-系统内存申请方法</p>
+<p>3.1-小内存申请（&lt;128KB）</p>
+<ul>
+<li>使用<code>sbrk()</code>系统调用</li>
+<li>扩展进程堆空间</li>
+</ul>
+<pre><code class="language-cpp">void* request_small_memory(size_t size) {  
+    // 使用sbrk()扩展堆  
+    void new_memory = sbrk(size);  
+    
+    // 更新堆信息  
+    update_heap_metadata(new_memory, size);  
+    
+    return new_memory;  
+}
+</code></pre>
+<p>3.2 大内存申请（&gt;128KB）</p>
+<ul>
+<li>使用<code>mmap()</code>系统调用</li>
+<li>直接映射虚拟内存</li>
+</ul>
+<pre><code class="language-cpp">void* request_large_memory(size_t size) {  
+    return mmap(NULL,           // 系统分配地址  
+                size,           // 请求大小  
+                PROT_READ | PROT_WRITE,  // 读写权限  
+                MAP_PRIVATE | MAP_ANONYMOUS,   
+                -1,             // 无文件描述符  
+                0);             // 无文件偏移  
+}
+</code></pre>
+<p>4-内存块管理结构</p>
+<pre><code class="language-cpp">// 内存块管理结构  
+typedef struct memory_block {  
+    size_t size;           // 块大小  
+    int is_free;           // 是否空闲  
+    struct memory_block* next;  // 下一个块  
+    struct memory_block* prev;  // 前一个块  
+} 
+memory_block;
+</code></pre>
+<p>5-内存分配算法</p>
+<p>5.1 空闲链表管理</p>
+<ul>
+<li>维护空闲内存块链表</li>
+<li>支持块的合并和分割</li>
+</ul>
+<pre><code class="language-cpp">void merge_free_blocks() {
+    memory_block* current = free_list_head;  
+    while (current &amp;&amp; current-&gt;next) {  
+        // 检查相邻块是否可以合并  
+        if (is_contiguous_and_free(current, current-&gt;next)) {
+            merge_blocks(current, current-&gt;next);
+        }
+        current = current-&gt;next;
+    }  
+}
+</code></pre>
+<p>6-内存对齐技术</p>
+<pre><code class="language-cpp">// 内存对齐宏  
+#define ALIGN(size) (((size) + sizeof(size_t) - 1) &amp; ~(sizeof(size_t) - 1))
+</code></pre>
+<p>实际分配流程总结</p>
+<ol>
+<li>
+<p>检查请求大小</p>
+</li>
+<li>
+<p>调整内存大小（对齐）</p>
+</li>
+<li>
+<p>查找空闲内存块</p>
+</li>
+<li>
+<p>如果没有合适块，向系统申请内存</p>
+<ul>
+<li>小内存：使用<code>sbrk()</code></li>
+<li>大内存：使用<code>mmap()</code></li>
+</ul>
+</li>
+<li>
+<p>标记内存块为已使用</p>
+</li>
+<li>
+<p>返回内存指针</p>
+</li>
+</ol>
+<p>(2) mal1oc分配的物理内存还是虚拟内存？</p>
+<p>malloc分配的是虚拟内存</p>
+<ul>
+<li>当你调用<code>malloc()</code>时，实际上分配的是虚拟内存地址空间</li>
+<li>操作系统使用虚拟内存映射机制，将虚拟内存映射到物理内存</li>
+<li>只有当程序实际访问这些内存时，才会触发缺页中断，真正分配物理内存页</li>
+</ul>
+<p>(3) malloc调用后是否立刻得到物理内存？</p>
+<p>不是立即获得</p>
+<ul>
+<li>分配虚拟内存是瞬间完成的</li>
+<li>物理内存是延迟分配的（按需分页）</li>
+<li>只有在程序首次读写这块内存时，操作系统才会分配真正的物理内存页</li>
+<li>延迟分配示例:</li>
+</ul>
+<pre><code class="language-cpp">intptr = malloc(1024 * sizeof(int));  // 只分配虚拟内存  // 此时没有实际的物理内存分配  
+ptr[0] = 42;  // 首次写入时，触发缺页中断，分配物理内存
+</code></pre>
+<p>(4) free(p)怎么知道该释放多大的空间？</p>
+<p>通过内存块的元数据信息</p>
+<ul>
+<li>malloc在分配内存时，会在内存块前面添加一个头部（metadata）</li>
+<li>头部记录了内存块的大小和其他管理信息</li>
+<li>free()通过读取这个头部，就能知道要释放的内存大小</li>
+<li>内存块结构示例</li>
+</ul>
+<pre><code class="language-cpp">struct MemoryBlock {  
+    size_t size;       // 记录内存块大小  
+    int is_free;       // 标记是否空闲  
+    // 其他管理信息  
+};
+</code></pre>
+<p>(5) free释放内存后，内存还在吗？</p>
+<p>内存仍然存在，但被标记为可重用</p>
+<ul>
+<li>free()并不会立即将内存返回给操作系统</li>
+<li>内存被放回内存管理器的空闲列表</li>
+<li>下次malloc可能会重用这块内存</li>
+<li>只有在特定条件下（如大块内存），才会真正归还给操作系统</li>
+<li>内存管理示意:</li>
+</ul>
+<pre><code class="language-cpp">void free(voidptr) {  
+    // 1. 找到内存块  
+    MemoryBlock* block = (MemoryBlock*)(ptr - sizeof(MemoryBlock));  
+    
+    // 2. 标记为空闲  
+    block-&gt;is_free = 1;  
+    
+    // 3. 可能进行块合并  
+    merge_adjacent_free_blocks(block);  
+    
+    // 4. 加入空闲链表，等待重用  
+    add_to_free_list(block);  
+}
+</code></pre>
+<p>(6) malloc, free, new, delete的伪代码</p>
+<p>C语言风格：malloc 和 free</p>
+<pre><code class="language-cpp">// malloc 伪代码  
+void* my_malloc(size_t size) {  
+    // 1. 参数检查  
+    if (size == 0) return NULL;  
+    
+    // 2. 内存大小调整（对齐）  
+    size_t aligned_size = ALIGN(size);  
+    
+    // 3. 查找空闲内存块  
+    voidmemory = find_free_block(aligned_size);  
+    
+    // 4. 如果没有空闲块，向系统申请内存  
+    if (memory == NULL) {        
+        memory = request_system_memory(aligned_size);
+    }  
+    
+    // 5. 记录内存块元数据  
+    if (memory) {  
+        store_block_metadata(memory, aligned_size);
+    }  
+    
+    return memory;  
+}  
+
+// free 伪代码  
+void my_free(void* ptr) {  
+    // 1. 空指针检查  
+    if (ptr == NULL) return;  
+
+    // 2. 获取内存块元数据  
+    MemoryBlockHeader* header = get_block_header(ptr);  
+
+    // 3. 标记内存块为可用  
+    header-&gt;is_free = true;  
+
+    // 4. 尝试合并相邻空闲块  
+    merge_adjacent_free_blocks(header);  
+
+    // 5. 可能返回系统（取决于内存管理策略）  
+    try_return_to_system(header);  
+}
+</code></pre>
+<p>C++风格：new 和 delete</p>
+<pre><code class="language-cpp">// new 伪代码  
+void* operator new(size_t size) {  
+    // 1. 调用 malloc 分配内存  
+    void* memory = my_malloc(size);  
+
+    // 2. 内存分配失败处理  
+    if (memory == NULL) {  
+        throw std::bad_alloc();  // C++ 特有的异常处理  
+    }  
+    
+    return memory;  // 返回分配的内存指针
+}  
+
+// delete 伪代码  
+void operator delete(void* ptr) noexcept {  
+    // 1. 空指针检查  
+    if (ptr == NULL) return;  
+
+    // 2. 释放内存（调用 free）  
+    my_free(ptr);  
+}
+
+
+// new 伪代码  
+template &lt;typename T, typename... Args&gt;  
+T* my_new(Args&amp;&amp;... args) {  
+    // 1. 调用 operator new 分配内存  
+    void* raw_memory = operator new(sizeof(T));  
+
+   // 2. 在分配的内存上调用构造函数  
+    T* object = static_cast&lt;T*&gt;(raw_memory);  
+    new (object) T(std::forward&lt;Args&gt;(args)...);  // placement new   
+
+    return object;  // 返回指向新对象的指针  
+}  
+
+// delete 伪代码  
+template &lt;typename T&gt;  
+void my_delete(T* ptr) {  
+    // 1. 空指针检查  
+    if (ptr == NULL) return;  
+
+    // 2. 调用析构函数  
+    ptr-&gt;~T();  
+
+    // 3. 调用 operator delete 释放内存  
+    operator delete(static_cast&lt;void*&gt;(ptr));  
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../cpp/cpp基本特性.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../cpp/cpp基本特性/命名空间.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../cpp/cpp基本特性.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../cpp/cpp基本特性/命名空间.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

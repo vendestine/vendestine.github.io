@@ -1,0 +1,291 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>git远程相关操作 - md-book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">md-book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main/./git/git远程相关操作.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="git远程相关操作"><a class="header" href="#git远程相关操作">git远程相关操作</a></h1>
+<h2 id="本地仓库初次上传到远程仓库"><a class="header" href="#本地仓库初次上传到远程仓库">本地仓库初次上传到远程仓库</a></h2>
+<img src="/assets/VaJ4bZb2eoMNBqx2XxJcBu82nXf.png" src-width="783" src-height="226"/>
+<h1 id="clone完仓库后本地选取对应的远程分支进行开发"><a class="header" href="#clone完仓库后本地选取对应的远程分支进行开发">clone完仓库后，本地选取对应的远程分支进行开发</a></h1>
+<pre><code class="language-bash">git checkout origin/dev
+git checkout -b dev 
+git check -b dev origin/dev
+</code></pre>
+<p>上面两条命令组合和下面一条命令效果一样吗? 答案是不一样！</p>
+<h2 id="解析"><a class="header" href="#解析">解析</a></h2>
+<p>(1) <code>git checkout origin/dev</code></p>
+<p>这条命令用于切换到远程的 <code>dev</code> 分支，但不会在本地创建一个新的分支。你将处于“游离头指针”（detached HEAD）状态，意味着你在查看远程分支的内容，但没有在本地创建一个对应的分支。</p>
+<p>(2) <code>git checkout -b dev</code></p>
+<p>这条命令用于在本地创建一个新的分支 <code>dev</code>，并切换到该分支。此时，<code>dev</code> 分支是一个独立的本地分支，与远程分支没有直接关联。</p>
+<p>(3) <code>git checkout -b dev origin/dev</code></p>
+<p>这条命令用于在本地创建一个新的分支 <code>dev</code>，并将其设置为跟踪远程的 <code>origin/dev</code> 分支。这样，当你在本地 <code>dev</code> 分支上进行更改并推送时，Git 会知道将更改推送到远程的 <code>dev</code> 分支。</p>
+<h2 id="结论"><a class="header" href="#结论">结论</a></h2>
+<p><b>组合命令</b>：如果你先执行 <code>git checkout origin/dev</code>，然后执行 <code>git checkout -b dev</code>，你会得到一个新的本地分支 <code>dev</code>，但这个分支的起点是你在 <code>origin/dev</code> 上的游离状态。这意味着 <code>dev</code> 分支不会自动跟踪 <code>origin/dev</code>。</p>
+<p><b>单条命令</b>：<code>git checkout -b dev origin/dev</code> 直接创建一个新的本地分支 <code>dev</code>，并将其设置为跟踪远程的 <code>origin/dev</code> 分支。</p>
+<p>因此，虽然组合命令和单条命令都可以创建一个名为 <code>dev</code> 的本地分支，但它们的效果并不完全相同：</p>
+<p><b>组合命令</b>：创建的 <code>dev</code> 分支不会自动跟踪 <code>origin/dev</code></p>
+<p><b>单条命令</b>：创建的 <code>dev</code> 分支会自动跟踪 <code>origin/dev</code></p>
+<p>如果你希望本地分支 <code>dev</code> 跟踪远程分支，建议使用 <code>git checkout -b dev origin/dev</code></p>
+<h2 id="正确的组合命令"><a class="header" href="#正确的组合命令">正确的组合命令</a></h2>
+<p>那么组合命令，如何设置自动跟踪origin/dev</p>
+<p>如果你使用组合命令 <code>git checkout origin/dev</code> 和 <code>git checkout -b dev</code> 创建了本地分支 <code>dev</code>，但希望将其设置为自动跟踪远程的 <code>origin/dev</code> 分支，可以使用以下步骤：</p>
+<p>(1) 创建本地分支并切换</p>
+<p>首先，使用组合命令创建本地分支 <code>dev</code>：</p>
+<pre><code class="language-text">git checkout origin/dev  # 切换到远程分支，处于游离状态  
+git checkout -b dev      # 创建本地分支 dev
+</code></pre>
+<p>(2) 设置跟踪关系</p>
+<p>接下来，使用以下命令将本地 <code>dev</code> 分支设置为跟踪远程的 <code>origin/dev</code> 分支：</p>
+<pre><code class="language-bash">git branch --set-upstream-to=origin/dev dev
+</code></pre>
+<p>(3) 验证跟踪关系</p>
+<p>你可以使用以下命令来验证本地分支 <code>dev</code> 是否正确跟踪远程分支：</p>
+<pre><code class="language-bash">git branch -vv
+</code></pre>
+<p>这将显示所有本地分支及其跟踪的远程分支。</p>
+<p>通过以上步骤，你可以将本地分支 <code>dev</code> 设置为自动跟踪远程的 <code>origin/dev</code> 分支。这样，当你在本地 <code>dev</code> 分支上进行更改并推送时，Git 会知道将更改推送到远程的 <code>dev</code> 分支</p>
+<h1 id="git-push远程仓库authentication出错"><a class="header" href="#git-push远程仓库authentication出错">git push远程仓库authentication出错</a></h1>
+<img src="/assets/Vs1DbUHk9oppx8xcInCcRicInHf.png" src-width="915" src-height="82" align="center"/>
+<p>有很多种解决办法，我认为最好的解决办法就是使用git credential</p>
+<p>(1) 首先就是创建token，创建完后自己可以选择保存下来，方便后续使用</p>
+<p>(2) 还是使用git push，但是此时输入的密码就是token了，git输入密码时，不能展示密码，先复制，然后直接右键按一下就是粘贴了</p>
+<p>(3) 为了防止每次输入token，使用git config –global credential.helper store，这样就会把token存入/~/.git-credentials中，文件内容类似于https:///&lt;USERNAME&gt;:/&lt;TOKEN&gt;@github.com</p>
+<p>参考：</p>
+<p>[1] https://stackoverflow.com/questions/68775869/message-support-for-password-authentication-was-removed</p>
+<p>[2] <a href="https://git-scm.com/book/en/v2/Git-Tools-Credential-Storage">https://git-scm.com/book/en/v2/Git-Tools-Credential-Storage</a></p>
+<h1 id="git-push大文件失败"><a class="header" href="#git-push大文件失败">git push大文件失败</a></h1>
+<p>要解决由于文件大小超过 GitHub 的限制而导致的 <code>git push</code> 失败问题，可以考虑使用 Git Large File Storage (LFS) Git LFS 是一个 Git 扩展，专门用于处理大文件。通过使用 Git LFS，您可以将大文件存储在外部服务器上，从而避免 GitHub 的文件大小限制。</p>
+<p>使用方法：</p>
+<p>(1) <b>安装 Git LFS</b>：</p>
+<p>根据您的系统，从 <a href="https://git-lfs.github.com/">Git LFS 官网</a> 下载并安装。</p>
+<p>(2) <b>初始化 Git LFS</b>：</p>
+<pre><code class="language-text">git lfs install
+</code></pre>
+<p>(3) <b>跟踪大文件</b>： 假设您的大文件路径是 <code>Resources/ffmpeg.exe</code>：</p>
+<pre><code class="language-text">git lfs track "Resources/ffmpeg.exe"
+</code></pre>
+<p>(4) <b>添加跟踪配置到仓库</b>：</p>
+<pre><code class="language-text">git add .gitattributes
+</code></pre>
+<p>(5) <b>提交和推送文件</b>：</p>
+<pre><code class="language-text">git add Resources/ffmpeg.exe  
+git commit -m "Add ffmpeg with Git LFS"  
+git push origin main
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../git/git开发常用操作.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../git/git代理相关操作.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../git/git开发常用操作.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../git/git代理相关操作.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

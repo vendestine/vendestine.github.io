@@ -1,0 +1,537 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>构造函数，析构函数 - md-book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">md-book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main/./cpp/cpp类特性/构造函数析构函数.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="构造函数析构函数"><a class="header" href="#构造函数析构函数">构造函数，析构函数</a></h1>
+<h2 id="介绍"><a class="header" href="#介绍">介绍</a></h2>
+<p>在C++中，构造函数和析构函数是类的重要组成部分，它们用于对象的初始化和清理。下面是对这两个概念的详细讲解：</p>
+<h3 id="构造函数constructor"><a class="header" href="#构造函数constructor">构造函数（Constructor）</a></h3>
+<p>构造函数是一个特殊的成员函数，用于初始化对象。当创建对象时，构造函数会被自动调用。构造函数的名称与类名相同，并且没有返回值。</p>
+<p>特点：</p>
+<ul>
+<li>名称相同：构造函数的名称与类名相同。</li>
+<li>没有返回值：构造函数不返回任何值，也不可以指定返回类型。</li>
+<li>可以重载：可以定义多个构造函数，参数不同以实现不同的初始化方式。</li>
+</ul>
+<pre><code class="language-cpp">class Point {  
+private:  
+    int x, y;  
+
+public:  
+    // 默认构造函数  
+    Point() {  
+        x = 0;  
+        y = 0;  
+    }  
+
+    // 带参数的构造函数  
+    Point(int xVal, int yVal) {  
+        x = xVal;  
+        y = yVal;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Point(" &lt;&lt; x &lt;&lt; ", " &lt;&lt; y &lt;&lt; ")" &lt;&lt; std::endl;  
+    }  
+};  
+
+int main() {  
+    Point p1; // 调用默认构造函数  
+    Point p2(10, 20); // 调用带参数的构造函数  
+
+    p1.display(); // 输出: Point(0, 0)  
+    p2.display(); // 输出: Point(10, 20)  
+
+    return 0;  
+}
+</code></pre>
+<h3 id="析构函数destructor"><a class="header" href="#析构函数destructor">析构函数（Destructor）</a></h3>
+<p>析构函数是一个特殊的成员函数，用于清理对象在其生命周期内所占用的资源。当对象的生命周期结束时，析构函数会被自动调用。析构函数的名称与类名相同，但前面加上一个波浪号（<code>~</code>），同样没有返回值。</p>
+<p>特点：</p>
+<ul>
+<li>名称相同：析构函数的名称与类名相同，但前面加上<code>~</code>。</li>
+<li>没有参数：析构函数不接受参数，也不能重载。</li>
+<li>自动调用：当对象的作用域结束或被删除时，析构函数会自动调用。</li>
+</ul>
+<pre><code class="language-cpp">class Resource {  
+public:  
+    Resource() {  
+        std::cout &lt;&lt; "Resource acquired." &lt;&lt; std::endl;  
+    }  
+
+    ~Resource() {  
+        std::cout &lt;&lt; "Resource released." &lt;&lt; std::endl;  
+    }  
+};  
+
+int main() {  
+    Resource res; // 创建对象时调用构造函数  
+    // 当res超出作用域时，析构函数会被调用  
+    return 0;  
+}
+</code></pre>
+<h3 id="构造函数和析构函数的作用"><a class="header" href="#构造函数和析构函数的作用">构造函数和析构函数的作用</a></h3>
+<ul>
+<li>构造函数：用于初始化对象的状态，分配资源（如动态内存、文件句柄等）。</li>
+<li>析构函数：用于释放对象占用的资源，防止内存泄漏和资源浪费。</li>
+</ul>
+<h3 id="动态内存分配中的构造和析构"><a class="header" href="#动态内存分配中的构造和析构">动态内存分配中的构造和析构</a></h3>
+<p>在使用动态内存分配（如使用<code>new</code>关键字）时，构造函数和析构函数的作用尤为重要。</p>
+<pre><code class="language-cpp">class MyClass {  
+public:  
+    MyClass() {  
+        std::cout &lt;&lt; "Constructor called." &lt;&lt; std::endl;  
+    }  
+
+    ~MyClass() {  
+        std::cout &lt;&lt; "Destructor called." &lt;&lt; std::endl;  
+    }  
+};  
+
+int main() {  
+    MyClass* obj = new MyClass(); // 调用构造函数  
+    delete obj; // 调用析构函数  
+    return 0;  
+}
+</code></pre>
+<h2 id="用法"><a class="header" href="#用法">用法</a></h2>
+<p>构造函数：</p>
+<p>类相当于定义了一个新类型，该类型生成在堆或栈上的对象时内存排布和 c 语言相同。但是 c++规定，C++有在类对象创建时就在对应内存将数据初始化的能力，这就是构造函数。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Test
+{
+public:
+    // 类的函数 常用写法1 直接类内部实现
+    Test() 
+    {
+        std::cout &lt;&lt; "默认构造函数" &lt;&lt; std::endl;
+    }
+    Test(int i_, int j_, int k_) : i(i_), j(j_), k(new int(k_)) 
+    {
+        std::cout &lt;&lt; "普通构造函数" &lt;&lt; std::endl;
+    }
+    Test(const Test&amp; test) : i(test.i), j(test.j), k(new int(*test.k)) // 深拷贝写法
+    {
+        std::cout &lt;&lt; "拷贝构造函数" &lt;&lt; std::endl;
+    }
+
+    ~Test()
+    {
+        delete k;
+    }
+
+private:
+    int i;
+    int j;
+    int* k;
+};
+
+
+int main() {
+    Test t1;
+    Test t2(1, 2, 3);
+    
+    //Test t3 = t1;    // 这里会报错，因为此时t1.k是nullptr，解引用会报错的
+    
+    // 拷贝构造函数的两种写法
+    Test t4(t2);
+    Test t5 = t4;
+    return 0;
+}
+</code></pre>
+<p>构造函数就是 C++提供的必须有的在对象创建时初始化对象的方法，（默认的什么都不做也是一种初始化的方式）</p>
+<p>析构函数：</p>
+<p>析构函数介绍：当类对象被销毁时，就会调用析构函数。栈上对象的销毁时机就是函数栈销毁时，堆上的对象销毁时机就是该堆内存被手动释放时，如果用new申请的这块堆内存，那调用 delete 销毁这块内存时就会调用析构函数。</p>
+<p>当类对象销毁时有一些我们必须手动操作的步骤时，析构函数就派上了用场。所以，几乎所有的类我们都要写构造函数，析构函数却未必需要。</p>
+<h2 id="构造函数有哪些类型"><a class="header" href="#构造函数有哪些类型">构造函数有哪些类型</a></h2>
+<p>在C++中，构造函数主要有以下几种类型，每种类型都有其特定的用途和特点。下面我将逐一介绍这些构造函数，并提供相应的示例代码。</p>
+<h3 id="默认构造函数"><a class="header" href="#默认构造函数">默认构造函数</a></h3>
+<p>默认构造函数是指在没有提供任何参数的情况下被调用的构造函数。它可以是无参构造函数，也可以是带有默认参数的构造函数。</p>
+<pre><code class="language-cpp">class Person {  
+public:  
+    Person() {  // 默认构造函数  
+        name = "未知";  
+        age = 0;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; ", Age: " &lt;&lt; age &lt;&lt; std::endl;  
+    }  
+
+private:  
+    std::string name;  
+    int age;  
+};  
+
+int main() {  
+    Person p;  // 调用默认构造函数  
+    p.display();  // 输出: Name: 未知, Age: 0  
+    return 0;  
+}
+</code></pre>
+<h3 id="带参数的构造函数"><a class="header" href="#带参数的构造函数">带参数的构造函数</a></h3>
+<p>带参数的构造函数允许在创建对象时传递参数，以初始化对象的成员变量。</p>
+<pre><code class="language-cpp">class Person {  
+public:  
+    Person(std::string n, int a) {  // 带参数的构造函数  
+        name = n;  
+        age = a;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; ", Age: " &lt;&lt; age &lt;&lt; std::endl;  
+    }  
+
+private:  
+    std::string name;  
+    int age;  
+};  
+
+int main() {  
+    Person p("Alice", 30);  // 调用带参数的构造函数  
+    p.display();  // 输出: Name: Alice, Age: 30  
+    return 0;  
+}
+</code></pre>
+<h3 id="拷贝构造函数"><a class="header" href="#拷贝构造函数">拷贝构造函数</a></h3>
+<p>拷贝构造函数用于通过另一个同类对象来初始化新对象。它通常用于对象的复制。</p>
+<pre><code class="language-cpp">class Person {  
+public:  
+    Person(std::string n, int a) {  // 带参数的构造函数  
+        name = n;  
+        age = a;  
+    }  
+
+    Person(const Person &amp;other) {  // 拷贝构造函数  
+        name = other.name;  
+        age = other.age;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; ", Age: " &lt;&lt; age &lt;&lt; std::endl;  
+    }  
+
+private:  
+    std::string name;  
+    int age;  
+};  
+
+int main() {  
+    Person p1("Bob", 25);  // 调用带参数的构造函数  
+    Person p2 = p1;  // 调用拷贝构造函数  
+    p2.display();  // 输出: Name: Bob, Age: 25  
+    return 0;  
+}
+</code></pre>
+<h3 id="移动构造函数"><a class="header" href="#移动构造函数">移动构造函数</a></h3>
+<p>移动构造函数在C++11中引入，用于通过移动语义来初始化对象，通常用于优化性能，避免不必要的复制。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;  
+#include &lt;string&gt;  
+
+class Person {  
+public:  
+    Person(std::string n, int a) : name(n), age(a) {  // 带参数的构造函数  
+        std::cout &lt;&lt; "构造: " &lt;&lt; name &lt;&lt; std::endl;  
+    }  
+
+    Person(Person &amp;&amp;other) noexcept {  // 移动构造函数  
+        name = std::move(other.name);  
+        age = other.age;  
+        std::cout &lt;&lt; "移动构造: " &lt;&lt; name &lt;&lt; std::endl;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; ", Age: " &lt;&lt; age &lt;&lt; std::endl;  
+    }  
+
+private:  
+    std::string name;  
+    int age;  
+};  
+
+int main() {  
+    Person p1("Charlie", 40);  // 调用带参数的构造函数  
+    Person p2 = std::move(p1);  // 调用移动构造函数  
+    p2.display();  // 输出: Name: Charlie, Age: 40  
+    return 0;  
+}
+</code></pre>
+<h3 id="委托构造函数"><a class="header" href="#委托构造函数">委托构造函数</a></h3>
+<p>委托构造函数允许一个构造函数调用另一个构造函数，以减少代码重复。</p>
+<pre><code class="language-cpp">class Person {  
+public:  
+    Person() : Person("未知", 0) {  // 委托构造函数  
+        // 可以留空  
+    }  
+
+    Person(std::string n, int a) {  // 带参数的构造函数  
+        name = n;  
+        age = a;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; ", Age: " &lt;&lt; age &lt;&lt; std::endl;  
+    }  
+
+private:  
+    std::string name;  
+    int age;  
+};  
+
+int main() {  
+    Person p;  // 调用默认构造函数，实际上委托给了带参数的构造函数  
+    p.display();  // 输出: Name: 未知, Age: 0  
+    return 0;  
+}
+</code></pre>
+<h3 id="explicit构造函数"><a class="header" href="#explicit构造函数">explicit构造函数</a></h3>
+<p>使用<code>explicit</code>关键字可以防止构造函数被隐式调用，避免不必要的类型转换。</p>
+<pre><code class="language-cpp">class Person {  
+public:  
+    explicit Person(int a) {  // explicit构造函数  
+        age = a;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Age: " &lt;&lt; age &lt;&lt; std::endl;  
+    }  
+
+private:  
+    int age;  
+};  
+
+int main() {  
+    Person p(30);  // 正确，调用构造函数  
+    p.display();  // 输出: Age: 30  
+
+    // Person p2 = 40;  // 错误，不能隐式转换  
+    return 0;  
+}
+</code></pre>
+<h2 id="类中没有显示定义默认构造函数什么时候生成默认构造函数"><a class="header" href="#类中没有显示定义默认构造函数什么时候生成默认构造函数">类中没有显示定义默认构造函数，什么时候生成默认构造函数</a></h2>
+<p>视频讲解：</p>
+<p>https://www.bilibili.com/video/BV1AixqeNE6y?spm_id_from=333.788.videopod.sections&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<p>编译器只会在有必要的时候生成默认构造函数，有必要具体看是否能正确初始化对象（成员变量）</p>
+<h2 id="类中没有显示定义默认拷贝构造函数什么时候生成默认拷贝构造函数"><a class="header" href="#类中没有显示定义默认拷贝构造函数什么时候生成默认拷贝构造函数">类中没有显示定义默认拷贝构造函数，什么时候生成默认拷贝构造函数</a></h2>
+<p>视频讲解：</p>
+<p>https://www.bilibili.com/video/BV1LVxje8EF4/?spm_id_from=333.788.comment.all.click&amp;vd_source=cec2e4e6aff81caf6c36bcd4265ba034</p>
+<p>编译器只会在有必要的时候生成默认拷贝构造函数，有必要具体看位拷贝语义是否能正确初始化对象（成员变量）</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../cpp/cpp类特性/类对象.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../cpp/cpp类特性/常成员函数常对象.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../cpp/cpp类特性/类对象.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../cpp/cpp类特性/常成员函数常对象.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

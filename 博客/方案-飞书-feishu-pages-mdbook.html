@@ -1,0 +1,379 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>方案：飞书 + feishu-pages + mdbook - md-book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">md-book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main/./博客/方案-飞书-feishu-pages-mdbook.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="方案飞书--feishu-pages--mdbook"><a class="header" href="#方案飞书--feishu-pages--mdbook">方案：飞书 + feishu-pages + mdbook</a></h1>
+<h1 id="飞书编写文档"><a class="header" href="#飞书编写文档">飞书编写文档</a></h1>
+<p>飞书支持的内容非常强大，但是飞书导出的markdown，会丧失一部分功能，所以这里为了兼容mdbook渲染后的体验，对飞书内部文档的编写要做出一定的规范要求。</p>
+<p>规范要求主要是取决于文档 <a href="/%E5%8D%9A%E5%AE%A2/%E9%A3%9E%E4%B9%A6%E6%96%87%E6%A1%A3%E8%BD%AC%E5%8C%96markdown%E6%B5%8B%E8%AF%95">飞书文档转化markdown测试</a></p>
+<h2 id="添加yaml-header"><a class="header" href="#添加yaml-header">添加yaml header</a></h2>
+<p>首先为了保证导出的markdown的文件名是nested url风格，我们需要在每个文档的前面手动编写yaml header也就是我们熟知的page meta</p>
+<blockquote>
+<p>注意 slug的值，千万不能设置一些特殊的字符，否则url会不合法而失效，访问不到对应的markdown，这里推荐只是用字母，数字，下划线_，连字符-，就行了，绝对不会出错</p>
+</blockquote>
+<p>例如本文我们可以这样设置yaml header</p>
+<pre><code class="language-yaml">slug: 方案-飞书-feishu-pages-mdbook
+hide: false
+</code></pre>
+<h1 id="feishu-pages"><a class="header" href="#feishu-pages">Feishu-pages</a></h1>
+<p>feishu-pages是一个第三方库，这里简单的介绍一下如何使用</p>
+<h2 id="配置环境"><a class="header" href="#配置环境">配置环境</a></h2>
+<p>安装node，npm，yarn</p>
+<h2 id="使用"><a class="header" href="#使用">使用</a></h2>
+<p>由于feishu-pages会持续更新，所以我们要以官方最新的使用教程为主：https://github.com/longbridgeapp/feishu-pages</p>
+<p>官方的教程没有图片，所以有的时候会不太清楚，这里也给出另一个大佬的教程：https://github.com/ftyszyx/feishu-vitepress</p>
+<p>(1) 新建存放feishu-pages的目录，可以取名例如 feishu-book</p>
+<p>(2) feishu-book目录下</p>
+<pre><code class="language-bash">yarn init -y             # 生成一个yarn项目
+yarn add feishu-pages    # 安装feishu-pages
+
+# 从node-modules中将feishu-docx和feishu-pages拷贝到feishu-book目录下
+# 拷贝feishu-book的env.default文件到feishu-book目录下，并重命名为.env
+# .env文件编辑好自己的飞书相关内容后保存
+
+yarn feishu-pages        # 生成dist目录，里面存放的是飞书知识库导出的所有markdown文件和资源
+</code></pre>
+<img src="/assets/GBXGb8SQToU4oxxImCecalaYnMg.png" src-width="739" src-height="350"/>
+<h1 id="mdbook"><a class="header" href="#mdbook">mdbook</a></h1>
+<h2 id="安装"><a class="header" href="#安装">安装</a></h2>
+<p>mdbook的使用，推荐直接看官方教程https://github.com/rust-lang/mdBook</p>
+<h2 id="创建项目"><a class="header" href="#创建项目">创建项目</a></h2>
+<p>(1) 新建一个mdbook项目</p>
+<pre><code class="language-bash">mdbook init md-book
+cd md-book
+mdbook serve --open
+</code></pre>
+<p>md-book目录结构</p>
+<img src="/assets/BIGDbJIbCo2bWbxZf1aclnconjf.png" src-width="679" src-height="256"/>
+<p>其中src为markdown文件存放的目录，book为渲染后的页面存放的目录</p>
+<p>为了之后的正常部署，我们自己调整一下目录结构，将src文件夹删除，然后book.toml的src = “.”，为什么要这样做，之后详细解释。</p>
+<img src="/assets/CwdJbk4NPosf0ux6hoJcqNB1nad.png" src-width="647" src-height="155"/>
+<p>(2) md-book和book目录下，初始化git仓库，然后添加remote。mdbook分两个部分上传到远程仓库，</p>
+<ul>
+<li>mdbook根目录下，上传到远程仓库的main分支，用来方便github直接查看markdown文件</li>
+<li>mdbook book目录下，上传到远程仓库的gh-pages分支，用来部署网站</li>
+</ul>
+<pre><code class="language-bash"># md-book下
+git init
+git remote add origin https://github.com/vendestine/vendestine.github.io.git
+
+# book目录下
+git init
+git remote add origin https://github.com/vendestine/vendestine.github.io.git
+
+# 查看是否添加远程仓库成功
+git remote -vv
+</code></pre>
+<h2 id="编写booktoml安装第三方插件"><a class="header" href="#编写booktoml安装第三方插件">编写book.toml，安装第三方插件</a></h2>
+<p>官方推荐的插件列表：https://github.com/rust-lang/mdBook/wiki/Third-party-plugins</p>
+<p>个人认为必要的插件列表</p>
+<ol>
+<li><u>mdbook-yml-header</u>：由于我们的飞书文档前面加了yaml header，所以这里一定要使用第三方插件</li>
+<li><u>mdbook-katex</u>: <b>弃用</b>，mardown公式的渲染，官方好像没有集成，使用这个插件</li>
+<li><u>mdBook-pagetoc</u>：<b>弃用</b>，生成右侧文章目录，会影响很多其他的内容</li>
+<li><u>mdbook-toc</u>：<b>弃用</b>，也是生成文章目录，但是不美观</li>
+</ol>
+<p>这里提出我的book.toml文件，主要是参考官方的用法</p>
+<pre><code class="language-bash">[book]
+authors = ["vendestine"]
+language = "en"
+multilingual = false
+src = "."
+title = "md-book"
+
+[rust]
+edition = "2018"
+
+[output.html]
+smart-punctuation = true
+mathjax-support = true
+git-repository-url = "https://github.com/vendestine/vendestine.github.io/tree/main"
+edit-url-template = "https://github.com/vendestine/vendestine.github.io/tree/main/{path}"
+
+[output.html.playground]
+editable = true
+line-numbers = true
+
+[output.html.code.hidelines]
+python = "~"
+
+[output.html.search]
+limit-results = 20
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 2
+boost-paragraph = 1
+expand = true
+heading-split-level = 2
+
+[output.html.fold]
+enable = true
+
+[preprocessor.yml-header]
+</code></pre>
+<h2 id="上传到github仓库"><a class="header" href="#上传到github仓库">上传到github仓库</a></h2>
+<p>(1) 将<code>cswiki/feishu-book/dist/docs</code>的所有内容，拷贝的md-book目录下，拷贝之后打开cmd，执行<code>mdbook serve --open</code> 本地检查是否渲染成功，如果是自己想要的页面，那么就执行<code>mdbook build</code> 生成最后需要部署的页面</p>
+<p>(2) 将md-book目录下的内容上传到main分支</p>
+<p>(3) 将md-book/book目录下的内容上传到gh-pages分支</p>
+<h1 id="github-pages"><a class="header" href="#github-pages">Github Pages</a></h1>
+<p>如果要部署到github pages，其实不需要什么github actions，因为github actions，每次要重装mdbook和相关插件很消耗资源，所以我们直接将mdbook的book目录下的所有内容上传到仓库就行了</p>
+<p>(1) 创建远程仓库，username.github.io，注意一定要取名这个，后面会解释为什么</p>
+<p>(2) 远程仓库，settings里设置github pages选型为，deploy from branch，然后选择gh-pages分支</p>
+<p>(3) 有新内容push到gh-pages分支后，应该会自动触发github action，部署网站</p>
+<h1 id="更新网站"><a class="header" href="#更新网站">更新网站</a></h1>
+<p>一般记录是在飞书的知识库下，那么我们要更新到网站的话只需要执行如下步骤</p>
+<p>首先所有的操作都发生在<code>C:/Users/ventu/Desktop/tmp/cswiki</code>目录下</p>
+<p>(1) 准备好markdown文件</p>
+<pre><code class="language-bash">cd feishu-book
+yarn feishu-pages        # 生成dist目录，里面存放的是飞书知识库导出的所有markdown文件和资源
+</code></pre>
+<p>(2) copy <code>C:/Users/ventu/Desktop/tmp/cswiki/feishu-book/dist/docs</code>所有文件到mdbook项目的根目录下，选择全部替换</p>
+<p>(3) 查看网页渲染效果，没有问题就build</p>
+<pre><code class="language-bash"># md-book目录下
+mdbook serve --open
+mdbook build
+</code></pre>
+<p>(4) 上传到github仓库</p>
+<pre><code class="language-bash">md-book根目录，git push到main分支，这样之后可以在github上查看这些markdown文件
+book目录，git push到gh-pages分支，将这些渲染后的pages文件上传到网站上
+</code></pre>
+<h1 id="问题"><a class="header" href="#问题">问题</a></h1>
+<h2 id="为什么远程仓库取名usernamegithubio"><a class="header" href="#为什么远程仓库取名usernamegithubio">为什么远程仓库取名username.github.io</a></h2>
+<p>因为我这边的markdown的资源引用都是使用的绝对路径（例如 <em>base-url/assets/xxx.jpg</em>）</p>
+<p>base-url会拼接在请求的url里，site-url会拼接在存储的url里。</p>
+<p>为了正确加载资源，我们必须保证，资源的存储url和请求url相等，才能正确访问资源。因为存储和请求的话，都是使用一样的prefix和path。<b>所以简单来讲，我们只需要让site-url和base-url一致就可以正确加载</b></p>
+<h3 id="部署情况"><a class="header" href="#部署情况">部署情况</a></h3>
+<p>prefix为域名</p>
+<p>如果创建的仓库名是别的，例如blog，</p>
+<p>那么site-url是/blog，存储url是username.github.io/blog/path；base-url默认是/，请求url是username.github.io/path，所以此时网站上请求资源就会失败。</p>
+<p>解决方法有两种</p>
+<p>要么改变site-url，要么改变base-url，这里选择改变site-url为/</p>
+<p>(1) 仓库名使用username.github.io，这样site-url就是/</p>
+<p>(2) 使用自定义的一级域名，site-url此时是/</p>
+<h2 id="为什么markdown文件放在mdbook项目的根目录下而不是放在src目录下"><a class="header" href="#为什么markdown文件放在mdbook项目的根目录下而不是放在src目录下">为什么markdown文件放在mdbook项目的根目录下，而不是放在src目录下</a></h2>
+<p>按照上个问题的的解决方案，我们已经可以在自己的网站上正确加载markdown中的资源引用，但是在github上查看还是不行。</p>
+<p>其实这个问题也是和上面的问题类似，<b>为了正确加载资源，我们必须保证site-url和base-url一致。</b></p>
+<h3 id="非部署情况"><a class="header" href="#非部署情况">非部署情况</a></h3>
+<p>如果在github查看或者本地查看，那么prefix为项目根目录</p>
+<p>如果markdown文件存放在src目录下，那么存储url是root/src/path，此时site-url是/src，请求url是root/path，base-url是/，所以加载资源失败。</p>
+<p>解决方法：</p>
+<p>site-url改成/</p>
+<p>将markdown文件存放在mdbook项目根目录下，这样子site-url和base-url就都是/，此时请求url和存储url都是root/path</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../博客.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../博客/飞书文档转化markdown测试.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../博客.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../博客/飞书文档转化markdown测试.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

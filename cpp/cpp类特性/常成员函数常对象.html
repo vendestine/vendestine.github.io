@@ -1,0 +1,472 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>this，常成员函数，常对象 - md-book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">md-book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main/./cpp/cpp类特性/常成员函数常对象.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="this常成员函数常对象"><a class="header" href="#this常成员函数常对象">this，常成员函数，常对象</a></h1>
+<h2 id="介绍"><a class="header" href="#介绍">介绍</a></h2>
+<h3 id="this关键字"><a class="header" href="#this关键字">this关键字</a></h3>
+<p>在C++中，this是一个指针，指向当前对象的实例。它在类的成员函数中使用，允许你访问对象的成员变量和成员函数。以下是关于this指针的一些关键点：</p>
+<p>(1) 指向当前对象：this指针是一个隐式参数，指向调用成员函数的对象。例如，在一个成员函数中，this-&gt;memberVariable可以用来访问当前对象的成员变量。</p>
+<p>(2) 类型：this的类型是指向类的指针。例如，在类MyClass的成员函数中，this的类型是MyClass*。</p>
+<p>(3) 用于区分成员变量和参数：当成员变量的名称与参数名称相同时，可以使用this来区分。例如：</p>
+<pre><code class="language-cpp">class MyClass {  
+public:  
+    int value;  
+    MyClass(int value) {  
+        this-&gt;value = value; // 使用this指针区分成员变量和参数  
+    }  
+};
+</code></pre>
+<p>(4) 返回当前对象：<code>this</code>指针可以用于返回当前对象的引用，常用于链式调用。例如：</p>
+<pre><code class="language-cpp">class MyClass {  
+public:  
+    MyClass&amp; setValue(int value) {  
+        this-&gt;value = value;  
+        return *this; // 返回当前对象的引用  
+    }  
+};
+</code></pre>
+<p>(5) 在静态成员函数中不可用：<code>this</code>指针只能在非静态成员函数中使用，因为静态成员函数不属于任何特定对象。</p>
+<p>(6) 常量成员函数中的this：在常量成员函数中，this的类型是指向常量对象的指针（const ClassName*），这意味着你不能在常量成员函数中修改对象的成员变量。</p>
+<p>以下是一个简单的示例，展示了this的用法：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;  
+using namespace std;  
+
+class MyClass {  
+private:  
+    int value;  
+
+public:  
+    MyClass(int value) {  
+        this-&gt;value = value; // 使用this指针  
+    }  
+
+    MyClass&amp; setValue(int value) {  
+        this-&gt;value = value; // 使用this指针  
+        return *this; // 返回当前对象的引用  
+    }  
+
+    void display() const {  
+        cout &lt;&lt; "Value: " &lt;&lt; this-&gt;value &lt;&lt; endl; // 使用this指针  
+    }  
+};  
+
+int main() {  
+    MyClass obj(10);  
+    obj.display(); // 输出: Value: 10  
+    obj.setValue(20).display(); // 链式调用，输出: Value: 20  
+    return 0;  
+}
+</code></pre>
+<h3 id="常成员函数和常对象"><a class="header" href="#常成员函数和常对象">常成员函数和常对象</a></h3>
+<p>在C++中，常成员函数和常对象是用于控制对象状态和行为的重要概念。它们通过使用<code>const</code>关键字来确保对象的不可变性，从而提高代码的安全性和可读性。下面是对这两个概念的详细讲解：</p>
+<h4 id="常对象const-objects"><a class="header" href="#常对象const-objects">常对象（const Objects）</a></h4>
+<p>常对象是指在创建对象时，使用<code>const</code>关键字修饰的对象。这意味着该对象的状态（即其成员变量）不能被修改。</p>
+<p>特点：</p>
+<p><b>不可修改</b>：常对象的非静态成员变量不能被修改，尝试修改会导致编译错误。</p>
+<p><b>只能调用常成员函数</b></p>
+<p><b>常量引用</b>：常对象通常通过常引用传递，以确保在函数调用中不会修改对象。</p>
+<pre><code class="language-cpp">class MyClass {  
+public:  
+    int value;  
+
+    MyClass(int v) : value(v) {}  
+};  
+
+void display(const MyClass&amp; obj) {  
+    // obj.value = 10; // 错误：不能修改常对象的成员  
+    std::cout &lt;&lt; "Value: " &lt;&lt; obj.value &lt;&lt; std::endl;  
+}  
+
+int main() {  
+    const MyClass obj(10); // 创建常对象  
+    display(obj); // 正确，传递常对象  
+    return 0;  
+}
+</code></pre>
+<p>在这个示例中，<code>obj</code>是一个常对象，<code>display</code>函数接受一个常对象的引用作为参数，确保在函数内部不会修改<code>obj</code>的状态。</p>
+<h3 id="常成员函数const-member-functions"><a class="header" href="#常成员函数const-member-functions">常成员函数（const Member Functions）</a></h3>
+<p>常成员函数是指在成员函数的声明中使用<code>const</code>关键字修饰的函数。这表示该函数不会修改调用该函数的对象的状态。</p>
+<p><b>不能修改成员变量</b>：在常成员函数中，不能修改任何非静态成员变量。</p>
+<p><b>可以被常对象和非常对象调用</b></p>
+<pre><code class="language-cpp">class MyClass {  
+private:  
+    int value;  
+
+public:  
+    MyClass(int v) : value(v) {}  
+
+    // 常成员函数  
+    void display() const {  
+        std::cout &lt;&lt; "Value: " &lt;&lt; value &lt;&lt; std::endl; // 可以读取，但不能修改  
+    }  
+
+    // 非常成员函数  
+    void setValue(int v) {  
+        value = v; // 这是一个非常成员函数，可以修改  
+    }  
+};  
+
+int main() {  
+    MyClass obj(10);  
+    obj.display(); // 输出: Value: 10  
+
+    const MyClass constObj(20);  
+    constObj.display(); // 输出: Value: 20  
+    // constObj.setValue(30); // 错误：不能调用非常成员函数  
+    return 0;  
+}
+</code></pre>
+<p>在这个示例中，<code>display</code>是一个常成员函数，它可以在常对象上调用，而<code>setValue</code>是一个非常成员函数，不能在常对象上调用。</p>
+<h4 id="常成员函数与常对象的关系"><a class="header" href="#常成员函数与常对象的关系">常成员函数与常对象的关系</a></h4>
+<p><b>常对象只能调用常成员函数</b>：如果你有一个常对象，你只能调用该对象的常成员函数。这是为了确保对象的状态不会被意外修改。</p>
+<p><b>常成员函数可以被常对象和非常对象调用</b>：常成员函数可以被常对象和非常对象调用，但在常对象上调用时，函数内部不能修改对象的状态。</p>
+<h3 id="使用场景"><a class="header" href="#使用场景">使用场景</a></h3>
+<p><b>常对象</b>：常对象通常用于需要保护对象状态不被修改的场景，例如在函数参数中传递对象时，确保不会意外修改对象。</p>
+<p><b>常成员函数</b>：常成员函数用于提供只读访问对象状态的接口，确保对象的状态在调用过程中保持不变。</p>
+<h2 id="用法"><a class="header" href="#用法">用法</a></h2>
+<blockquote>
+<p>常成员函数和常对象很多人并不在意，确实都写普通变量也可以；但是在大型程序中，尽量加上const 关键字可以减少很多不必要的错误。</p>
+</blockquote>
+<p>(1) 常成员函数和常对象</p>
+<p>常成员函数就是无法修改成员变量的函数。可以理解为将this指针指向对象用const修饰的函数；</p>
+<p>常对象就是用 const 修饰的对象，定义好之后就再也不需要更改成员变量的值了。 常对象在大型程序中还是很有意义的;</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Test
+{
+public:
+    Test(std::string name_, int age_);
+    ~Test();
+    void output();         // 普通成员函数
+    void display() const;  // 常成员函数，无法修改成员变量；
+    // 常成员函数 本质是普通成员函数的this加上const修饰，但是参数中没有this，所以直接函数后加个const
+    
+    std::string name;
+    int age;
+};
+
+Test::Test(std::string name_, int age_) : name(name_), age(age_) {}
+Test::~Test(){}
+
+// 普通成员函数实现
+void Test::output()
+{
+    std::cout &lt;&lt; "调用普通成员函数" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "name = " &lt;&lt; name &lt;&lt; ", age = " &lt;&lt; age &lt;&lt; std::endl;
+}
+
+// 普通成员函数的本质 全局函数 + this指针（Test类指针常量）
+void output(Test* const myThis) 
+{
+    std::cout &lt;&lt; "调用普通成员函数" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "name = " &lt;&lt; myThis-&gt;name &lt;&lt; ", age = " &lt;&lt; myThis-&gt;age &lt;&lt; std::endl;
+}
+
+// 常成员函数实现
+void Test::display() const
+{
+    std::cout &lt;&lt; "调用常成员函数" &lt;&lt; std::endl;
+    //myThis-&gt;age = 100; // 此时不能修改指针指向的对象
+}
+
+
+// 常成员函数的本质 全局函数 + this指针（Test类指针常量指向常量）
+void display(const Test* const myThis)
+{
+    std::cout &lt;&lt; "调用常成员函数" &lt;&lt; std::endl;
+    //myThis-&gt;age = 100; // 此时不能修改指针指向的对象
+}
+
+
+int main() 
+{
+    Test t1("zhangsan", 20);
+
+    t1.output();
+    output(&amp;t1);      // 传入对象地址
+
+    t1.display();
+    display(&amp;t1);      // 传入对象地址
+
+    const Test t2("lisi", 25);   // 不希望t2对象被修改，所以使用常对象
+    //t2.age = 80;                 // t2是常对象，不能修改对象t2
+
+    return 0;
+}
+</code></pre>
+<p>(2) 常成员函数注意事项：</p>
+<p>因为类的成员函数已经将 this 指针省略了，只能在函数后面加 const 关键字来实现 无法修改类成员变量的功能了（上述代码里也进行了演示）</p>
+<ol>
+<li>常函数无法调用了普通函数，否则常函数的这个“常”字还有什么意义</li>
+</ol>
+<p>解释：如果一个常函数里可以调用普通函数，那么我们可以调用set函数，去修改对象，那么此时这个常成员函数就没有意义了，所以语法规定，常函数无法调用普通函数</p>
+<ol>
+<li>成员函数能写作常成员函数就尽量写作常成员函数，可以减少出错几率</li>
+<li>同名的常成员函数和普通成员函数是可以重载的，常量对象会优先调用常成员函数，普通对象会优先调用普通成员函数</li>
+</ol>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Test
+{
+public:
+    Test(std::string name_, int age_);
+    ~Test();
+    // 两个output函数是重载关系
+    void output();         // 普通成员函数
+    void output() const;   // 常成员函数
+    
+    std::string name;
+    int age;
+};
+
+Test::Test(std::string name_, int age_) : name(name_), age(age_) {}
+Test::~Test(){}
+
+void Test::output()
+{
+    std::cout &lt;&lt; "调用普通成员函数output" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "name = " &lt;&lt; name &lt;&lt; ", age = " &lt;&lt; age &lt;&lt; std::endl;
+}
+
+void Test::output() const
+{
+    std::cout &lt;&lt; "调用常成员函数output" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "name = " &lt;&lt; name &lt;&lt; ", age = " &lt;&lt; age &lt;&lt; std::endl;
+}
+
+
+int main() 
+{
+    Test t1("zhangsan", 20);  //  普通对象
+    t1.output();              //  普通对象会优先调用普通成员函数
+
+    const Test t2("lisi", 30); // 常对象
+    t2.output();               // 常对象会优先调用常成员
+
+    return 0;
+}
+</code></pre>
+<p>常对象注意事项：</p>
+<ul>
+<li>常对象不能调用普通函数，原因和常成员函数不能调用普通函数是一样的</li>
+<li>常成员函数和常对象要多用，这真的 是一个非常好的习惯，写大项目可以少出很多bug</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../cpp/cpp类特性/构造函数析构函数.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../cpp/cpp类特性/inline-mutable-default-delete.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../cpp/cpp类特性/构造函数析构函数.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../cpp/cpp类特性/inline-mutable-default-delete.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

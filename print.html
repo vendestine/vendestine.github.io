@@ -1,0 +1,4533 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>md-book</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">md-book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="c"><a class="header" href="#c">C++</a></h1>
+<blockquote>
+<p>C++是一种功能非常强大的编程语言，可以广泛用于很多领域，在服务器开发，音视频，高性能计算等，需要高效率的场景具有很大的优势，程序员深入学习C++很有必要</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="c-开发环境"><a class="header" href="#c-开发环境">C++ 开发环境</a></h1>
+<blockquote>
+<p>C++可以跨平台，可以开发很多领域，那么自然也有很多不同的开发环境配置，主要是根据平台，编译器，领域这几个方面来选用适合的开发环境</p>
+</blockquote>
+<p>选择策略：</p>
+<p>一般来说如果windows平台 + msvc编译器，那么直接使用Vistual Studio。</p>
+<p>跨平台开发 + gcc/g++编译器，可以使用vscode或者CLion</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="visual-studio"><a class="header" href="#visual-studio">Visual Studio</a></h1>
+<h2 id="vs项目的创建与编译"><a class="header" href="#vs项目的创建与编译">VS项目的创建与编译</a></h2>
+<p>创建一个vs项目的时候，提供了很多种选项，例如控制台项目，windows桌面应用程序。</p>
+<p>它们之间的区别：</p>
+<ol>
+<li>提供的初始代码不同 （很容易理解，功能不同，提供的初始代码也会不同）</li>
+<li>使用的链接库不同（重点）</li>
+</ol>
+<p>这里演示一下VS中，如何查看和更改链接库:</p>
+<img src="cpp/cpp开发环境//assets/A1bqbOCixoYF5FxJsamcgmdWnYd.png" src-width="1904" src-height="992"/>
+<p>VS的解决方案下可以包含多个项目，vs是以文件组成的项目为最小编译单元的，也就是说vs无法单独编译一个源文件。</p>
+<h2 id="vs项目调试"><a class="header" href="#vs项目调试">VS项目调试</a></h2>
+<p>vs项目调试方法：</p>
+<p>在想要停止的语句的上打断点，然后调试（快捷键 F5），程序机会在断点行执行前停下。</p>
+<p>需要知道的是，为了支持调试功能，编译和链接必须添加很多额外的东西，所以使用 debug功能，必须以调试的方式进行编译；直接运行（快捷键 CTRL + F5）是无法调试的。</p>
+<h2 id="vs解决方案项目目录结构详解"><a class="header" href="#vs解决方案项目目录结构详解">VS解决方案，项目，目录结构详解</a></h2>
+<p>一个正常的VS项目目录结构如下</p>
+<img src="cpp/cpp开发环境//assets/QbcCbzpxQoiOv4x4nl6ch6YznIc.png" src-width="870" src-height="432"/>
+<p>我把每一个文件都通过记事本打开看了一遍，总结了这些文件的作用。</p>
+<pre><code class="language-bash">项目配置文件
+demo1.vcxproj           项目配置文件，添加/导入项目时，就是使用这个文件
+demo1.vcxproj.filters   项目配置目录文件，里面配置了IDE中项目的目录信息
+demo1.vcxproj.user      项目用户配置文件，用户的自定义配置，一般把项目给第三方的时候，删除这个文件
+
+编译文件
+Debug文件夹              存储32位平台下的Debug模式下编译后的文件
+Release文件夹            存储32位平台下的Release模式下编译后的文件
+x64文件                 存储64位平台下的编译文件，里面还有Debug，Release文件夹，分别存储不同模式下编译后的文件
+
+相关源码
+.cpp 源文件
+.h   头文件
+</code></pre>
+<p>一个正常的VS解决方案的目录结构如下</p>
+<img src="cpp/cpp开发环境//assets/BpHebOTiFoZPO0xfOvgcst7Vn1b.png" src-width="870" src-height="432"/>
+<pre><code class="language-bash">解决方案的配置文件
+.vs文件夹         解决方案中的一些详细配置信息
+demo1.sln        解决方案的配置文件，打开解决方案时，使用这个文件
+
+项目
+demo1            解决方案中的每个项目对应每个文件夹
+
+编译文件
+Debug, Release,x64  这些与项目结构类似，存放不同平台不同模式下编译后的文件
+</code></pre>
+<h2 id="vs-项目重命名"><a class="header" href="#vs-项目重命名">VS 项目重命名</a></h2>
+<p>VS项目的重命名，如果直接在IDE中重命名项目，项目目录中的配置文件，编译文件，以及项目本身的名字是不会更改的，这不是我们想要的，所以以下给出项目真正重命名的方法：</p>
+<p>这里先说一下卸载项目和移除项目的区别：</p>
+<p>卸载项目：解决方案中卸载项目后，解决方案中显示项目已卸载，生成解决方案的时候不会编译这个项目；之后我们只要不改变项目目录名称，以及项目配置文件名称，我们还是可以直接在IDE中重新加载进来的；</p>
+<p>移除项目：解决方案中直接将项目排除，排除后解决方案中看不到该项目，不能在IDE中重新加载了；只能通过添加新项目的方式，将项目重新添加进来；</p>
+<p>重命名项目：</p>
+<ol>
+<li>IDE中移除项目</li>
+<li>将项目目录，项目配置文件（.vcxproj文件，.vcxproj.filters文件） 重命名为新项目名称</li>
+<li>删除编译文件（Debug文件夹，x86文件夹），项目用户配置文件（.vcxproj.user文件），保留相关源码（.h，.cpp文件）</li>
+<li>IDE中重新添加项目，重新生成</li>
+</ol>
+<p>重命名项目可能遇到的问题：</p>
+<p>IDE中重命名项目，未将对象引用设置到对象的实例，说明解决方案没有同步，把解决方案下的.vs文件夹删掉，然后再重新打开解决方案，重命名项目；</p>
+<h2 id="vs常用快捷键"><a class="header" href="#vs常用快捷键">VS常用快捷键</a></h2>
+<p>注释/取消注释：CTRL + K, CTRL + C/U；</p>
+<p>代码格式化：CTRL + K, CTRL + E；</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="vscode--cmake--clangd"><a class="header" href="#vscode--cmake--clangd">vscode + CMake + clangd</a></h1>
+<h2 id="vscode配置c"><a class="header" href="#vscode配置c">Vscode配置C++</a></h2>
+<p>vscode配置C++开发环境，一般使用MinGW，直接参考官方教程：https://code.visualstudio.com/docs/cpp/config-mingw</p>
+<p>然后记得配置环境变量，工具链中所有的可执行文件都放入了<code>C:/msys64/ucrt64/bin</code>该目录，所以我们把这个目录添加到环境变量</p>
+<blockquote>
+<p>注意，使用不同的shell，环境变量的选取和加载顺序不同，例如git bash shell，它会先加载git bash相关的环境变量，再添加主机的环境变量，qt也是同理，先加载qt文件的环境变量，再添加主机的环境变量，但是msys2，它只会添加自己的环境变量，不会添加主机的环境变量，它和主机之间是完全隔离的</p>
+</blockquote>
+<h3 id="msys2-msys-mingw之间的关系"><a class="header" href="#msys2-msys-mingw之间的关系">MSYS2, MSYS, MinGW之间的关系</a></h3>
+<p>MSYS2、MSYS和MinGW之间的关系可以通过它们的历史背景和功能来理解。以下是对这三者的详细讲解：</p>
+<p>(1) MSYS（Minimal SYStem）</p>
+<ul>
+<li>定义：MSYS是一个轻量级的Unix环境，旨在为Windows用户提供一个类Unix的命令行界面。它最初是为了支持MinGW（Minimalist GNU for Windows）项目而开发的。</li>
+<li>功能：MSYS提供了一些基本的Unix工具（如bash、make、grep等），使得在Windows上使用GNU工具链变得更加容易。它允许开发者在Windows上编写和运行Unix风格的脚本。</li>
+<li>局限性：MSYS的功能相对有限，主要用于提供一个基本的开发环境，支持一些简单的构建和编译任务。</li>
+</ul>
+<p>(2) MinGW（Minimalist GNU for Windows）</p>
+<ul>
+<li>定义：MinGW是一个为Windows平台提供GNU工具链的项目，允许开发者在Windows上编译和运行本地的Windows应用程序。</li>
+<li>功能：MinGW提供了GCC（GNU Compiler Collection）编译器及其相关工具，支持C、C++等语言的编译。它生成的可执行文件是Windows本地的，不依赖于Cygwin等其他层。</li>
+<li>局限性：MinGW本身并不提供完整的Unix环境，主要关注于编译和构建Windows应用程序。</li>
+</ul>
+<p>(3) MSYS2</p>
+<ul>
+<li>
+<p>定义：MSYS2是MSYS的一个更新和扩展版本，结合了MSYS和MinGW的优点，提供了一个更现代化的开发环境。</p>
+</li>
+<li>
+<p>功能：</p>
+<ul>
+<li>包管理：MSYS2使用<code>pacman</code>作为包管理器，允许用户轻松安装、更新和管理软件包。</li>
+<li>多种环境支持：MSYS2支持MSYS（用于Unix命令行工具）和MinGW-w64（用于编译Windows本地应用程序），同时支持32位和64位编译。</li>
+<li>丰富的软件库：MSYS2提供了大量的预编译软件包，用户可以通过包管理器轻松获取所需的工具和库。</li>
+</ul>
+</li>
+<li>
+<p>优势：MSYS2比MSYS更强大，提供了更好的包管理和更新机制，适合现代开发需求。</p>
+</li>
+</ul>
+<h3 id=""><a class="header" href="#"></a></h3>
+<p>(4) 总结</p>
+<ul>
+<li>MSYS是一个基本的Unix环境，主要用于支持MinGW。</li>
+<li>MinGW是一个为Windows提供GNU编译器的项目，专注于编译Windows应用程序。</li>
+<li>MSYS2是MSYS的现代化版本，结合了MSYS和MinGW的优点，提供了更强大的功能和更好的用户体验。</li>
+</ul>
+<p>这三者之间的关系可以看作是一个演变过程，MSYS2是对MSYS和MinGW的整合与扩展，旨在为Windows开发者提供一个更完整的开发环境。</p>
+<h2 id="vscode中使用cmake"><a class="header" href="#vscode中使用cmake">vscode中使用CMake</a></h2>
+<p>在vscode中使用cmake，直接安装extenstion：cmake tools，就会打包安装所有cmake相关的工具</p>
+<h3 id="cmake内置命令"><a class="header" href="#cmake内置命令">CMake内置命令</a></h3>
+<p>(1) 项目和版本相关命令</p>
+<p><b>cmake_minimum_required</b></p>
+<p>设置项目所需的最低 CMake 版本</p>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.10)
+</code></pre>
+<p><b>project</b></p>
+<p>定义项目名称和支持的语言</p>
+<pre><code class="language-cmake">project(MyProject
+    VERSION 1.0
+    LANGUAGES CXX C  
+)
+</code></pre>
+<p>(2) 目标创建命令</p>
+<p><b>add_executable</b></p>
+<p>创建可执行文件目标</p>
+<pre><code class="language-cmake">add_executable(app main.cpp utils.cpp)
+</code></pre>
+<p><b>add_library</b></p>
+<p>创建库目标</p>
+<pre><code class="language-cmake"># 静态库
+add_library(mylib STATIC source1.cpp source2.cpp)  
+# 动态库
+add_library(mylib SHARED source1.cpp source2.cpp)  
+# 模块库
+add_library(mylib MODULE source1.cpp source2.cpp)
+</code></pre>
+<p><b>add_custom_target</b></p>
+<p>创建自定义目标</p>
+<pre><code class="language-cmake">add_custom_target(docs
+    COMMAND doxygen Doxyfile  
+)
+</code></pre>
+<p>(3) 目标配置命令</p>
+<p><b>target_link_libraries</b></p>
+<p>为目标链接库</p>
+<pre><code class="language-cmake">target_link_libraries(app
+    PRIVATE mylib
+    PUBLIC otherlib  
+)
+</code></pre>
+<p><b>target_include_directories</b></p>
+<p>设置目标的头文件包含路径</p>
+<pre><code class="language-cmake">target_include_directories(app
+    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include
+    PUBLIC /usr/local/include  
+)
+</code></pre>
+<p><b>target_compile_definitions</b></p>
+<p>为目标添加编译宏定义</p>
+<pre><code class="language-cmake">target_compile_definitions(app
+    PRIVATE DEBUG_MODE
+    PUBLIC USING_LIBRARY  
+)
+</code></pre>
+<p><b>target_compile_options</b></p>
+<p>设置编译选项</p>
+<pre><code class="language-cmake">target_compile_options(app
+    PRIVATE -Wall -Wextra
+    PUBLIC -O2  
+)
+</code></pre>
+<p>(4) 条件和控制流命令</p>
+<p><b>if/elseif/else/endif</b></p>
+<p>条件判断</p>
+<pre><code class="language-cmake">if(UNIX)
+    # Unix 系统特定配置  
+elseif(WIN32)
+    # Windows 系统特定配置  
+else()
+    # 其他系统  
+endif()
+</code></pre>
+<p><b>option</b></p>
+<p>定义可选编译选项</p>
+<pre><code class="language-cmake">option(USE_OPENGL "Enable OpenGL support" ON)  
+
+if(USE_OPENGL)
+    find_package(OpenGL REQUIRED)  
+endif()
+</code></pre>
+<p>(5) 变量和路径相关命令</p>
+<p><b>set</b></p>
+<p>设置变量</p>
+<pre><code class="language-cmake"># 普通变量
+set(SOURCES main.cpp utils.cpp)  
+# 缓存变量
+set(MY_VAR "value" CACHE STRING "Description")  
+# 环境变量
+set(ENV{PATH} "$ENV{PATH}:/new/path")
+</code></pre>
+<p><b>list</b></p>
+<p>列表操作</p>
+<pre><code class="language-cmake"># 追加元素
+list(APPEND SOURCES extra.cpp)  
+# 删除元素
+list(REMOVE_ITEM SOURCES extra.cpp)  
+# 排序
+list(SORT SOURCES)
+</code></pre>
+<p>(6) 查找和依赖命令</p>
+<p><b>find_package</b></p>
+<p>查找外部依赖库</p>
+<pre><code class="language-cmake">find_package(OpenCV REQUIRED)  
+find_package(Boost COMPONENTS system filesystem)
+</code></pre>
+<p><b>find_path</b></p>
+<p>查找头文件路径</p>
+<pre><code class="language-cmake">find_path(HEADER_DIR "myheader.h"
+    PATHS /usr/include /usr/local/include  
+)
+</code></pre>
+<p><b>find_library</b></p>
+<p>查找库文件</p>
+<pre><code class="language-cmake">find_library(MATH_LIB m
+    PATHS /usr/lib /usr/local/lib  
+)
+</code></pre>
+<p>(7) 安装和导出命令</p>
+<p><b>install</b></p>
+<p>定义安装规则</p>
+<pre><code class="language-cmake"># 安装可执行文件
+install(TARGETS app
+    RUNTIME DESTINATION bin  
+) 
+ 
+# 安装头文件
+install(FILES header.h
+    DESTINATION include  
+)
+</code></pre>
+<h1 id="-1"><a class="header" href="#-1"></a></h1>
+<p>(8) 其他实用命令</p>
+<p><b>message</b></p>
+<p>输出消息</p>
+<pre><code class="language-cmake">message(STATUS "Configuring project")  
+message(WARNING "This is a warning")  
+message(FATAL_ERROR "Compilation cannot continue")
+</code></pre>
+<p><b>include</b></p>
+<p>包含其他 CMake 脚本</p>
+<pre><code class="language-cmake">include(CMakePrintHelpers)  
+include(GNUInstallDirs)
+</code></pre>
+<p>(9) 高级命令</p>
+<p><b>macro/function</b></p>
+<p>定义可重用的 CMake 代码块</p>
+<pre><code class="language-cmake"># 函数
+function(my_function ARG1 ARG2)
+    message(STATUS "Function called with ${ARG1} and ${ARG2}")  
+endfunction()  
+
+# 宏
+macro(my_macro ARG1)
+    message(STATUS "Macro called with ${ARG1}")  
+endmacro()
+</code></pre>
+<p>(10) 综合示例</p>
+<pre><code class="language-css">MyProject/  
+├── CMakeLists.txt  
+├── main.cpp  
+├── utils.cpp  
+├── source1.cpp  
+├── source2.cpp  
+├── header.h  
+└── Doxyfile  # 如果你使用 Doxygen 文档生成
+</code></pre>
+<pre><code class="language-cmake"># (1) 项目和版本相关命令  
+cmake_minimum_required(VERSION 3.10)  # 设置所需的最低 CMake 版本  
+project(MyProject VERSION 1.0 LANGUAGES CXX C)  # 定义项目名称和支持的语言  
+
+# (2) 目标创建命令  
+add_executable(app main.cpp utils.cpp)  # 创建可执行文件目标  
+add_library(mylib STATIC source1.cpp source2.cpp)  # 创建静态库目标  
+
+# (3) 目标配置命令  
+target_link_libraries(app PRIVATE mylib)  # 为目标链接库  
+target_include_directories(app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)  # 设置头文件包含路径  
+target_compile_definitions(app PRIVATE DEBUG_MODE)  # 添加编译宏定义  
+target_compile_options(app PRIVATE -Wall -Wextra)  # 设置编译选项  
+
+# (4) 条件和控制流命令  
+if(UNIX)  
+    message(STATUS "Configuring for Unix")  
+elseif(WIN32)  
+    message(STATUS "Configuring for Windows")  
+else()  
+    message(STATUS "Configuring for other systems")  
+endif()  
+
+# 可选编译选项  
+option(USE_OPENGL "Enable OpenGL support" ON)  
+if(USE_OPENGL)  
+    find_package(OpenGL REQUIRED)  # 查找 OpenGL 库  
+    target_link_libraries(app PRIVATE OpenGL::GL)  # 链接 OpenGL  
+endif()  
+
+# (5) 变量和路径相关命令  
+set(SOURCES main.cpp utils.cpp)  # 设置源文件列表  
+list(APPEND SOURCES extra.cpp)  # 追加额外的源文件  
+message(STATUS "Sources: ${SOURCES}")  # 输出源文件列表  
+
+# (6) 查找和依赖命令  
+find_package(Boost COMPONENTS system filesystem REQUIRED)  # 查找 Boost 库  
+find_path(HEADER_DIR "myheader.h" PATHS /usr/include /usr/local/include)  # 查找头文件路径  
+find_library(MATH_LIB m PATHS /usr/lib /usr/local/lib)  # 查找库文件  
+
+# (7) 安装和导出命令  
+install(TARGETS app RUNTIME DESTINATION bin)  # 安装可执行文件  
+install(TARGETS mylib DESTINATION lib)  # 安装库文件  
+install(FILES header.h DESTINATION include)  # 安装头文件  
+
+# (8) 其他实用命令  
+message(STATUS "Configuring project: ${PROJECT_NAME} v${PROJECT_VERSION}")  # 输出项目配置消息  
+include(CMakePrintHelpers)  # 包含其他 CMake 脚本  
+
+# (9) 高级命令  
+function(my_function ARG1 ARG2)  # 定义函数  
+    message(STATUS "Function called with ${ARG1} and ${ARG2}")  
+endfunction()  
+
+macro(my_macro ARG1)  # 定义宏  
+    message(STATUS "Macro called with ${ARG1}")  
+endmacro()  
+
+# 调用函数和宏  
+my_function("Hello" "World")  
+my_macro("Test")
+</code></pre>
+<h3 id="cmake内置命令-1"><a class="header" href="#cmake内置命令-1">cmake内置命令</a></h3>
+<p>以下是 CMake 中最常用和重要的内置变量详细解析：</p>
+<p>(1) 路径相关变量</p>
+<p><b>项目路径</b></p>
+<pre><code class="language-cmake">CMAKE_SOURCE_DIR       # 顶层源代码目录（顶层 CMakeLists.txt 所在目录）  
+CMAKE_CURRENT_SOURCE_DIR  # 当前处理的 CMakeLists.txt 所在目录  
+CMAKE_BINARY_DIR       # 顶层构建目录  
+CMAKE_CURRENT_BINARY_DIR  # 当前构建目录
+</code></pre>
+<p>示例:</p>
+<pre><code class="language-cmake">message(STATUS "项目根目录: ${CMAKE_SOURCE_DIR}")  
+message(STATUS "当前源码目录: ${CMAKE_CURRENT_SOURCE_DIR}")
+</code></pre>
+<p>(2) 系统和编译器相关变量</p>
+<p><b>系统识别</b></p>
+<pre><code class="language-cmake">CMAKE_SYSTEM_NAME          # 操作系统名称（Linux, Windows, Darwin）  
+CMAKE_SYSTEM_VERSION       # 操作系统版本  
+CMAKE_SYSTEM_PROCESSOR     # 处理器架构  
+
+# 平台判断
+WIN32                  # Windows 平台  
+UNIX                   # Unix 类系统  
+APPLE                  # macOS 系统  
+LINUX                  # Linux 系统
+</code></pre>
+<p><b>编译器相关</b></p>
+<pre><code class="language-cmake">CMAKE_CXX_COMPILER         # C++ 编译器路径  
+CMAKE_C_COMPILER           # C 编译器路径  
+CMAKE_COMPILER_IS_GNUCXX   # 是否为 GCC 编译器  
+MSVC                       # 是否为 MSVC 编译器  
+
+#编译器版本
+CMAKE_CXX_COMPILER_VERSION  # C++ 编译器版本
+</code></pre>
+<p>示例:</p>
+<pre><code class="language-cmake">if(WIN32)
+    message(STATUS "当前系统: Windows")  
+elseif(UNIX)
+    message(STATUS "当前系统: Unix-like")  
+endif()  
+
+message(STATUS "编译器: ${CMAKE_CXX_COMPILER}")  
+message(STATUS "编译器版本: ${CMAKE_CXX_COMPILER_VERSION}")
+</code></pre>
+<p>(3) 构建类型相关变量</p>
+<pre><code class="language-cmake">CMAKE_BUILD_TYPE           # 构建类型（Debug, Release, RelWithDebInfo, MinSizeRel）  
+CMAKE_CONFIGURATION_TYPES  # 多配置生成器的可用配置类型  
+
+# 编译选项和标志
+CMAKE_CXX_FLAGS        # C++ 全局编译选项  
+CMAKE_CXX_FLAGS_DEBUG  # Debug 模式下的编译选项  
+CMAKE_CXX_FLAGS_RELEASE  # Release 模式下的编译选项
+</code></pre>
+<p>示例:</p>
+<pre><code class="language-cmake"># 设置默认构建类型
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type" FORCE)  
+endif()  
+
+# 添加编译选项
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+</code></pre>
+<h1 id="-2"><a class="header" href="#-2"></a></h1>
+<p>(4) 安装和导出相关变量</p>
+<pre><code class="language-cmake">CMAKE_INSTALL_PREFIX      # 安装根目录（默认 /usr/local）  
+CMAKE_INSTALL_LIBDIR      # 库文件安装目录  
+CMAKE_INSTALL_BINDIR      # 可执行文件安装目录  
+CMAKE_INSTALL_INCLUDEDIR  # 头文件安装目录
+</code></pre>
+<p>示例:</p>
+<pre><code class="language-cmake"># 自定义安装前缀
+set(CMAKE_INSTALL_PREFIX "/opt/myapp" CACHE PATH "Installation prefix")  
+
+# 安装目标
+install(TARGETS myapp
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}  
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static  
+)
+</code></pre>
+<p>(5) 编译工具链相关</p>
+<pre><code class="language-cmake">CMAKE_TOOLCHAIN_FILE   # 工具链文件路径  
+CMAKE_CROSSCOMPILING   # 是否交叉编译  
+CMAKE_HOST_SYSTEM_NAME # 主机系统名称
+</code></pre>
+<p>示例:</p>
+<pre><code class="language-cmake"># 检查是否交叉编译
+if(CMAKE_CROSSCOMPILING)
+    message(STATUS "正在进行交叉编译")  
+endif()
+</code></pre>
+<p>(6) 高级配置变量</p>
+<pre><code class="language-cmake">CMAKE_MODULE_PATH      # CMake 模块搜索路径  
+CMAKE_PREFIX_PATH      # 依赖库搜索路径  
+
+#标准设置
+CMAKE_CXX_STANDARD     # C++ 标准版本  
+CMAKE_CXX_STANDARD_REQUIRED  # 是否强制要求标准版本
+</code></pre>
+<p>示例:</p>
+<pre><code class="language-cmake"># 添加自定义模块路径
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")  
+
+# 设置 C++ 标准
+set(CMAKE_CXX_STANDARD 17)  
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+</code></pre>
+<p>(7) 完整示例：综合使用内置变量</p>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.15)  
+project(SystemInfoProject)  
+
+# 系统信息
+message(STATUS "操作系统: ${CMAKE_SYSTEM_NAME}")  
+message(STATUS "系统版本: ${CMAKE_SYSTEM_VERSION}")  
+message(STATUS "处理器架构: ${CMAKE_SYSTEM_PROCESSOR}")  
+
+# 编译器信息
+message(STATUS "编译器: ${CMAKE_CXX_COMPILER}")  
+message(STATUS "编译器版本: ${CMAKE_CXX_COMPILER_VERSION}")  
+
+# 构建类型配置
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type" FORCE)  
+endif()
+  
+message(STATUS "构建类型: ${CMAKE_BUILD_TYPE}")  
+
+# 平台特定配置
+if(WIN32)
+    add_definitions(-DWINDOWS_PLATFORM)  
+elseif(UNIX)
+    add_definitions(-DUNIX_PLATFORM)  
+endif()
+  
+# 编译选项
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")  
+set(CMAKE_CXX_STANDARD 17)  
+set(CMAKE_CXX_STANDARD_REQUIRED ON)  
+
+# 安装配置
+set(CMAKE_INSTALL_PREFIX "/opt/myapp" CACHE PATH "Installation prefix")  
+
+# 添加可执行文件
+add_executable(system_info main.cpp)  
+
+# 安装目标
+install(TARGETS system_info
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}  
+)
+</code></pre>
+<h2 id="vscode--clangd"><a class="header" href="#vscode--clangd">vscode + clangd</a></h2>
+<p>clangd的代码提示和补全，非常地强大，这里记录一下 vscode如何配置clangd。</p>
+<h3 id="windows"><a class="header" href="#windows">Windows</a></h3>
+<p>windows平台，在vscode上安装clangd比较简单。</p>
+<p>直接在extenstions里搜素clangd，然后install这个插件即可，安装好后，重新打开窗口检查是否安装成功。clangd.exe存储在如下目录：</p>
+<pre><code class="language-bash">clangd path: C:/Users/ventu/AppData/Roaming/Code/User/globalStorage
+/llvm-vs-code-extensions.vscode-clangd/install/18.1.3/clangd_18.1.3/bin/clangd.exe
+</code></pre>
+<h3 id="mac"><a class="header" href="#mac">mac</a></h3>
+<h3 id="ubuntu"><a class="header" href="#ubuntu">Ubuntu</a></h3>
+<p>(1) vscode 安装插件 clangd</p>
+<img src="cpp/cpp开发环境//assets/VS4HbaU1voJ6HXxhgkFckdmlnbe.png" src-width="555" src-height="278"/>
+<p>(2) 然后<code>Ctrl + shift + p</code> reload window，一般这个时候会弹出install clangd的窗口，install即可。如果弹出的窗口显示fail，可以试着关闭代理reload window后再次尝试。</p>
+<p>(3) 如果isntall失败，那么我们手动install，<a href="https://clangd.llvm.org/installation.html">https://clangd.llvm.org/installation.html</a></p>
+<img src="cpp/cpp开发环境//assets/GYNBbxCbroIw8pxCeLUcZmXvnjh.png" src-width="753" src-height="310"/>
+<p>由于我们是ubuntu，所以安装clangd-linux-18.1.3.zip</p>
+<img src="cpp/cpp开发环境//assets/OLeXbY4XBoNZzzxyQDEcL8sGnHc.png" src-width="1251" src-height="678"/>
+<p>安装好后，得到一个压缩包，我们解压后，将clangd_18.1.3放入对应install目录下</p>
+<pre><code class="language-bash">"clangd.path": "/home/xxxx/.vscode-server/data/User/globalStorage
+/llvm-vs-code-extensions.vscode-clangd/install/18.1.3/clangd_18.1.3/bin/clangd",
+</code></pre>
+<p>vscode下，<code>ctrl + ,</code> 打开settings界面，然后输入proxy，打开settings.json (注意一定要选择正确的主机)，最后设置clangd.path。</p>
+<img src="cpp/cpp开发环境//assets/GdADbqDrLoY9sOxzyFqcqHZEnWe.png" src-width="1880" src-height="887"/>
+<p>(4) 检查是否安装成功，vscode打开panel，然后输入clangd，check for language server update，如果已经安装会显示安装的版本。然后download language server，会提示发现installed clangd，直接set default，最后restart language server，reload window。到此，vscode上配置clangd完成。</p>
+<img src="cpp/cpp开发环境//assets/U0vjbJnXaoqWMGxXEyZcFi4ynOb.png" src-width="1136" src-height="426"/>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="c-基本特性"><a class="header" href="#c-基本特性">C++ 基本特性</a></h1>
+<p>这部分主要围绕C++基本特性进行记录，主要包括常用关键字，指针，引用，内存相关的知识点。</p>
+<p>阅读指南：</p>
+<p>每篇文章，一般开头会有介绍/用法，入门和工程使用一般看这部分即可，也是知识体系的核心模块。</p>
+<p>其余的进阶研究，在后面以2级标题的形式进行添加研究。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="new-delete-运算符"><a class="header" href="#new-delete-运算符">new delete 运算符</a></h1>
+<h2 id="介绍"><a class="header" href="#介绍">介绍</a></h2>
+<p>在C++中，<code>new</code>和<code>delete</code>是用于动态内存管理的运算符。它们允许程序在运行时分配和释放内存，这对于处理不确定大小的数据结构（如链表、树等）非常重要。下面是对这两个运算符的详细讲解：</p>
+<h3 id="1-new-运算符"><a class="header" href="#1-new-运算符">1. <code>new</code> 运算符</a></h3>
+<ul>
+<li>功能：<code>new</code>运算符用于在堆上动态分配内存。它返回一个指向所分配内存的指针。</li>
+<li>语法：</li>
+</ul>
+<pre><code class="language-cpp">Type* pointer = new Type; // 分配一个Type类型的对象  
+Type* arrayPointer = new Type[size]; // 分配一个Type类型的数组
+</code></pre>
+<ul>
+<li>示例：</li>
+</ul>
+<pre><code class="language-cpp">int* p = new int; // 分配一个int类型的内存  
+*p = 10; // 给分配的内存赋值  
+
+int* arr = new int[5]; // 分配一个包含5个int的数组  
+for (int i = 0; i &lt; 5; ++i) {    
+    arr[i] = i; // 初始化数组  
+}
+</code></pre>
+<h3 id="2-delete-运算符"><a class="header" href="#2-delete-运算符">2. <code>delete</code> 运算符</a></h3>
+<ul>
+<li>功能：<code>delete</code>运算符用于释放之前通过<code>new</code>分配的内存。使用<code>delete</code>可以避免内存泄漏。</li>
+<li>语法 + 示例：</li>
+</ul>
+<pre><code class="language-cpp">delete p; // 释放之前分配的int内存  
+delete[] arr; // 释放之前分配的int数组内存
+</code></pre>
+<h3 id="3-注意事项"><a class="header" href="#3-注意事项">3. 注意事项</a></h3>
+<ul>
+<li>内存泄漏：如果使用<code>new</code>分配的内存没有用<code>delete</code>释放，就会导致内存泄漏，程序的内存使用量会不断增加。</li>
+<li>双重释放：对同一块内存使用<code>delete</code>两次会导致未定义行为，因此在释放内存后，最好将指针设置为<code>nullptr</code>。</li>
+<li>构造和析构：使用<code>new</code>分配对象时，会调用对象的构造函数；使用<code>delete</code>释放对象时，会调用对象的析构函数。</li>
+</ul>
+<h2 id="用法"><a class="header" href="#用法">用法</a></h2>
+<p>new可以分配单个对象的内存，也可以分配数组对象的内存；分配的内存默认是在堆区；</p>
+<blockquote>
+<p>相关术语：
+new分配单个对象的内存 &lt;=&gt; new创建单个对象 &lt;=&gt; new单个对象
+new分配数组对象的内存 &lt;=&gt; new创建数组对象 &lt;=&gt; new数组对象</p>
+<blockquote>
+<p>new的时候 语法层面有三种写法,(..,), (), 没有()；分别对应有参初始化，无参初始化，不初始化；</p>
+</blockquote>
+</blockquote>
+<h3 id="new单个对象"><a class="header" href="#new单个对象">new单个对象</a></h3>
+<p>(1) 对象是普通变量，可以分配对应的内存</p>
+<ul>
+<li><code>(...)</code> 直接初始化，允许；</li>
+<li><code>()</code>值初始化，允许，初始化为0；</li>
+<li>没有<code>()</code> 默认初始化，允许，分配的内存未定义；</li>
+</ul>
+<p>(2) 对象是类对象，会调用构造函数，如果没有对应的构造函数，就会报错</p>
+<ul>
+<li><code>(...)</code> 直接初始化，允许，找到对应构造函数初始化，没有找到报错</li>
+<li><code>()</code> 值初始化，允许，调用默认构造函数初始化，没有找到报错</li>
+<li>没有<code>()</code> 默认始化，允许，调用默认构造函数初始化，没有找到报错</li>
+</ul>
+<h3 id="new数组对象"><a class="header" href="#new数组对象">new数组对象</a></h3>
+<p>(1) new普通变量数组，可以使用<code>()</code>将所有对象全部初始化为0</p>
+<ul>
+<li><code>(...)</code> 直接初始化，不允许；会报错</li>
+<li><code>()</code>值初始化，允许，数组中对象全部初始化为0；</li>
+<li>没有<code>()</code> 默认初始化，允许，分配的内存未定义；</li>
+</ul>
+<p>(2) new类对象数组，有没有<code>()</code>都一样，均使用默认构造函数，如果没有默认构造函数就 会报错</p>
+<ul>
+<li><code>(...)</code> 直接初始化，不允许；会报错</li>
+<li><code>()</code> 值初始化，允许，调用默认构造函数初始化，没有找到报错</li>
+<li>没有<code>()</code> 默认初始化，允许，调用默认构造函数初始化，没有找到报错</li>
+</ul>
+<p>代码：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+
+class Test
+{
+public:
+    Test() {}
+};
+
+class TestA
+{
+public:
+    TestA(int i_) : i(i_) {}
+
+private:
+    int i;
+};
+
+int main() {
+    // 1. new可以在堆上分配 单个对象 的内存  &lt;=&gt; new可以在堆上创建 单个对象   &lt;=&gt; new单个对象
+
+    // 以下对象 指 分配的对象/创建的对象/new的对象
+
+    // 1.1 对象是普通变量，分配对应的内存
+    
+    int *pi = new int(10);    // 堆上分配int对象的内存，直接初始化
+    std::cout &lt;&lt; *pi &lt;&lt; std::endl;
+   
+    int* pk = new int();     // 堆上分配int对象的内存，值初始化为0;
+    std::cout &lt;&lt; *pk &lt;&lt; std::endl;
+    
+    int *pj = new int;       // 堆上分配int对象的内存，默认初始化，分配内存未定义
+    std::cout &lt;&lt; *pj &lt;&lt; std::endl;
+    
+    delete pi;   
+    delete pj;
+    delete pk;
+
+    // 1.2 对象是类对象，会调用对应的构造函数，如果没有对应的构造函数，就会报错
+    
+    std::string *pString1 = new std::string("hello world");  // 找到对应的构造函数初始化
+    std::cout &lt;&lt; *pString1 &lt;&lt; std::endl;
+
+    std::string *pString2 = new std::string();              // 调用默认构造函数初始化
+    std::cout &lt;&lt; *pString2 &lt;&lt; std::endl;
+    
+    std::string *pString3 = new std::string;                // 调用默认构造函数初始化
+    std::cout &lt;&lt; *pString3 &lt;&lt; std::endl;
+
+    // 这里演示 new单个类对象，找不到对应构造函数报错
+    //Test* t1 = new Test(10);     // 找不到对应构造函数报错
+    
+    delete pString1;
+    delete pString2;
+    delete pString3;
+
+
+    // 2. new可以在堆上分配 数组对象 的内存 &lt;=&gt; new可以在堆上创建 数组对象 &lt;=&gt; new数组对象
+
+    // 2.1 new 普通变量 数组   可以使用（）将所有对象全部初始化为 0    =&gt; 只有()初始化合法
+
+    int *p1 = new int[100]();           // 分配数组对象内存，值参初始化，数组中所有对象全部初始化为0 
+    std::cout &lt;&lt; p1[20] &lt;&lt; std::endl;
+
+    int *p2 = new int[100];             // 分配数组对象内存，默认初始化，分配的内存未定义
+    std::cout &lt;&lt; p2[20] &lt;&lt; std::endl;   
+
+    //int* p3 = new int[100](10);        // 分配数组对象内存，直接初始化，报错，语法规定不允许
+    //std::cout &lt;&lt; p2[20] &lt;&lt; std::endl;   
+
+    delete[] p1;
+    delete[] p2;
+    //delete[] p3;
+
+    // 2.2 对于 类对象 数组   有没有“（）”都一样，均使用默认构造函数，如果没有默认构造函数就会报错
+
+    std::string *pString4 = new std::string[100]();                // 分配数组对象内存，数组中所有对象 使用默认构造函数初始化
+    std::cout &lt;&lt; pString4[20] &lt;&lt; std::endl;
+
+    std::string* pString5 = new std::string[100];                  // 分配数组对象内存，数组中所有对象 使用默认构造函数初始化
+    std::cout &lt;&lt; pString5[20] &lt;&lt; std::endl;
+
+    //std::string* pString6 = new std::string[100]("hello world");   // 分配数组对象内存，有参初始化，报错，语法规定不允许 
+    //std::cout &lt;&lt; pString6[20] &lt;&lt; std::endl;
+
+    // 这里演示 new类对象数组，找不到默认构造函数报错
+    //TestA* t2 = new TestA[100];
+    
+    delete[] pString4;
+    delete[] pString5;
+    //delete[] pStirng6;
+
+    return 0;
+}
+</code></pre>
+<p>运行结果：</p>
+<img src="cpp/cpp基本特性//assets/LdgmbcnnVom01NxADArc2CiWnIh.png" src-width="542" src-height="200"/>
+<p>上面代码 注释的地方都是之前提到的的问题</p>
+<ul>
+<li>内存未定义</li>
+<li>没有找到对应的构造函数</li>
+<li>new数组对象不允许直接初始化</li>
+</ul>
+<img src="cpp/cpp基本特性//assets/Idwpbp19OoRj0PxXI7tcluVEnwg.png" src-width="823" src-height="316" align="center"/>
+<p>总结：</p>
+<ul>
+<li>new单个对象，语法层面上有，直接/值/默认 初始化都可以；但是new数组对象上，语法层面上不允许直接初始化；</li>
+<li>new 单个类对象 和 new 类对象数组时，就是要找对应的构造函数，没有找到就会报错</li>
+</ul>
+<h2 id="new的所有初始化"><a class="header" href="#new的所有初始化">new的所有初始化</a></h2>
+<h3 id="1-基本初始化方式"><a class="header" href="#1-基本初始化方式">1. 基本初始化方式</a></h3>
+<h4 id="11-默认初始化"><a class="header" href="#11-默认初始化">1.1 默认初始化</a></h4>
+<pre><code class="language-cpp">int* ptr1 = new int;  // 未初始化，内置类型值是随机的
+</code></pre>
+<h4 id="12-值初始化"><a class="header" href="#12-值初始化">1.2 值初始化</a></h4>
+<pre><code class="language-cpp">int* ptr2 = new int();  // 初始化为0
+</code></pre>
+<h4 id="13-直接初始化"><a class="header" href="#13-直接初始化">1.3 直接初始化</a></h4>
+<pre><code class="language-cpp">int* ptr3 = new int(42);  // 初始化为42
+</code></pre>
+<h4 id="14-列表初始化c11引入"><a class="header" href="#14-列表初始化c11引入">1.4 列表初始化（C++11引入）</a></h4>
+<pre><code class="language-cpp">int* ptr4 = new int{42};  // 使用花括号初始化
+</code></pre>
+<h3 id="2-对象初始化方式"><a class="header" href="#2-对象初始化方式">2. 对象初始化方式</a></h3>
+<h4 id="21-默认构造函数"><a class="header" href="#21-默认构造函数">2.1 默认构造函数</a></h4>
+<pre><code class="language-cpp">class MyClass {  
+public:  
+    MyClass() { value = 0; }  
+    MyClass(int x) : value(x) {}  
+    int value;  
+};  
+
+// 默认构造函数  
+MyClass* obj1 = new MyClass();
+</code></pre>
+<h4 id="22-带参数构造函数"><a class="header" href="#22-带参数构造函数">2.2 带参数构造函数</a></h4>
+<pre><code class="language-cpp">// 带参数的构造函数  
+MyClass* obj2 = new MyClass(10);
+</code></pre>
+<h4 id="23-列表初始化构造函数"><a class="header" href="#23-列表初始化构造函数">2.3 列表初始化构造函数</a></h4>
+<pre><code class="language-cpp">// 列表初始化  
+MyClass* obj3 = new MyClass{10};
+</code></pre>
+<h3 id="3-数组初始化方式"><a class="header" href="#3-数组初始化方式">3. 数组初始化方式</a></h3>
+<h4 id="31-默认数组初始化"><a class="header" href="#31-默认数组初始化">3.1 默认数组初始化</a></h4>
+<pre><code class="language-cpp">// 默认初始化数组  
+int* arr1 = new int[5];  // 未初始化
+</code></pre>
+<h4 id="32-值初始化数组"><a class="header" href="#32-值初始化数组">3.2 值初始化数组</a></h4>
+<pre><code class="language-cpp">// 值初始化数组  
+int* arr2 = new int[5]();  // 全部元素初始化为0
+</code></pre>
+<h4 id="33-直接初始化数组"><a class="header" href="#33-直接初始化数组">3.3 直接初始化数组</a></h4>
+<pre><code class="language-cpp">// 部分初始化数组  
+int* arr3 = new int[5]{1, 2, 3, 4, 5};  // C++11开始支持
+</code></pre>
+<h3 id="4-多维数组初始化"><a class="header" href="#4-多维数组初始化">4. 多维数组初始化</a></h3>
+<h4 id="41-二维数组初始化"><a class="header" href="#41-二维数组初始化">4.1 二维数组初始化</a></h4>
+<pre><code class="language-cpp">// 二维数组初始化  
+int** matrix1 = new int*[3];  
+for (int i = 0; i &lt; 3; ++i) {    
+    matrix1[i] = new int[4]();  // 每行初始化为0  
+}  
+
+// 列表初始化二维数组（C++11）  
+int** matrix2 = new int*[2]{  
+    new int[3]{1, 2, 3},  
+    new int[3]{4, 5, 6}  
+};
+</code></pre>
+<h3 id="5-复杂对象初始化"><a class="header" href="#5-复杂对象初始化">5. 复杂对象初始化</a></h3>
+<h4 id="51-复杂类的构造函数初始化"><a class="header" href="#51-复杂类的构造函数初始化">5.1 复杂类的构造函数初始化</a></h4>
+<pre><code class="language-cpp">class ComplexClass {  
+public:  
+    ComplexClass() = default;  
+    ComplexClass(int a, double b, std::string c)        
+        : x(a), y(b), str(c) {}  
+    
+    int x;  
+    double y;
+    std::string str;  
+};  
+
+// 多参数构造函数初始化  
+ComplexClass* complex1 = new ComplexClass(10, 3.14, "Hello");
+</code></pre>
+<h3 id="6-智能指针初始化现代c推荐"><a class="header" href="#6-智能指针初始化现代c推荐">6. 智能指针初始化（现代C++推荐）</a></h3>
+<h4 id="61-unique_ptr"><a class="header" href="#61-unique_ptr">6.1 unique_ptr</a></h4>
+<pre><code class="language-cpp">#include &lt;memory&gt;  
+
+// 使用 make_unique  
+std::unique_ptr&lt;int&gt; uptr1 = std::make_unique&lt;int&gt;(42);  
+
+// 直接构造  
+std::unique_ptr&lt;MyClass&gt; uptr2 = std::make_unique&lt;MyClass&gt;(10);
+</code></pre>
+<h4 id="62-shared_ptr"><a class="header" href="#62-shared_ptr">6.2 shared_ptr</a></h4>
+<pre><code class="language-cpp">// 使用 make_shared  
+std::shared_ptr&lt;int&gt; sptr1 = std::make_shared&lt;int&gt;(42);  
+
+// 直接构造  
+std::shared_ptr&lt;MyClass&gt; sptr2 = std::make_shared&lt;MyClass&gt;(10);
+</code></pre>
+<h3 id="7-特殊初始化场景"><a class="header" href="#7-特殊初始化场景">7. 特殊初始化场景</a></h3>
+<h4 id="71-placement-new"><a class="header" href="#71-placement-new">7.1 placement new</a></h4>
+<pre><code class="language-cpp">// 在预分配的内存上构造对象  
+char buffer[sizeof(MyClass)];  
+MyClass* placementObj = new (buffer) MyClass(100);
+</code></pre>
+<h3 id="完整示例代码"><a class="header" href="#完整示例代码">完整示例代码</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;  
+#include &lt;string&gt;  
+#include &lt;memory&gt;  
+
+class MyClass {  
+public:  
+    MyClass() : value(0) {        
+        std::cout &lt;&lt; "默认构造函数" &lt;&lt; std::endl;
+    }
+      
+    MyClass(int x) : value(x) {        
+        std::cout &lt;&lt; "带参数构造函数: " &lt;&lt; value &lt;&lt; std::endl;
+    }  
+    ~MyClass() {        
+        std::cout &lt;&lt; "析构函数" &lt;&lt; std::endl;
+    }  
+    
+    int value;  
+};  
+
+int main() {  
+    // 基本类型初始化  
+    int* a = new int;           // 未初始化  
+    int* b = new int();         // 初始化为0  
+    int* c = new int(42);       // 初始化为42  
+    int* d = new int{42};       // 列表初始化  
+
+    // 对象初始化  
+    MyClass* obj1 = new MyClass();        // 默认构造  
+    MyClass* obj2 = new MyClass(10);      // 带参数构造  
+    MyClass* obj3 = new MyClass{20};      // 列表初始化  
+    
+    // 数组初始化  
+    int* arr1 = new int[5];                // 未初始化  
+    int* arr2 = new int[5]();              // 全0  
+    int* arr3 = new int[5]{1, 2, 3, 4, 5}; // 部分初始化  
+    
+    // 智能指针  
+    auto uptr = std::make_unique&lt;MyClass&gt;(30);  
+    auto sptr = std::make_shared&lt;MyClass&gt;(40);  
+    
+    // 释放内存  
+    delete a;  
+    delete b;  
+    delete c;  
+    delete d;  
+    delete obj1;  
+    delete obj2;  
+    delete obj3;  
+    delete arr1;  
+    delete arr2;  
+    delete arr3;  
+    
+    return 0;  
+}
+</code></pre>
+<h3 id="注意事项"><a class="header" href="#注意事项">注意事项</a></h3>
+<ol>
+<li>使用 <code>new</code> 分配的内存必须手动释放，否则会造成内存泄漏</li>
+<li>现代 C++ 推荐使用智能指针（<code>unique_ptr</code>、<code>shared_ptr</code>）</li>
+<li>不同的初始化方式适用于不同的场景</li>
+<li>列表初始化（<code>{}</code>）提供了更严格和安全的初始化方式</li>
+</ol>
+<h3 id="建议"><a class="header" href="#建议">建议</a></h3>
+<ul>
+<li>尽量使用栈上对象和智能指针</li>
+<li>避免手动管理动态内存</li>
+<li>使用 RAII（资源获取即初始化）原则</li>
+</ul>
+<h2 id="mallocfree-和-newdelete之间的区别"><a class="header" href="#mallocfree-和-newdelete之间的区别">malloc/free 和 new/delete之间的区别</a></h2>
+<p>参考视频：</p>
+<p>https://www.bilibili.com/video/BV1Qm411z7AH/?spm_id_from=333.337.search-card.all.click&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<p>自己的理解：</p>
+<p>背景：malloc、free c语言中库函数，new、delete是c+中操作符</p>
+<p>(1) malloc和new的区别</p>
+<p>内存大小的计算：new自动计算所需分配内存大小，malloc需要手动计算</p>
+<p>返回的指针类型：new返回的是对象类型的指针，malloc返回的是void*,之后进行类型转换</p>
+<p>分配失败后的处理：neW分配失败会抛出异常，malloc分配失败返回的是NULL;</p>
+<p>分配区域：new是在free store上分配内存，malloc堆上分配：</p>
+<p>(2) delete和free的区别</p>
+<p>参数区别：delete需要对象类型的指针，free是vo1d*类型的指针：</p>
+<p>new的简要流程</p>
+<ol>
+<li>operator new</li>
+<li>申请足够的空间</li>
+<li>调用构造函数，初始化成员变量</li>
+</ol>
+<p>delete的简要流程</p>
+<ol>
+<li>先调用析构函数</li>
+<li>operator delete</li>
+<li>释放空间</li>
+</ol>
+<p>引申问题：</p>
+<p>(1) malloc是怎么分配空间的？</p>
+<p>malloc内存分配的核心机制：</p>
+<p>1-内存分配基本流程</p>
+<pre><code class="language-cpp">void* malloc(size_t size) {  
+    // 1. 参数检查  
+    if (size == 0) return NULL;  
+    
+    // 2. 内存大小调整  
+    size_t actual_size = adjust_size(size);  
+    
+    // 3. 查找可用内存块  
+    voidmemory_block = find_free_block(actual_size);  
+    
+    // 4. 如果没有可用内存块，向系统申请  
+    if (memory_block == NULL) {
+        memory_block = request_system_memory(actual_size);
+    }  
+    
+    // 5. 标记内存块为已使用  
+    mark_block_used(memory_block);  
+    return memory_block;  
+}
+</code></pre>
+<p>2-内存分配的关键步骤</p>
+<p>2.1-大小调整</p>
+<ul>
+<li>对齐内存大小（通常是8或16字节对齐）</li>
+<li>增加内存块管理所需的额外空间</li>
+</ul>
+<pre><code class="language-cpp">size_t adjust_size(size_t size) {  
+    // 内存对齐  
+    size_t aligned_size = (size + 7) &amp; ~0x7;  
+    
+    // 额外的块管理信息  
+    return aligned_size + BLOCK_HEADER_SIZE;  
+}
+</code></pre>
+<p>2.2-内存块查找策略</p>
+<ul>
+<li>空闲链表查找</li>
+<li>最佳匹配算法</li>
+</ul>
+<pre><code class="language-cpp">void* find_free_block(size_t size) {  
+    // 遍历空闲链表  
+    for (free_block* block = free_list_head; block != NULL; block = block-&gt;next) {  
+        // 找到合适大小的块  
+        if (block-&gt;size &gt;= size) {  // 从空闲链表移除  
+            remove_from_free_list(block);  
+            return block;        
+        }    
+    }  
+    return NULL;  
+}
+</code></pre>
+<p>3-系统内存申请方法</p>
+<p>3.1-小内存申请（&lt;128KB）</p>
+<ul>
+<li>使用<code>sbrk()</code>系统调用</li>
+<li>扩展进程堆空间</li>
+</ul>
+<pre><code class="language-cpp">void* request_small_memory(size_t size) {  
+    // 使用sbrk()扩展堆  
+    void new_memory = sbrk(size);  
+    
+    // 更新堆信息  
+    update_heap_metadata(new_memory, size);  
+    
+    return new_memory;  
+}
+</code></pre>
+<p>3.2 大内存申请（&gt;128KB）</p>
+<ul>
+<li>使用<code>mmap()</code>系统调用</li>
+<li>直接映射虚拟内存</li>
+</ul>
+<pre><code class="language-cpp">void* request_large_memory(size_t size) {  
+    return mmap(NULL,           // 系统分配地址  
+                size,           // 请求大小  
+                PROT_READ | PROT_WRITE,  // 读写权限  
+                MAP_PRIVATE | MAP_ANONYMOUS,   
+                -1,             // 无文件描述符  
+                0);             // 无文件偏移  
+}
+</code></pre>
+<p>4-内存块管理结构</p>
+<pre><code class="language-cpp">// 内存块管理结构  
+typedef struct memory_block {  
+    size_t size;           // 块大小  
+    int is_free;           // 是否空闲  
+    struct memory_block* next;  // 下一个块  
+    struct memory_block* prev;  // 前一个块  
+} 
+memory_block;
+</code></pre>
+<p>5-内存分配算法</p>
+<p>5.1 空闲链表管理</p>
+<ul>
+<li>维护空闲内存块链表</li>
+<li>支持块的合并和分割</li>
+</ul>
+<pre><code class="language-cpp">void merge_free_blocks() {
+    memory_block* current = free_list_head;  
+    while (current &amp;&amp; current-&gt;next) {  
+        // 检查相邻块是否可以合并  
+        if (is_contiguous_and_free(current, current-&gt;next)) {
+            merge_blocks(current, current-&gt;next);
+        }
+        current = current-&gt;next;
+    }  
+}
+</code></pre>
+<p>6-内存对齐技术</p>
+<pre><code class="language-cpp">// 内存对齐宏  
+#define ALIGN(size) (((size) + sizeof(size_t) - 1) &amp; ~(sizeof(size_t) - 1))
+</code></pre>
+<p>实际分配流程总结</p>
+<ol>
+<li>
+<p>检查请求大小</p>
+</li>
+<li>
+<p>调整内存大小（对齐）</p>
+</li>
+<li>
+<p>查找空闲内存块</p>
+</li>
+<li>
+<p>如果没有合适块，向系统申请内存</p>
+<ul>
+<li>小内存：使用<code>sbrk()</code></li>
+<li>大内存：使用<code>mmap()</code></li>
+</ul>
+</li>
+<li>
+<p>标记内存块为已使用</p>
+</li>
+<li>
+<p>返回内存指针</p>
+</li>
+</ol>
+<p>(2) mal1oc分配的物理内存还是虚拟内存？</p>
+<p>malloc分配的是虚拟内存</p>
+<ul>
+<li>当你调用<code>malloc()</code>时，实际上分配的是虚拟内存地址空间</li>
+<li>操作系统使用虚拟内存映射机制，将虚拟内存映射到物理内存</li>
+<li>只有当程序实际访问这些内存时，才会触发缺页中断，真正分配物理内存页</li>
+</ul>
+<p>(3) malloc调用后是否立刻得到物理内存？</p>
+<p>不是立即获得</p>
+<ul>
+<li>分配虚拟内存是瞬间完成的</li>
+<li>物理内存是延迟分配的（按需分页）</li>
+<li>只有在程序首次读写这块内存时，操作系统才会分配真正的物理内存页</li>
+<li>延迟分配示例:</li>
+</ul>
+<pre><code class="language-cpp">intptr = malloc(1024 * sizeof(int));  // 只分配虚拟内存  // 此时没有实际的物理内存分配  
+ptr[0] = 42;  // 首次写入时，触发缺页中断，分配物理内存
+</code></pre>
+<p>(4) free(p)怎么知道该释放多大的空间？</p>
+<p>通过内存块的元数据信息</p>
+<ul>
+<li>malloc在分配内存时，会在内存块前面添加一个头部（metadata）</li>
+<li>头部记录了内存块的大小和其他管理信息</li>
+<li>free()通过读取这个头部，就能知道要释放的内存大小</li>
+<li>内存块结构示例</li>
+</ul>
+<pre><code class="language-cpp">struct MemoryBlock {  
+    size_t size;       // 记录内存块大小  
+    int is_free;       // 标记是否空闲  
+    // 其他管理信息  
+};
+</code></pre>
+<p>(5) free释放内存后，内存还在吗？</p>
+<p>内存仍然存在，但被标记为可重用</p>
+<ul>
+<li>free()并不会立即将内存返回给操作系统</li>
+<li>内存被放回内存管理器的空闲列表</li>
+<li>下次malloc可能会重用这块内存</li>
+<li>只有在特定条件下（如大块内存），才会真正归还给操作系统</li>
+<li>内存管理示意:</li>
+</ul>
+<pre><code class="language-cpp">void free(voidptr) {  
+    // 1. 找到内存块  
+    MemoryBlock* block = (MemoryBlock*)(ptr - sizeof(MemoryBlock));  
+    
+    // 2. 标记为空闲  
+    block-&gt;is_free = 1;  
+    
+    // 3. 可能进行块合并  
+    merge_adjacent_free_blocks(block);  
+    
+    // 4. 加入空闲链表，等待重用  
+    add_to_free_list(block);  
+}
+</code></pre>
+<p>(6) malloc, free, new, delete的伪代码</p>
+<p>C语言风格：malloc 和 free</p>
+<pre><code class="language-cpp">// malloc 伪代码  
+void* my_malloc(size_t size) {  
+    // 1. 参数检查  
+    if (size == 0) return NULL;  
+    
+    // 2. 内存大小调整（对齐）  
+    size_t aligned_size = ALIGN(size);  
+    
+    // 3. 查找空闲内存块  
+    voidmemory = find_free_block(aligned_size);  
+    
+    // 4. 如果没有空闲块，向系统申请内存  
+    if (memory == NULL) {        
+        memory = request_system_memory(aligned_size);
+    }  
+    
+    // 5. 记录内存块元数据  
+    if (memory) {  
+        store_block_metadata(memory, aligned_size);
+    }  
+    
+    return memory;  
+}  
+
+// free 伪代码  
+void my_free(void* ptr) {  
+    // 1. 空指针检查  
+    if (ptr == NULL) return;  
+
+    // 2. 获取内存块元数据  
+    MemoryBlockHeader* header = get_block_header(ptr);  
+
+    // 3. 标记内存块为可用  
+    header-&gt;is_free = true;  
+
+    // 4. 尝试合并相邻空闲块  
+    merge_adjacent_free_blocks(header);  
+
+    // 5. 可能返回系统（取决于内存管理策略）  
+    try_return_to_system(header);  
+}
+</code></pre>
+<p>C++风格：new 和 delete</p>
+<pre><code class="language-cpp">// new 伪代码  
+void* operator new(size_t size) {  
+    // 1. 调用 malloc 分配内存  
+    void* memory = my_malloc(size);  
+
+    // 2. 内存分配失败处理  
+    if (memory == NULL) {  
+        throw std::bad_alloc();  // C++ 特有的异常处理  
+    }  
+    
+    return memory;  // 返回分配的内存指针
+}  
+
+// delete 伪代码  
+void operator delete(void* ptr) noexcept {  
+    // 1. 空指针检查  
+    if (ptr == NULL) return;  
+
+    // 2. 释放内存（调用 free）  
+    my_free(ptr);  
+}
+
+
+// new 伪代码  
+template &lt;typename T, typename... Args&gt;  
+T* my_new(Args&amp;&amp;... args) {  
+    // 1. 调用 operator new 分配内存  
+    void* raw_memory = operator new(sizeof(T));  
+
+   // 2. 在分配的内存上调用构造函数  
+    T* object = static_cast&lt;T*&gt;(raw_memory);  
+    new (object) T(std::forward&lt;Args&gt;(args)...);  // placement new   
+
+    return object;  // 返回指向新对象的指针  
+}  
+
+// delete 伪代码  
+template &lt;typename T&gt;  
+void my_delete(T* ptr) {  
+    // 1. 空指针检查  
+    if (ptr == NULL) return;  
+
+    // 2. 调用析构函数  
+    ptr-&gt;~T();  
+
+    // 3. 调用 operator delete 释放内存  
+    operator delete(static_cast&lt;void*&gt;(ptr));  
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="命名空间"><a class="header" href="#命名空间">命名空间</a></h1>
+<h2 id="介绍-1"><a class="header" href="#介绍-1">介绍</a></h2>
+<p>在C++中，命名空间（namespace）是一种用于组织代码的机制，主要用于避免名称冲突。命名空间允许将标识符（如变量、函数、类等）分组，从而在不同的上下文中使用相同的名称而不会发生冲突。</p>
+<p>入门视频：</p>
+<p>https://www.bilibili.com/video/BV1oCmEYGEUc/?spm_id_from=333.337.search-card.all.click&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<h2 id="用法-1"><a class="header" href="#用法-1">用法</a></h2>
+<p>C++经常需要多个团队合作来完成大型项目。多个团队就常常出现起名重复的问题，C++ 就提供了命名空间来解决这个问题。</p>
+<p>问题演示：</p>
+<p>TeamA和TeamB是两个团队，TeamA有代码文件，TeamA.h TeamA.cpp; TeamB有代码文件 TeamB.h TeamB.cpp; 两个团队都定义了test函数，然后main.cpp中引入了这两个团队的头文件，这样在main.cpp中调用test()就会报错。</p>
+<img src="cpp/cpp基本特性//assets/Bw8xbKAfDoHcUtxuBN0cOFf5ntc.png" src-width="1610" src-height="260" align="center"/>
+<img src="cpp/cpp基本特性//assets/Km4ubXRnEoqxEYx8eXIcKpXYnJb.png" src-width="631" src-height="258" align="center"/>
+<img src="cpp/cpp基本特性//assets/PhBwbBfD2oopMixIaiMca7Z4nSh.png" src-width="618" src-height="147" align="center"/>
+<p>解决方法：</p>
+<p>每个团队使用各自的命名空间，例如TeamA团队就使用namespace A，而TeamB团队就使用namespace B，然后把团队自己的头文件和源文件都使用namespace包裹住。</p>
+<img src="cpp/cpp基本特性//assets/KwiabfxdKo1vTjx1bePcQv54n4c.png" src-width="1616" src-height="374" align="center"/>
+<img src="cpp/cpp基本特性//assets/V3iibuC6voEwbCxD7wLcYTbonad.png" src-width="634" src-height="249" align="center"/>
+<p>对于namespace，我们还可以使用using关键字；using关键字设计的目的之一就是为了简化命名空间的。</p>
+<p>using 关键字在命名空间方面主要有两种用法：</p>
+<p>(1) using 命名空间::变量名；这样以后使用此变量时只要使用变量名就可以了，可以少写命名空间</p>
+<p>注意：如果变量前本来就有命名空间，那么直接使用当前的命名空间；否则就会使用using里的命名空间；如果有多个using针对的是相同的变量名，还是会因为无法确定报错。</p>
+<img src="cpp/cpp基本特性//assets/PRoObD7lMot79ExdR7ncB2kfneg.png" src-width="660" src-height="366" align="center"/>
+<img src="cpp/cpp基本特性//assets/G1w2bLinBouQl3xPjrhck2O5nMd.png" src-width="712" src-height="317" align="center"/>
+<p>(2) using namspce 命名空间。这样每一个变量都会在该命名空间中寻找</p>
+<p>注意：如果变量前本来就有命名空间，那么直接使用当前的命名空间；否则就会去using里的命名空间里寻找；如果有多个using namespace，使用的变量又在多个namespace里同名，还是会因为无法确定报错。</p>
+<img src="cpp/cpp基本特性//assets/XvFvbp9LzoX349xOBMYcwDCRnhc.png" src-width="621" src-height="370" align="center"/>
+<img src="cpp/cpp基本特性//assets/QvBjbqS3fovj2pxPtRzco4Aenlh.png" src-width="597" src-height="320" align="center"/>
+<p>命名空间的实现原理：</p>
+<p>C++最后都要转化为 C 来执行程序。在 namespace A 中定义的 Test 类，其实全名是 A::Test。 C++所有特有的库（指 c 没有的库）,都使用了 std 的命名空间。比如最常用的 iostream</p>
+<p>头文件中一定不能使用using关键字，因为这样极容易导致命名空间的污染</p>
+<p>分析：如果在头文件中使用using 关键字，很有可能在cpp文件中调用一个名称的时候，不知道究竟属于哪一个命名空间（因为头文件可以嵌套include，很难确定使用了哪些命名空间），当文件多的时候排查很麻烦；cpp文件中是可以使用的，因为可以直接确定使用了哪些命名空间，相对来说好排查一些；</p>
+<h2 id="命名空间在现代c中的优化"><a class="header" href="#命名空间在现代c中的优化">命名空间在现代C++中的优化</a></h2>
+<p>C++11引入了内联命名空间，C++17引入了嵌套命名空间</p>
+<p>讲解视频：</p>
+<p>https://www.bilibili.com/video/BV1Z14y1q7oo/?spm_id_from=333.337.search-card.all.click&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<h3 id="内联命名空间"><a class="header" href="#内联命名空间">内联命名空间</a></h3>
+<h3 id="嵌套命名空间"><a class="header" href="#嵌套命名空间">嵌套命名空间</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="const关键字"><a class="header" href="#const关键字">const关键字</a></h1>
+<h2 id="用法-2"><a class="header" href="#用法-2">用法</a></h2>
+<p>在C/C++中，<code>const</code>关键字用于声明常量，表示某个变量的值在初始化后不能被修改。它可以用于变量、指针、函数参数和返回值等多种场景。下面是对<code>const</code>关键字的详细讲解：</p>
+<h3 id="const修饰变量"><a class="header" href="#const修饰变量">const修饰变量</a></h3>
+<p>使用<code>const</code>声明的变量在初始化后不能被修改。例如：</p>
+<pre><code class="language-cpp">const int x = 10;  
+// x = 20; // 错误：不能修改常量
+</code></pre>
+<h3 id="const修饰指针"><a class="header" href="#const修饰指针">const修饰指针</a></h3>
+<p><code>const</code>可以与指针结合使用</p>
+<ul>
+<li>常量指针（Pointer to Constant）：指向常量，不能修改指向的值，但可以改变指针的指向。</li>
+</ul>
+<pre><code class="language-cpp">const Type* pointer;  // const修饰指针指向的对象
+
+const int a = 10;  
+const int* ptr = &amp;a; // ptr是一个指向常量整数的指针  
+
+// *ptr = 20; // 错误：不能通过ptr修改a的值  
+int b = 30;  
+ptr = &amp;b; // 合法：ptr可以指向其他地址
+</code></pre>
+<ul>
+<li>指针常量（Constant Pointer）：指针本身是常量，不能改变指针的指向，但可以修改指向的值。</li>
+</ul>
+<pre><code class="language-cpp">Type* const pointer;  // const修饰指针本身
+
+int a = 10;  
+int* const ptr = &amp;a; // ptr是一个常量指针，指向整数  
+
+*ptr = 20; // 合法：可以通过ptr修改a的值  
+// ptr = &amp;b; // 错误：不能改变ptr的指向
+</code></pre>
+<ul>
+<li>常量指针指向常量（Constant Pointer to Constant）：指针和指向的值都是常量，既不能修改指针的指向，也不能修改指向的值。</li>
+</ul>
+<pre><code class="language-cpp">const Type* const pointer;
+
+const int a = 10;  
+const int* const ptr = &amp;a; // ptr是一个指向常量整数的常量指针  
+
+// *ptr = 20; // 错误：不能通过ptr修改a的值  
+// ptr = &amp;b; // 错误：不能改变ptr的指向
+</code></pre>
+<h3 id="常量函数参数"><a class="header" href="#常量函数参数">常量函数参数</a></h3>
+<p>在函数参数中使用<code>const</code>可以防止函数修改传入的参数，尤其是对于引用和指针类型的参数。</p>
+<pre><code class="language-cpp">void func(const int* arr) {  
+    // arr[0] = 10; // 错误：不能修改数组内容  
+}
+</code></pre>
+<h3 id="常量成员函数"><a class="header" href="#常量成员函数">常量成员函数</a></h3>
+<p>在类中，使用<code>const</code>修饰成员函数，表示该函数不会修改类的成员变量。</p>
+<pre><code class="language-cpp">class MyClass {  
+public:  
+    void display() const {  
+        // this-&gt;value = 10; // 错误：不能在const成员函数中修改成员变量  
+    }  
+};
+</code></pre>
+<h3 id="常量返回值"><a class="header" href="#常量返回值">常量返回值</a></h3>
+<p>函数可以返回<code>const</code>类型的值，表示返回的值不能被修改。</p>
+<pre><code class="language-cpp">const int getValue() {  
+    return 10;  
+}  
+
+// int val = getValue();  
+// val = 20; // 合法：val是一个普通变量，可以修改
+</code></pre>
+<h3 id="总结"><a class="header" href="#总结">总结</a></h3>
+<p><code>const</code>关键字在C/C++中是一个重要的工具，用于提高代码的安全性和可读性。它可以帮助开发者明确哪些变量是常量，防止意外修改，从而减少错误和提高代码的可维护性。使用<code>const</code>的最佳实践是尽可能多地使用它，以确保代码的意图清晰。</p>
+<h2 id="const修饰的变量和常量的区别"><a class="header" href="#const修饰的变量和常量的区别">const修饰的变量和常量的区别</a></h2>
+<p>const是让编译器将变量视为常量，用const修饰的变量和真正的常量有本质的区别</p>
+<p><b>什么是真正的常量？</b></p>
+<p>真正的常量就是字面值，它们一般都存储在只读区。</p>
+<p>一般来说只读区中包含.text段和.rodata段（因为它们都是仅可读的），数字字面值有时会直接嵌入指令中，所以存储在.text段，而字符串字面值通常都是存储在.rodata段。</p>
+<p>例如：</p>
+<pre><code class="language-cpp">const char* str = "abcdefg";
+const int a = 3;
+const int b = 100;
+</code></pre>
+<p>str, a, b这些是const变量，并不是真正的常量，可以通过一些方式进行修改；而”abcdefg“，3，100这些是字面值，是真正的常量，无法修改。其中“abcdefg“这个字符串就存储在.rodata段， 而3, 100这些数字就存储在.text段中，这些都是真正的常量，无法用任何方式修改。</p>
+<p><b>const修饰的变量</b></p>
+<p>const修饰的变量，从内存分布的角度讲，和普通变量没有区别。</p>
+<p>const 修饰的变量并非不可更改的，C++本身就提供了mutable 关键字用来修改const修饰的变量，从汇编的角度讲，const 修饰的变量也是可以修改的</p>
+<p>代码分析：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main() {
+    int i = 100;                        // i在栈区
+    const int i2 = 200;                 // i2也在栈区, i2的值无法修改，但是i和i2在内存上是相邻的；
+    static int i3;                      // i3在.bss段
+    static int i4 = 400;                // i4在.data段
+    const static int i5 = 500;          // i5在.rodata段
+    std::string str = "hello world";    // str在栈区，"hello world"在常量区
+    
+    // 真正的常量 100 200 400 500存储在.text代码段（代码区），"hello world"存储在.rodata段（常量区）
+    return 0;
+}
+</code></pre>
+<h2 id="const在c和c中的区别"><a class="header" href="#const在c和c中的区别">const在C和C++中的区别</a></h2>
+<ul>
+<li>C/C++中都可以通过指针间接修改（不在只读区）const对象（全局未初始化的const对象，局部const对象）；但是C中可以修改成功，C++中虽然编译器不会报错，但是修改失败，因为在使用const对象时还是使用编译期常量进行替换。</li>
+<li>C中的const对象可以不初始化；C++中const对象必须初始化</li>
+</ul>
+<p>这一段代码，可以改成.c文件或者.cpp文件试试，会发现上面的结论。</p>
+<pre><code class="language-cpp">#include &lt;stdio.h&gt;
+
+const int a = 10;
+
+int main()
+{
+    const int b = 20;
+
+    // 使用指针强制类型转换来修改 const 对象的值
+    int* pa = (int*)&amp;a;
+    int* pb = (int*)&amp;b;
+    //*pa = 30;
+    *pb = 40;
+
+    printf("a = %d/n", a);
+    printf("b = %d/n", b);
+    printf("*pb = %d/n", *pb);
+    return 0;
+}
+
+
+// C中 输出 10 40 40
+// C++中 输出 10 20 40
+</code></pre>
+<h2 id="const的作用详细分析"><a class="header" href="#const的作用详细分析">const的作用，详细分析</a></h2>
+<p>视频讲解：
+https://www.bilibili.com/video/BV1FWtre2EJo/?spm_id_from=333.337.search-card.all.click&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<p>C/C++中的区别有误，看上面的总结，其他的没问题，可以作为回答问题的思路</p>
+<img src="cpp/cpp基本特性//assets/QbLjbt12goFA8ixG73hcMV5qnFb.png" src-width="2342" src-height="1580" align="center"/>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="extern关键字"><a class="header" href="#extern关键字">extern关键字</a></h1>
+<h2 id="用法-3"><a class="header" href="#用法-3">用法</a></h2>
+<p>在C/C++中，<code>extern</code>关键字用于声明一个变量或函数的外部链接性。它的主要作用是告诉编译器该变量或函数在其他文件中定义，而不是在当前文件中定义。下面是对<code>extern</code>关键字的详细讲解：</p>
+<h3 id="变量的使用"><a class="header" href="#变量的使用">变量的使用</a></h3>
+<p>当你在一个源文件中定义了一个变量，并希望在其他源文件中访问这个变量时，可以使用<code>extern</code>关键字来声明它。例如：</p>
+<pre><code class="language-cpp">// file1.c
+
+#include &lt;stdio.h&gt;  
+
+int globalVar = 10; // 定义一个全局变量  
+
+void display() {  
+    printf("Global Variable: %d/n", globalVar);  
+}
+</code></pre>
+<pre><code class="language-cpp">// file2.c
+#include &lt;stdio.h&gt;  
+
+extern int globalVar; // 声明外部变量  
+
+void modify() {  
+    globalVar = 20; // 修改外部变量  
+}
+</code></pre>
+<p>在这个例子中，<code>file1.c</code>中定义了一个全局变量<code>globalVar</code>，而在<code>file2.c</code>中使用<code>extern</code>关键字声明了这个变量。这样，<code>file2.c</code>就可以访问和修改<code>file1.c</code>中定义的<code>globalVar</code></p>
+<h3 id="函数的使用"><a class="header" href="#函数的使用">函数的使用</a></h3>
+<p><code>extern</code>关键字也可以用于函数声明，尽管在C/C++中，函数默认具有外部链接性，因此通常不需要显式使用<code>extern</code>。但为了清晰起见，可以这样写：</p>
+<pre><code class="language-cpp">extern void myFunction(); // 声明一个外部函数
+</code></pre>
+<h3 id="extern-c-在c中的使用"><a class="header" href="#extern-c-在c中的使用">extern “C” 在C++中的使用</a></h3>
+<p>在C++中，<code>extern</code>关键字还可以与<code>"C"</code>一起使用，以指示编译器使用C语言的链接方式。这在C++代码中调用C语言库时非常有用，避免了C++的名称修饰（name mangling）问题。</p>
+<pre><code class="language-cpp">extern "C" {  
+    void cFunction(); // 声明一个C语言函数  
+}
+</code></pre>
+<p>作用域和链接性</p>
+<p>外部链接性：使用<code>extern</code>声明的变量或函数可以在多个文件中共享。</p>
+<p>内部链接性：如果在一个文件中定义了一个变量而没有使用<code>extern</code>，那么这个变量的作用域仅限于该文件。</p>
+<p>总结</p>
+<p><code>extern</code>用于声明在其他文件中定义的变量或函数。</p>
+<p>在C++中，<code>extern "C"</code>用于处理C和C++之间的链接问题。</p>
+<p><code>extern</code>关键字有助于管理大型项目中的变量和函数的可见性和链接性。</p>
+<h2 id="extern关键字的作用"><a class="header" href="#extern关键字的作用">extern关键字的作用</a></h2>
+<p>视频讲解：https://www.bilibili.com/video/BV1gqpLeVEfV/?spm_id_from=333.337.search-card.all.click</p>
+<img src="cpp/cpp基本特性//assets/WGN4byhIMozxKOxvn3rcM1aJnwe.png" src-width="1990" src-height="401" align="center"/>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="extern关键字-1"><a class="header" href="#extern关键字-1">extern关键字</a></h1>
+<h2 id="用法-4"><a class="header" href="#用法-4">用法</a></h2>
+<p>在C/C++中，<code>extern</code>关键字用于声明一个变量或函数的外部链接性。它的主要作用是告诉编译器该变量或函数在其他文件中定义，而不是在当前文件中定义。下面是对<code>extern</code>关键字的详细讲解：</p>
+<h3 id="变量的使用-1"><a class="header" href="#变量的使用-1">变量的使用</a></h3>
+<p>当你在一个源文件中定义了一个变量，并希望在其他源文件中访问这个变量时，可以使用<code>extern</code>关键字来声明它。例如：</p>
+<pre><code class="language-cpp">// file1.c
+
+#include &lt;stdio.h&gt;  
+
+int globalVar = 10; // 定义一个全局变量  
+
+void display() {  
+    printf("Global Variable: %d/n", globalVar);  
+}
+</code></pre>
+<pre><code class="language-cpp">// file2.c
+#include &lt;stdio.h&gt;  
+
+extern int globalVar; // 声明外部变量  
+
+void modify() {  
+    globalVar = 20; // 修改外部变量  
+}
+</code></pre>
+<p>在这个例子中，<code>file1.c</code>中定义了一个全局变量<code>globalVar</code>，而在<code>file2.c</code>中使用<code>extern</code>关键字声明了这个变量。这样，<code>file2.c</code>就可以访问和修改<code>file1.c</code>中定义的<code>globalVar</code></p>
+<h3 id="函数的使用-1"><a class="header" href="#函数的使用-1">函数的使用</a></h3>
+<p><code>extern</code>关键字也可以用于函数声明，尽管在C/C++中，函数默认具有外部链接性，因此通常不需要显式使用<code>extern</code>。但为了清晰起见，可以这样写：</p>
+<pre><code class="language-cpp">extern void myFunction(); // 声明一个外部函数
+</code></pre>
+<h3 id="extern-c-在c中的使用-1"><a class="header" href="#extern-c-在c中的使用-1">extern “C” 在C++中的使用</a></h3>
+<p>在C++中，<code>extern</code>关键字还可以与<code>"C"</code>一起使用，以指示编译器使用C语言的链接方式。这在C++代码中调用C语言库时非常有用，避免了C++的名称修饰（name mangling）问题。</p>
+<pre><code class="language-cpp">extern "C" {  
+    void cFunction(); // 声明一个C语言函数  
+}
+</code></pre>
+<p>作用域和链接性</p>
+<p>外部链接性：使用<code>extern</code>声明的变量或函数可以在多个文件中共享。</p>
+<p>内部链接性：如果在一个文件中定义了一个变量而没有使用<code>extern</code>，那么这个变量的作用域仅限于该文件。</p>
+<p>总结</p>
+<p><code>extern</code>用于声明在其他文件中定义的变量或函数。</p>
+<p>在C++中，<code>extern "C"</code>用于处理C和C++之间的链接问题。</p>
+<p><code>extern</code>关键字有助于管理大型项目中的变量和函数的可见性和链接性。</p>
+<h2 id="extern关键字的作用-1"><a class="header" href="#extern关键字的作用-1">extern关键字的作用</a></h2>
+<p>视频讲解：https://www.bilibili.com/video/BV1gqpLeVEfV/?spm_id_from=333.337.search-card.all.click</p>
+<img src="cpp/cpp基本特性//assets/WGN4byhIMozxKOxvn3rcM1aJnwe.png" src-width="1990" src-height="401" align="center"/>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="auto关键字"><a class="header" href="#auto关键字">auto关键字</a></h1>
+<h2 id="介绍-2"><a class="header" href="#介绍-2">介绍</a></h2>
+<p><code>auto</code>是C++11引入的一个非常有用的类型推导关键字，它能够让编译器自动推断变量的类型。</p>
+<p><b>基本用法</b></p>
+<pre><code class="language-cpp">auto x = 42;        // x 被推导为 int  
+auto y = 3.14;      // y 被推导为 double  
+auto str = "Hello"; // str 被推导为 const char*
+</code></pre>
+<p><b>与容器和迭代器一起使用</b></p>
+<pre><code class="language-cpp">std::vector&lt;int&gt; vec = {1, 2, 3, 4, 5};  
+for (auto it = vec.begin(); it != vec.end(); ++it) {  
+    // it 被自动推导为 std::vector&lt;int&gt;::iterator  
+}
+</code></pre>
+<p><b>处理复杂类型</b></p>
+<pre><code class="language-cpp">std::map&lt;std::string, std::vector&lt;int&gt;&gt; complexMap;  
+for (auto&amp; pair : complexMap) {  
+    // pair 被推导为 std::pair&lt;const std::string, std::vector&lt;int&gt;&gt;&amp;  
+}
+</code></pre>
+<p><b>函数返回值类型推导</b></p>
+<pre><code class="language-cpp">auto add(int a, int b) {  
+    return a + b;  // 返回值类型自动推导为 int  
+}
+</code></pre>
+<p><b>Lambda表达式</b></p>
+<pre><code class="language-cpp">auto lambda = [](int x) { return x * 2; };
+</code></pre>
+<p>优点：</p>
+<ul>
+<li>减少冗长的类型声明</li>
+<li>简化代码</li>
+<li>在模板编程中特别有用</li>
+<li>自动处理复杂类型</li>
+</ul>
+<p>潜在缺点：</p>
+<ul>
+<li>可能降低代码可读性</li>
+<li>编译时间可能略微增加</li>
+<li>需要程序员对类型推导有清晰理解</li>
+</ul>
+<p>建议：在类型明确且简单的场景下使用<code>auto</code>，保持代码的清晰和可读性。</p>
+<h2 id="用法-5"><a class="header" href="#用法-5">用法</a></h2>
+<p>auto是C++11 新加入的关键字，就是为了简化一些写法。</p>
+<p>使用auto推断类型确实简单方便，但有个基本要求，就是在使用auto的时清楚的知道编译器会给auto推断出什么类型。</p>
+<p>推导规则：</p>
+<ol>
+<li><code>auto</code>默认推导为值类型</li>
+<li>丢弃<code>const</code>和引用</li>
+<li>使用<code>auto&amp;</code>可以保留引用类型和const</li>
+<li>如果需要const或引用属性，可以显示添加</li>
+</ol>
+<p>这里给出一个程序，充分说明auto的推导规则</p>
+<pre><code class="language-cpp">int main() {  
+    // 原始类型  
+    int x = 10;  
+    const int cx = 20;  
+
+    // auto 推导  
+    auto a = x;     // a 是 int
+    auto b = cx;    // b 是 int（const 被丢弃）  
+
+    // 如果想保留 const，需要手动指定  
+    auto const ca = x;     // ca 是 const int  
+    const auto cb = x;     // cb 是 const int  
+
+    // 引用推导  
+    int&amp; rx = x;  
+    const int&amp; crx = x;  
+
+    auto r1 = rx;   // r1 是 int（引用被丢弃）  
+    auto r2 = crx;  // r2 是 int（const 和引用都被丢弃）  
+
+    // 保留引用和 const 需要使用auto&amp;
+    auto&amp; ref1 = rx;      // ref1 是 int&amp;  
+    auto&amp; ref2 = crx;     // ref2 是 const int&amp;  
+}
+</code></pre>
+<p>(1) auto无法推断出引用类型，要使用引用只能显示添加；</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;boost/type_index.hpp&gt;
+
+using boost::typeindex::type_id_with_cvr;
+
+int main() {
+    auto i1 = 100;
+    auto&amp; i2 = i1;
+    auto i3 = i1;
+
+    std::cout &lt;&lt; type_id_with_cvr&lt;decltype(i1)&gt;().pretty_name() &lt;&lt; std::endl;   // int
+    std::cout &lt;&lt; type_id_with_cvr&lt;decltype(i2)&gt;().pretty_name() &lt;&lt; std::endl;   // int &amp;
+    std::cout &lt;&lt; type_id_with_cvr&lt;decltype(i3)&gt;().pretty_name() &lt;&lt; std::endl;   // int
+
+    return 0;
+}
+</code></pre>
+<p>(2) auto无法推断出const，要使用引用只能自己显示添加</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;boost/type_index.hpp&gt;
+
+using boost::typeindex::type_id_with_cvr;
+
+
+int main() {
+    int i = 100;
+    const auto i2 = i;
+
+    std::cout &lt;&lt; type_id_with_cvr&lt;decltype(i2)&gt;().pretty_name() &lt;&lt; std::endl;   // const int = int const
+    return 0;
+}
+</code></pre>
+<p>(3) auto关键字在推断引用的类型时：</p>
+<p>使用auto时，引用和const会被剥离</p>
+<p>使用<code>auto&amp;</code>时，保留引用的特性，包括<code>const</code>属性。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;boost/type_index.hpp&gt;
+
+using boost::typeindex::type_id_with_cvr;
+
+
+int main() {
+    int i = 100;
+    const int&amp; refI = i;
+    auto i2 = refI;         // 推断引用的类型
+    auto&amp; i3 = refI;
+    auto&amp; i4 = i;
+
+    std::cout &lt;&lt; type_id_with_cvr&lt;decltype(i2)&gt;().pretty_name() &lt;&lt; std::endl;   // int
+    std::cout &lt;&lt; type_id_with_cvr&lt;decltype(i3)&gt;().pretty_name() &lt;&lt; std::endl;   // int const &amp;
+    std::cout &lt;&lt; type_id_with_cvr&lt;decltype(i4)&gt;().pretty_name() &lt;&lt; std::endl;   // int &amp;
+
+    return 0;
+}
+</code></pre>
+<p>(4) auto关键字在推断类型时，如果没有引用符号，会忽略值类型的const修饰（本身的const，顶层const)，而保留指向对象的const修饰（底层const)，典型的就是指针；</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;boost/type_index.hpp&gt;
+
+using boost::typeindex::type_id_with_cvr;
+
+
+int main() {
+    int i = 100;
+    const int* const pi = &amp;i;
+    auto pi2 = pi;    // 忽略值类型的const，保留指向对象的const
+
+    const int i2 = 100;
+    auto i3 = i2;     // 忽略值类型的const
+
+    std::cout &lt;&lt; type_id_with_cvr&lt;decltype(pi2)&gt;().pretty_name() &lt;&lt; std::endl;   // const int * = int const *
+    std::cout &lt;&lt; type_id_with_cvr&lt;decltype(i3)&gt;().pretty_name() &lt;&lt; std::endl;   // int 
+
+    return 0;
+}
+</code></pre>
+<p>(5) auto关键字在推断类型时，如果有了引用符号，那么值类型的const修饰 和 指向对象的const修饰 都会保留</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;boost/type_index.hpp&gt;
+
+using boost::typeindex::type_id_with_cvr;
+
+
+int main() {
+    int i = 100;
+    const int* const pi = &amp;i;
+    auto&amp; pi2 = pi;    // 都保留
+
+    const int i2 = 100;
+    auto&amp; i3 = i2;     // 都保留
+
+    std::cout &lt;&lt; type_id_with_cvr&lt;decltype(pi2)&gt;().pretty_name() &lt;&lt; std::endl;   // const int * const &amp; = int const * const &amp; 
+    std::cout &lt;&lt; type_id_with_cvr&lt;decltype(i3)&gt;().pretty_name() &lt;&lt; std::endl;   // const int &amp; = int const &amp;
+
+    return 0;
+}
+</code></pre>
+<p>auto 不会影响编译速度，甚至会加快编译速度。因为编译器在处理 XX a = b 时，当 XX 是传统类型时，编译期需要检查 b 的类型是否可以转化为 XX。当 XX 为 auto 时，编译期 可以按照 b 的类型直接给定变量 a 的类型，所以效率相差不大，甚至反而还有提升。</p>
+<p>最重要的一点，就是 auto 不要滥用，对于一些自己不明确的地方不要乱用 auto， 否则很可能出现事与愿违的结果，使用类型应该安全为先。</p>
+<p>auto 主要用在与模板相关的代码中，一些简单的变量使用模板常常导致可读性 下降，经验不足还会导致安全性问题。</p>
+<h2 id="现代auto的用法"><a class="header" href="#现代auto的用法">现代auto的用法</a></h2>
+<p>视频讲解：https://www.bilibili.com/video/BV1b94y1k7dm/?spm_id_from=333.337.search-card.all.click&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="指针和引用"><a class="header" href="#指针和引用">指针和引用</a></h1>
+<h2 id="介绍-3"><a class="header" href="#介绍-3">介绍</a></h2>
+<p>在C++中，指针和引用是两种重要的概念，它们都用于间接访问变量，但它们的使用方式和特性有所不同。下面是对指针和引用的详细讲解：</p>
+<h3 id="指针pointer"><a class="header" href="#指针pointer">指针（Pointer）</a></h3>
+<p><b>定义：</b>指针是一个存储内存地址的变量，使用 * 声明指针类型，可以通过指针间接访问和修改变量的值。</p>
+<p><b>声明</b>：使用<code>*</code>符号来声明指针。</p>
+<pre><code class="language-cpp">int* ptr; // ptr是一个指向int类型的指针
+</code></pre>
+<p><b>初始化：</b>指针可以通过取地址运算符<code>&amp;</code>来初始化：</p>
+<pre><code class="language-cpp">int a = 10;  
+int* ptr = &amp;a; // ptr现在指向变量a的地址
+</code></pre>
+<p><b>解引用：</b>使用<code>*</code>运算符可以访问指针所指向的值：</p>
+<pre><code class="language-cpp">int value = *ptr; // value现在是10
+</code></pre>
+<p><b>指针的运算：</b>指针可以进行算术运算，例如加减操作，通常用于数组的遍历。</p>
+<p><b>空指针：</b>指针可以被设置为<code>nullptr</code>，表示它不指向任何有效的内存地址：</p>
+<pre><code class="language-cpp">int* ptr = nullptr;
+</code></pre>
+<h3 id="引用reference"><a class="header" href="#引用reference">引用（Reference）</a></h3>
+<p><b>定义：</b>引用是某个变量的别名，使用 &amp; 声明引用类型，必须在声明时初始化，一旦绑定，不能更改引用的对象。</p>
+<p><b>声明：</b>使用<code>&amp;</code>符号来声明引用。例如：</p>
+<pre><code class="language-cpp">int a = 10;  
+int&amp; ref = a; // ref是a的引用
+</code></pre>
+<p><b>使用：</b>引用可以像普通变量一样使用：</p>
+<pre><code class="language-cpp">ref = 20; // 这将改变a的值为20
+</code></pre>
+<p><b>引用的特性：</b></p>
+<p>引用必须在声明时初始化。</p>
+<p>引用不能为<code>nullptr</code>，也不能指向不同的变量。</p>
+<p>引用通常用于函数参数和返回值，以避免复制开销。</p>
+<h3 id="指针与引用的比较"><a class="header" href="#指针与引用的比较">指针与引用的比较</a></h3>
+<h3 id="总结-1"><a class="header" href="#总结-1">总结</a></h3>
+<p>指针和引用在C++中各有其用途。指针提供了更大的灵活性和控制，但也带来了更高的复杂性和潜在的错误（如悬空指针）。引用则提供了一种更安全和简洁的方式来处理变量，尤其是在函数参数传递时。理解这两者的区别和使用场景对于编写高效和安全的C++代码至关重要。</p>
+<p>初学者入门可以看视频，简单讲解：https://www.bilibili.com/video/BV18exnehEeF/?spm_id_from=333.337.search-card.all.click&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<h2 id="指针和引用的关系"><a class="header" href="#指针和引用的关系">指针和引用的关系</a></h2>
+<p>引用就是作用阉割（更安全）的指针（可以视为“type *const” 指针常量，所以引用必须上来就赋初值，不能设置为空），编译器不将引用视作对象，操作引用相当于操作引用指向的对象。也就从根本是杜绝了引用篡改内存的能力</p>
+<p>进一步解释：</p>
+<p>指针是一个变量，可以存储不同的地址（可以指向不同的内存）所以指针是可以修改内存的；引用是更安全的指针，它是类型*const，存储的地址不能改变（和第一次指向的内存锁死了）它其实是一个指针常量，杜绝了引用篡改内存的能力；</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+
+int main() {
+
+    int i = 20;
+    int&amp; refI = i;
+    int* const pi= &amp;i;  // int&amp; = int* cosnt  引用 = 指针常量
+
+    std::cout &lt;&lt; "refI: " &lt;&lt; refI &lt;&lt; ", *p: " &lt;&lt; *pi &lt;&lt; std::endl;
+
+    return 0;
+}
+</code></pre>
+<h2 id="指针和引用的作用和区别"><a class="header" href="#指针和引用的作用和区别">指针和引用的作用和区别</a></h2>
+<p>下面的思维导图总结的很好</p>
+<img src="cpp/cpp基本特性//assets/IkYybM5HEol3mlx840VciPqEnmb.png" src-width="2288" src-height="962" align="center"/>
+<h2 id="野指针悬挂指针如何避免使用野指针和悬挂指针"><a class="header" href="#野指针悬挂指针如何避免使用野指针和悬挂指针">野指针，悬挂指针，如何避免使用野指针和悬挂指针</a></h2>
+<p>野指针：野指针是指未初始化的指针</p>
+<pre><code class="language-cpp">int* ptr;  // 未初始化的指针，这是一个野指针  
+*ptr = 10; // 危险！可能导致程序崩溃
+</code></pre>
+<p>悬挂指针：悬挂指针是指原本指向的内存已经被释放或不再有效的指针</p>
+<pre><code class="language-cpp">int* createDanglingPointer() {  
+    int x = 10;  
+    return &amp;x;  // 返回局部变量的地址，函数结束后x将被销毁  
+}  // x 被销毁后，返回的指针变成悬挂指针
+</code></pre>
+<p>如何避免野指针：指针定义时需要初始化</p>
+<p>如何避免悬挂指针：delete后，指针置空</p>
+<p>或者直接使用智能指针</p>
+<img src="cpp/cpp基本特性//assets/ZOUibIZuAoh4yWxO3spcLBHXnhd.png" src-width="1044" src-height="295" align="center"/>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="左值右值左值引用右值引用"><a class="header" href="#左值右值左值引用右值引用">左值，右值，左值引用，右值引用</a></h1>
+<h2 id="介绍-4"><a class="header" href="#介绍-4">介绍</a></h2>
+<h3 id="左值lvalue"><a class="header" href="#左值lvalue">左值（Lvalue）</a></h3>
+<p>左值是可以出现在赋值语句左边的表达式。具有以下特征：</p>
+<ul>
+<li>有持久的内存地址</li>
+<li>可以被取地址</li>
+<li>可以被赋值</li>
+</ul>
+<pre><code class="language-cpp">int x = 10;  // x是左值  
+int* ptr = &amp;x;  // 可以取x的地址  
+x = 20;  // 可以被赋值
+</code></pre>
+<h3 id="右值rvalue"><a class="header" href="#右值rvalue">右值（Rvalue）</a></h3>
+<p>右值是只能出现在赋值语句右边的表达式。具有以下特征：</p>
+<ul>
+<li>临时的</li>
+<li>不可取地址</li>
+<li>不可被赋值</li>
+</ul>
+<pre><code class="language-cpp">int y = x + 5;  // (x + 5)是右值  
+int z = 10;     // 10是右值
+</code></pre>
+<h3 id="左值引用lvalue-reference"><a class="header" href="#左值引用lvalue-reference">左值引用（Lvalue Reference）</a></h3>
+<p>左值引用是传统的引用，使用 &amp; 符号声明。</p>
+<ul>
+<li>只能绑定到左值</li>
+<li>可以读写原始对象</li>
+<li>不能绑定到右值（C++11之前）</li>
+</ul>
+<pre><code class="language-cpp">int x = 10;  
+int&amp; ref = x;  // ref是x的左值引用  
+ref = 20;      // 通过引用修改原值
+</code></pre>
+<h3 id="右值引用rvalue-reference"><a class="header" href="#右值引用rvalue-reference">右值引用（Rvalue Reference）</a></h3>
+<p>右值引用是C++11引入的新特性，使用 &amp;&amp; 符号声明。主要用于移动语义和完美转发。</p>
+<ul>
+<li>可以绑定到右值</li>
+<li>主要用于移动语义和完美转发</li>
+<li>可以“窃取“临时对象的资源</li>
+</ul>
+<pre><code class="language-cpp">int&amp;&amp; rref = 10;  // 右值引用
+</code></pre>
+<h3 id="右值引用的主要应用场景"><a class="header" href="#右值引用的主要应用场景">右值引用的主要应用场景</a></h3>
+<p>移动语义</p>
+<pre><code class="language-cpp">class MyString {  
+public:  
+    // 移动构造函数  
+    MyString(MyString&amp;&amp; other) noexcept {  
+        // 直接转移资源，避免深拷贝  
+    }  
+};
+</code></pre>
+<p>完美转发</p>
+<pre><code class="language-cpp">template&lt;typename T&gt;  
+void wrapper(T&amp;&amp; arg) {  
+    // 完美转发参数  
+    foo(std::forward&lt;T&gt;(arg));  
+}
+</code></pre>
+<p>左值和右值的转换</p>
+<pre><code class="language-cpp">int x = 10;  
+int&amp;&amp; rref = std::move(x);  // 将左值x转换为右值引用
+</code></pre>
+<p>实际应用示例</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;  
+#include &lt;utility&gt;  
+
+void processValue(int&amp; x) {  
+    std::cout &lt;&lt; "Lvalue reference" &lt;&lt; std::endl;  
+}  
+
+void processValue(int&amp;&amp; x) {  
+    std::cout &lt;&lt; "Rvalue reference" &lt;&lt; std::endl;  
+}  
+
+int main() {  
+    int a = 10;  
+    processValue(a);        // 调用左值引用版本  
+    processValue(10);       // 调用右值引用版本  
+    processValue(std::move(a));  // 调用右值引用版本  
+    return 0;  
+}
+</code></pre>
+<h3 id="总结-2"><a class="header" href="#总结-2">总结</a></h3>
+<ul>
+<li>左值：有标识符，可寻址</li>
+<li>右值：临时的，不可寻址</li>
+<li>左值引用：传统引用，绑定左值</li>
+<li>右值引用：C++11特性，支持移动语义和完美转发</li>
+<li>std::move() 可以将左值转换为右值引用</li>
+<li>右值引用支持移动构造和移动赋值，减少不必要的内存拷贝</li>
+</ul>
+<h2 id="用法-6"><a class="header" href="#用法-6">用法</a></h2>
+<h3 id="左值右值"><a class="header" href="#左值右值">左值，右值</a></h3>
+<p>C++任何一个对象要么是左值，要么是右值 int i = 10，i 和 10 都是对象，i是左值，10是右值；</p>
+<p>左值：拥有地址属性的对象就叫左值，左值来源于c语言的说法，能放在“=”左面的就是左值，注意，左值也可以放在“=”右面。</p>
+<p>右值：没有地址属性的对象就叫做右值，注意，右值绝对不可以放在等号左面</p>
+<blockquote>
+<p>有地址属性，就代表可以操作地址，没有地址属性，就无法操作操作地址；</p>
+</blockquote>
+<p>一般来说， 判断一个对象是左值还是右值，就看对象有没有地址属性。</p>
+<p>比如临时对象，就都是右值，临时对象没有地址属性，无法操作地址。 注意：左值也可以放在“=”右面，但右值绝对不可以放在等号左面</p>
+<p>小测验：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+int main() {
+    int i = 10;
+    int i2 = (i + 1);   // i + 1 临时对象 右值
+    ++i = 200;          // ++i 先给i加1，然后返回i，i是有地址的，左值
+    i++;                // i++ 先返回一个临时变量，临时变量的值 = i的值，然后临时变量的值 + 1
+                        // 返回的是临时变量，当然无法使用地址
+    return 0;
+}
+</code></pre>
+<h3 id="引用分类"><a class="header" href="#引用分类">引用分类</a></h3>
+<p>普通左值引用：就是一个对象的别名，只能绑定左值，无法绑定常量对象</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+// 因为引用相当于别名，如果这里可以绑定的话，
+// 我们只要修改refI的值，那么i的值可以绕过这个const修饰符而被修改，那么const就没有意义了
+
+int main() {
+    const int i = 100;
+    int&amp; refI = i;   // 非法，左值引用不允许绑定常量对象
+    refI = 200;
+
+    int j = 100;
+    int&amp; refJ = j;  // 合法
+    
+    return 0;
+}
+</code></pre>
+<p>const 左值引用：可以对常量起别名，可以绑定左值和右值</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+
+int main() {
+    const int i = 100;
+    const int&amp; refI = i;            // 绑定左值 合法
+    const int&amp; refI1 = (i + 1);     // 绑定右值 合法；
+
+    return 0;
+}
+</code></pre>
+<p>右值引用：只能绑定右值的引用</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+// 右值引用 只能绑定右值
+int main() {
+    int i = 100;
+    int&amp;&amp; rrefI = 200;   // 右值引用，绑定右值合法
+    int&amp;&amp; refI1 = i;     // 右值引用，绑定左值不合法
+
+    return 0;
+}
+</code></pre>
+<h1 id="左值引用与右值引用的区别右值引用的意义"><a class="header" href="#左值引用与右值引用的区别右值引用的意义">左值引用与右值引用的区别？右值引用的意义？</a></h1>
+<p>https://www.bilibili.com/video/BV1eN4y1R7Me?spm_id_from=333.788.videopod.sections&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="move函数-临时对象"><a class="header" href="#move函数-临时对象">move函数 临时对象</a></h1>
+<h2 id="用法-7"><a class="header" href="#用法-7">用法</a></h2>
+<p>(1) move函数：右值看重对象的值而不考虑地址，move函数可以对一个左值使用，使操作系统不再在意其地址属性，将其完全视作一个右值。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+// 右值引用 只能绑定右值
+int main() {
+    int i = 100;
+    int&amp;&amp; rrefI = std::move(i);   // std::move(i)这个整体是右值
+    i = 20;                       // 但是i还是左值，千万不要再使用i，否则move就没有意义了；
+    std::cout &lt;&lt; "i: " &lt;&lt; i &lt;&lt; " rrefI: " &lt;&lt; rrefI &lt;&lt; std::endl;
+    return 0;
+}
+</code></pre>
+<p>move函数让操作的对象失去了地址属性，所以我们有义务保证以后不再使用该变量的地址属性，简单来说就是不再使用该变量，因为左值对象的地址是其使用时无法绕过的属性</p>
+<p>(2) 临时对象：右值都是不体现地址的对象。那么，还有什么能比临时对象更加没有地址属性呢？</p>
+<p>所以右值引用主要负责处理的就是临时对象。 程序执行时生成的中间对象就是临时对象，注意，所有的临时对象都是右值，因为临时对象产生后很快就可能被销毁，使用的是它的值属性</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="可调用对象"><a class="header" href="#可调用对象">可调用对象</a></h1>
+<h2 id="介绍-5"><a class="header" href="#介绍-5">介绍</a></h2>
+<p>在C++中，可调用对象是指任何可以像函数一样被调用的对象。这些对象可以是函数、函数指针、函数对象（仿函数）或 lambda 表达式。</p>
+<h3 id="普通函数"><a class="header" href="#普通函数">普通函数</a></h3>
+<p>普通函数是最基本的可调用对象。你可以直接通过函数名来调用它们。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;  
+
+void sayHello() {  
+    std::cout &lt;&lt; "Hello, World!" &lt;&lt; std::endl;  
+}  
+
+int main() {  
+    sayHello(); // 调用函数  
+    return 0;  
+}
+</code></pre>
+<h3 id="函数指针"><a class="header" href="#函数指针">函数指针</a></h3>
+<p>函数指针是指向函数的指针，可以用来调用指向的函数。它们允许在运行时选择要调用的函数。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;  
+
+void sayHello() {  
+    std::cout &lt;&lt; "Hello, World!" &lt;&lt; std::endl;  
+}  
+
+int main() {  
+    void (*funcPtr)() = sayHello; // 定义函数指针并指向 sayHello  
+    funcPtr(); // 通过函数指针调用函数  
+    return 0;  
+}
+</code></pre>
+<h3 id="函数对象仿函数"><a class="header" href="#函数对象仿函数">函数对象（仿函数）</a></h3>
+<p>函数对象是重载了 <code>operator()</code> 的类的实例。它们可以像普通函数一样被调用，且可以保存状态。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;  
+
+class Functor {  
+public:  
+    void operator()() const {  
+        std::cout &lt;&lt; "Hello from Functor!" &lt;&lt; std::endl;  
+    }  
+};  
+
+int main() {  
+    Functor f; // 创建函数对象  
+    f(); // 调用函数对象  
+    return 0;  
+}
+</code></pre>
+<h3 id="lambda-表达式"><a class="header" href="#lambda-表达式">Lambda 表达式</a></h3>
+<p>Lambda 表达式是 C++11 引入的一种轻量级的可调用对象。它们可以捕获周围的变量，并且可以像函数一样被调用。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;  
+
+int main() {  
+    auto lambda = []() {  
+        std::cout &lt;&lt; "Hello from Lambda!" &lt;&lt; std::endl;  
+    };  
+    
+    lambda(); // 调用 lambda 表达式  
+    return 0;  
+}
+</code></pre>
+<h3 id="stdfunction"><a class="header" href="#stdfunction">std::function</a></h3>
+<p><code>std::function</code> 是一个通用的可调用对象包装器，可以存储任何可调用对象，包括普通函数、函数指针、函数对象和 lambda 表达式。它提供了统一的接口来调用这些对象。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;  
+#include &lt;functional&gt;  
+
+void sayHello() {  
+    std::cout &lt;&lt; "Hello from std::function!" &lt;&lt; std::endl;  
+}  
+
+int main() {  
+    std::function&lt;void()&gt; func = sayHello; // 使用 std::function  
+    func(); // 调用  
+    return 0;  
+}
+</code></pre>
+<h3 id="可调用对象的应用"><a class="header" href="#可调用对象的应用">可调用对象的应用</a></h3>
+<p>可调用对象在许多场景中非常有用，例如：</p>
+<ul>
+<li>回调函数：在事件驱动编程中，常常需要将函数作为参数传递，以便在特定事件发生时调用。</li>
+<li>STL算法：STL（标准模板库）中的许多算法（如 <code>std::sort</code>）接受可调用对象作为参数，以便在排序或查找时使用自定义的比较逻辑。</li>
+<li>多线程：在多线程编程中，可以将可调用对象传递给线程，以便在新线程中执行。</li>
+</ul>
+<h2 id="用法-8"><a class="header" href="#用法-8">用法</a></h2>
+<blockquote>
+<p>如果一个对象可以使用调用运算符“()”，()里面可以放参数，这个对象就是可调用对象</p>
+</blockquote>
+<h3 id="可调用对象分类"><a class="header" href="#可调用对象分类">可调用对象分类</a></h3>
+<p>(1) 函数：函数自然可以调用()运算符，是最典型的可调用对象</p>
+<p>(2) 仿函数：具有operator()函数的类对象，此时类对象可以当做函数使用，因此称为仿函数</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Test    // 有operator()函数
+{
+public:
+    void operator()(int i)
+    {
+        std::cout &lt;&lt; i &lt;&lt; std::endl;
+        std::cout &lt;&lt; "hello world" &lt;&lt; std::endl;
+    }
+};
+
+int main() 
+{
+    Test t;   // t此时就是一个仿函数
+    t(20);
+    return 0;
+}
+</code></pre>
+<p>(3) lambda 表达式：就是匿名函数，普通的函数在使用前需要找个地方将这个函数定义，于是 C++提供了 lambda 表达式，需要函数时直接在需要的地方写一个 lambda 表达式，省去了定义函数的过程，增加开发效率</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+int main() 
+{
+    [] {
+        std::cout &lt;&lt; "hello world" &lt;&lt; std::endl;
+    }();
+    return 0;
+}
+</code></pre>
+<blockquote>
+<p>注意：lambda 表达式很重要，现代 C++程序中，lambda 表达式是大量使用的。</p>
+</blockquote>
+<p>lambda 表达式的格式：最少是“[] {}”，完整的格式为“[] () -&gt;ret {}”。</p>
+<p>lambda 各个组件介绍</p>
+<ol>
+<li>
+<p>[]代表捕获列表：表示 lambda 表达式可以访问前文的哪些变量。
+<b>基本用法</b></p>
+<ul>
+<li>[]表示不捕获任何变量。</li>
+<li>[=]：表示按值捕获所有变量。</li>
+<li>[&amp;]：表示按照引用捕获所有变量。
+<b>=，&amp;也可以混合使用</b></li>
+<li>[=, &amp;i]：表示变量 i 用引用传递，除 i 的所有变量用值传递。</li>
+<li>[&amp;, i]：表示变量 i 用值传递，除 i 的所有变量用引用传递。
+<b>当然，也可以捕获单独的变量 </b></li>
+<li>[i]：表示以值传递的形式捕获 i</li>
+<li>[&amp;i]：表示以引用传递的方式捕获 i</li>
+</ul>
+</li>
+<li>
+<p>()代表 lambda 表达式的参数，函数有参数，lambda 自然也有。</p>
+</li>
+<li>
+<p>-&gt;ret 表示指定 lambda 的返回值，如果不指定，lambda 表达式也会推断出一个返回值的。</p>
+</li>
+<li>
+<p>{}就是函数体了，和普通函数的函数体功能完全相同</p>
+</li>
+</ol>
+<h3 id="可调用对象的常见用法"><a class="header" href="#可调用对象的常见用法">可调用对象的常见用法</a></h3>
+<p>(1) 可调用对象作为函数的参数</p>
+<p>这里使用函数指针对象举例：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+void test(int i)
+{   
+    std::cout &lt;&lt; i &lt;&lt; std::endl;
+    std::cout &lt;&lt; "hello world" &lt;&lt; std::endl;
+}
+
+using pf_type = void(*)(int);   // 函数指针
+
+void myFunc(pf_type pf, int i)  // 可调用对象作为函数的参数
+{
+    pf(i);
+}
+
+int main() 
+{
+    myFunc(test, 200);
+    return 0;
+}
+</code></pre>
+<p>参数使用函数指针对象 接收 函数地址，实参&amp;test，&amp;可以省略</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="c-类特性"><a class="header" href="#c-类特性">C++ 类特性</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="类对象面向对象"><a class="header" href="#类对象面向对象">类，对象，面向对象</a></h1>
+<h2 id="介绍-6"><a class="header" href="#介绍-6">介绍</a></h2>
+<p>在C++中，类、对象和面向对象编程（OOP）是核心概念。下面是对这些概念的详细讲解：</p>
+<h3 id="类class"><a class="header" href="#类class">类（Class）</a></h3>
+<p>类是C++中的一个用户定义的数据类型，它是对象的蓝图或模板。类定义了对象的属性（成员变量）和行为（成员函数）。通过类，可以将数据和操作这些数据的函数封装在一起。</p>
+<pre><code class="language-cpp">class Dog {  
+public:  
+    // 成员变量
+    std::string name;  
+    int age;  
+
+    // 成员函数  
+    void bark() {  
+        std::cout &lt;&lt; name &lt;&lt; " says Woof!" &lt;&lt; std::endl;  
+    }  
+};
+</code></pre>
+<h3 id="对象object"><a class="header" href="#对象object">对象（Object）</a></h3>
+<p>对象是类的实例。通过类定义的模板，可以创建多个对象，每个对象都有自己的属性值。对象是实际使用类时的具体实体。</p>
+<pre><code class="language-cpp">int main() {  
+    Dog myDog; // 创建一个Dog类的对象  
+    myDog.name = "Buddy"; // 设置对象的属性  
+    myDog.age = 3;  
+    myDog.bark(); // 调用对象的方法  
+    return 0;  
+}
+</code></pre>
+<h3 id="面向对象编程oop"><a class="header" href="#面向对象编程oop">面向对象编程（OOP）</a></h3>
+<p>面向对象编程是一种编程范式，它使用“对象”来设计程序。OOP的主要特性包括：</p>
+<ul>
+<li>封装（Encapsulation）：将数据和操作数据的方法封装在一起，限制外部对内部数据的直接访问。通过访问修饰符（如<code>public</code>、<code>private</code>、<code>protected</code>）来控制访问权限。</li>
+</ul>
+<pre><code class="language-cpp">class BankAccount {  
+private:  
+    double balance;  // 私有成员，外部无法直接访问  
+
+public:  
+    void deposit(double amount) {  
+        if (amount &gt; 0) {  
+            balance += amount;  
+        }  
+    }  
+
+    bool withdraw(double amount) {  
+        if (amount &gt; 0 &amp;&amp; amount &lt;= balance) {  
+            balance -= amount;  
+            return true;  
+        }  
+        return false;  
+    }  
+};
+</code></pre>
+<ul>
+<li>继承（Inheritance）：允许一个类（子类）继承另一个类（父类）的属性和方法，从而实现代码重用和扩展。</li>
+</ul>
+<pre><code class="language-cpp">class Animal {  
+public:  
+    void eat() {  
+        std::cout &lt;&lt; "Eating..." &lt;&lt; std::endl;  
+    }  
+};  
+
+class Dog : public Animal { // Dog类继承自Animal类  
+public:  
+    void bark() {  
+        std::cout &lt;&lt; "Woof!" &lt;&lt; std::endl;  
+    }  
+};
+</code></pre>
+<p>多态（Polymorphism）：允许不同类的对象以相同的方式调用同一方法，具体的实现由对象的实际类型决定。多态可以通过函数重载和虚函数实现。</p>
+<pre><code class="language-cpp">class Animal {  
+public:  
+    virtual void sound() { // 虚函数  
+        std::cout &lt;&lt; "Some sound" &lt;&lt; std::endl;  
+    }  
+};  
+
+class Dog : public Animal {  
+public:  
+    void sound() override { // 重写虚函数  
+        std::cout &lt;&lt; "Woof!" &lt;&lt; std::endl;  
+    }  
+};  
+
+void makeSound(Animal* animal) {  
+    animal-&gt;sound(); // 多态  
+}
+</code></pre>
+<p>C++中的类和对象是实现面向对象编程的基础。通过封装、继承和多态，OOP使得代码更易于管理、扩展和重用。这种编程范式在大型软件开发中尤为重要，因为它有助于组织复杂的代码结构。</p>
+<h2 id="已经有了面向过程为什么要面向对象"><a class="header" href="#已经有了面向过程为什么要面向对象">已经有了面向过程，为什么要面向对象？</a></h2>
+<ol>
+<li>面向对象和面向过程是一个相对的概念。</li>
+<li>面向过程是按照计算机的工作逻辑来编码的方式，最典型的面向过程的语言就</li>
+</ol>
+<p>是 c 语言了，c 语言直接对应汇编，汇编又对应电路。</p>
+<ol>
+<li>面向对象则是按照人类的思维来编码的一种方式，C++就完全支持面向对象功</li>
+</ol>
+<p>能，可以按照人类的思维来处理问题。</p>
+<ol>
+<li>举个例子，要把大象装冰箱，按照人类的思路自然是分三步，打开冰箱，将大</li>
+</ol>
+<p>象装进去，关上冰箱。要实现这三步，我们就要首先有人，冰箱这两个对象。人有给冰箱发指令的能力，冰箱有能够接受指令并打开或关闭门的能力。</p>
+<p>但是从计算机的角度讲，计算机只能定义一个叫做人和冰箱的结构体。人有手</p>
+<p>这个部位，冰箱有门这个部位。然后从天而降一个函数，是这个函数让手打开了冰</p>
+<p>箱，又是另一个函数让大象进去，再是另一个函数让冰箱门关上。</p>
+<p>从开发者的角度讲，面向对象显然更利于程序设计。用面向过程的开发方式，</p>
+<p>程序一旦大了，各种从天而降的函数会非常繁琐，一些用纯 c 写的大型程序，实际</p>
+<p>上也是模拟了面向对象的方式。</p>
+<p>那么，如何用面向过程的 c 语言模拟出面向对象的能力呢？类就诞生了，在类</p>
+<p>中可以定义专属于类的函数，让类有了自己的动作。回到那个例子，人的类有了让</p>
+<p>冰箱开门的能力，冰箱有了让人打开的能力，不再需要天降神秘力量了。</p>
+<p>总结：到现在，大家应该可以理解类的重要性了吧，这是面向对象的基石，</p>
+<p>也可以说是所有现代程序的基石。</p>
+<h2 id="面向对象的三大特征"><a class="header" href="#面向对象的三大特征">面向对象的三大特征</a></h2>
+<p>视频讲解：</p>
+<p>https://www.bilibili.com/video/BV1c1421R71L?spm_id_from=333.788.videopod.sections&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="构造函数析构函数"><a class="header" href="#构造函数析构函数">构造函数，析构函数</a></h1>
+<h2 id="介绍-7"><a class="header" href="#介绍-7">介绍</a></h2>
+<p>在C++中，构造函数和析构函数是类的重要组成部分，它们用于对象的初始化和清理。下面是对这两个概念的详细讲解：</p>
+<h3 id="构造函数constructor"><a class="header" href="#构造函数constructor">构造函数（Constructor）</a></h3>
+<p>构造函数是一个特殊的成员函数，用于初始化对象。当创建对象时，构造函数会被自动调用。构造函数的名称与类名相同，并且没有返回值。</p>
+<p>特点：</p>
+<ul>
+<li>名称相同：构造函数的名称与类名相同。</li>
+<li>没有返回值：构造函数不返回任何值，也不可以指定返回类型。</li>
+<li>可以重载：可以定义多个构造函数，参数不同以实现不同的初始化方式。</li>
+</ul>
+<pre><code class="language-cpp">class Point {  
+private:  
+    int x, y;  
+
+public:  
+    // 默认构造函数  
+    Point() {  
+        x = 0;  
+        y = 0;  
+    }  
+
+    // 带参数的构造函数  
+    Point(int xVal, int yVal) {  
+        x = xVal;  
+        y = yVal;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Point(" &lt;&lt; x &lt;&lt; ", " &lt;&lt; y &lt;&lt; ")" &lt;&lt; std::endl;  
+    }  
+};  
+
+int main() {  
+    Point p1; // 调用默认构造函数  
+    Point p2(10, 20); // 调用带参数的构造函数  
+
+    p1.display(); // 输出: Point(0, 0)  
+    p2.display(); // 输出: Point(10, 20)  
+
+    return 0;  
+}
+</code></pre>
+<h3 id="析构函数destructor"><a class="header" href="#析构函数destructor">析构函数（Destructor）</a></h3>
+<p>析构函数是一个特殊的成员函数，用于清理对象在其生命周期内所占用的资源。当对象的生命周期结束时，析构函数会被自动调用。析构函数的名称与类名相同，但前面加上一个波浪号（<code>~</code>），同样没有返回值。</p>
+<p>特点：</p>
+<ul>
+<li>名称相同：析构函数的名称与类名相同，但前面加上<code>~</code>。</li>
+<li>没有参数：析构函数不接受参数，也不能重载。</li>
+<li>自动调用：当对象的作用域结束或被删除时，析构函数会自动调用。</li>
+</ul>
+<pre><code class="language-cpp">class Resource {  
+public:  
+    Resource() {  
+        std::cout &lt;&lt; "Resource acquired." &lt;&lt; std::endl;  
+    }  
+
+    ~Resource() {  
+        std::cout &lt;&lt; "Resource released." &lt;&lt; std::endl;  
+    }  
+};  
+
+int main() {  
+    Resource res; // 创建对象时调用构造函数  
+    // 当res超出作用域时，析构函数会被调用  
+    return 0;  
+}
+</code></pre>
+<h3 id="构造函数和析构函数的作用"><a class="header" href="#构造函数和析构函数的作用">构造函数和析构函数的作用</a></h3>
+<ul>
+<li>构造函数：用于初始化对象的状态，分配资源（如动态内存、文件句柄等）。</li>
+<li>析构函数：用于释放对象占用的资源，防止内存泄漏和资源浪费。</li>
+</ul>
+<h3 id="动态内存分配中的构造和析构"><a class="header" href="#动态内存分配中的构造和析构">动态内存分配中的构造和析构</a></h3>
+<p>在使用动态内存分配（如使用<code>new</code>关键字）时，构造函数和析构函数的作用尤为重要。</p>
+<pre><code class="language-cpp">class MyClass {  
+public:  
+    MyClass() {  
+        std::cout &lt;&lt; "Constructor called." &lt;&lt; std::endl;  
+    }  
+
+    ~MyClass() {  
+        std::cout &lt;&lt; "Destructor called." &lt;&lt; std::endl;  
+    }  
+};  
+
+int main() {  
+    MyClass* obj = new MyClass(); // 调用构造函数  
+    delete obj; // 调用析构函数  
+    return 0;  
+}
+</code></pre>
+<h2 id="用法-9"><a class="header" href="#用法-9">用法</a></h2>
+<p>构造函数：</p>
+<p>类相当于定义了一个新类型，该类型生成在堆或栈上的对象时内存排布和 c 语言相同。但是 c++规定，C++有在类对象创建时就在对应内存将数据初始化的能力，这就是构造函数。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Test
+{
+public:
+    // 类的函数 常用写法1 直接类内部实现
+    Test() 
+    {
+        std::cout &lt;&lt; "默认构造函数" &lt;&lt; std::endl;
+    }
+    Test(int i_, int j_, int k_) : i(i_), j(j_), k(new int(k_)) 
+    {
+        std::cout &lt;&lt; "普通构造函数" &lt;&lt; std::endl;
+    }
+    Test(const Test&amp; test) : i(test.i), j(test.j), k(new int(*test.k)) // 深拷贝写法
+    {
+        std::cout &lt;&lt; "拷贝构造函数" &lt;&lt; std::endl;
+    }
+
+    ~Test()
+    {
+        delete k;
+    }
+
+private:
+    int i;
+    int j;
+    int* k;
+};
+
+
+int main() {
+    Test t1;
+    Test t2(1, 2, 3);
+    
+    //Test t3 = t1;    // 这里会报错，因为此时t1.k是nullptr，解引用会报错的
+    
+    // 拷贝构造函数的两种写法
+    Test t4(t2);
+    Test t5 = t4;
+    return 0;
+}
+</code></pre>
+<p>构造函数就是 C++提供的必须有的在对象创建时初始化对象的方法，（默认的什么都不做也是一种初始化的方式）</p>
+<p>析构函数：</p>
+<p>析构函数介绍：当类对象被销毁时，就会调用析构函数。栈上对象的销毁时机就是函数栈销毁时，堆上的对象销毁时机就是该堆内存被手动释放时，如果用new申请的这块堆内存，那调用 delete 销毁这块内存时就会调用析构函数。</p>
+<p>当类对象销毁时有一些我们必须手动操作的步骤时，析构函数就派上了用场。所以，几乎所有的类我们都要写构造函数，析构函数却未必需要。</p>
+<h2 id="构造函数有哪些类型"><a class="header" href="#构造函数有哪些类型">构造函数有哪些类型</a></h2>
+<p>在C++中，构造函数主要有以下几种类型，每种类型都有其特定的用途和特点。下面我将逐一介绍这些构造函数，并提供相应的示例代码。</p>
+<h3 id="默认构造函数"><a class="header" href="#默认构造函数">默认构造函数</a></h3>
+<p>默认构造函数是指在没有提供任何参数的情况下被调用的构造函数。它可以是无参构造函数，也可以是带有默认参数的构造函数。</p>
+<pre><code class="language-cpp">class Person {  
+public:  
+    Person() {  // 默认构造函数  
+        name = "未知";  
+        age = 0;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; ", Age: " &lt;&lt; age &lt;&lt; std::endl;  
+    }  
+
+private:  
+    std::string name;  
+    int age;  
+};  
+
+int main() {  
+    Person p;  // 调用默认构造函数  
+    p.display();  // 输出: Name: 未知, Age: 0  
+    return 0;  
+}
+</code></pre>
+<h3 id="带参数的构造函数"><a class="header" href="#带参数的构造函数">带参数的构造函数</a></h3>
+<p>带参数的构造函数允许在创建对象时传递参数，以初始化对象的成员变量。</p>
+<pre><code class="language-cpp">class Person {  
+public:  
+    Person(std::string n, int a) {  // 带参数的构造函数  
+        name = n;  
+        age = a;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; ", Age: " &lt;&lt; age &lt;&lt; std::endl;  
+    }  
+
+private:  
+    std::string name;  
+    int age;  
+};  
+
+int main() {  
+    Person p("Alice", 30);  // 调用带参数的构造函数  
+    p.display();  // 输出: Name: Alice, Age: 30  
+    return 0;  
+}
+</code></pre>
+<h3 id="拷贝构造函数"><a class="header" href="#拷贝构造函数">拷贝构造函数</a></h3>
+<p>拷贝构造函数用于通过另一个同类对象来初始化新对象。它通常用于对象的复制。</p>
+<pre><code class="language-cpp">class Person {  
+public:  
+    Person(std::string n, int a) {  // 带参数的构造函数  
+        name = n;  
+        age = a;  
+    }  
+
+    Person(const Person &amp;other) {  // 拷贝构造函数  
+        name = other.name;  
+        age = other.age;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; ", Age: " &lt;&lt; age &lt;&lt; std::endl;  
+    }  
+
+private:  
+    std::string name;  
+    int age;  
+};  
+
+int main() {  
+    Person p1("Bob", 25);  // 调用带参数的构造函数  
+    Person p2 = p1;  // 调用拷贝构造函数  
+    p2.display();  // 输出: Name: Bob, Age: 25  
+    return 0;  
+}
+</code></pre>
+<h3 id="移动构造函数"><a class="header" href="#移动构造函数">移动构造函数</a></h3>
+<p>移动构造函数在C++11中引入，用于通过移动语义来初始化对象，通常用于优化性能，避免不必要的复制。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;  
+#include &lt;string&gt;  
+
+class Person {  
+public:  
+    Person(std::string n, int a) : name(n), age(a) {  // 带参数的构造函数  
+        std::cout &lt;&lt; "构造: " &lt;&lt; name &lt;&lt; std::endl;  
+    }  
+
+    Person(Person &amp;&amp;other) noexcept {  // 移动构造函数  
+        name = std::move(other.name);  
+        age = other.age;  
+        std::cout &lt;&lt; "移动构造: " &lt;&lt; name &lt;&lt; std::endl;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; ", Age: " &lt;&lt; age &lt;&lt; std::endl;  
+    }  
+
+private:  
+    std::string name;  
+    int age;  
+};  
+
+int main() {  
+    Person p1("Charlie", 40);  // 调用带参数的构造函数  
+    Person p2 = std::move(p1);  // 调用移动构造函数  
+    p2.display();  // 输出: Name: Charlie, Age: 40  
+    return 0;  
+}
+</code></pre>
+<h3 id="委托构造函数"><a class="header" href="#委托构造函数">委托构造函数</a></h3>
+<p>委托构造函数允许一个构造函数调用另一个构造函数，以减少代码重复。</p>
+<pre><code class="language-cpp">class Person {  
+public:  
+    Person() : Person("未知", 0) {  // 委托构造函数  
+        // 可以留空  
+    }  
+
+    Person(std::string n, int a) {  // 带参数的构造函数  
+        name = n;  
+        age = a;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; ", Age: " &lt;&lt; age &lt;&lt; std::endl;  
+    }  
+
+private:  
+    std::string name;  
+    int age;  
+};  
+
+int main() {  
+    Person p;  // 调用默认构造函数，实际上委托给了带参数的构造函数  
+    p.display();  // 输出: Name: 未知, Age: 0  
+    return 0;  
+}
+</code></pre>
+<h3 id="explicit构造函数"><a class="header" href="#explicit构造函数">explicit构造函数</a></h3>
+<p>使用<code>explicit</code>关键字可以防止构造函数被隐式调用，避免不必要的类型转换。</p>
+<pre><code class="language-cpp">class Person {  
+public:  
+    explicit Person(int a) {  // explicit构造函数  
+        age = a;  
+    }  
+
+    void display() {  
+        std::cout &lt;&lt; "Age: " &lt;&lt; age &lt;&lt; std::endl;  
+    }  
+
+private:  
+    int age;  
+};  
+
+int main() {  
+    Person p(30);  // 正确，调用构造函数  
+    p.display();  // 输出: Age: 30  
+
+    // Person p2 = 40;  // 错误，不能隐式转换  
+    return 0;  
+}
+</code></pre>
+<h2 id="类中没有显示定义默认构造函数什么时候生成默认构造函数"><a class="header" href="#类中没有显示定义默认构造函数什么时候生成默认构造函数">类中没有显示定义默认构造函数，什么时候生成默认构造函数</a></h2>
+<p>视频讲解：</p>
+<p>https://www.bilibili.com/video/BV1AixqeNE6y?spm_id_from=333.788.videopod.sections&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<p>编译器只会在有必要的时候生成默认构造函数，有必要具体看是否能正确初始化对象（成员变量）</p>
+<h2 id="类中没有显示定义默认拷贝构造函数什么时候生成默认拷贝构造函数"><a class="header" href="#类中没有显示定义默认拷贝构造函数什么时候生成默认拷贝构造函数">类中没有显示定义默认拷贝构造函数，什么时候生成默认拷贝构造函数</a></h2>
+<p>视频讲解：</p>
+<p>https://www.bilibili.com/video/BV1LVxje8EF4/?spm_id_from=333.788.comment.all.click&amp;vd_source=cec2e4e6aff81caf6c36bcd4265ba034</p>
+<p>编译器只会在有必要的时候生成默认拷贝构造函数，有必要具体看位拷贝语义是否能正确初始化对象（成员变量）</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="this常成员函数常对象"><a class="header" href="#this常成员函数常对象">this，常成员函数，常对象</a></h1>
+<h2 id="介绍-8"><a class="header" href="#介绍-8">介绍</a></h2>
+<h3 id="this关键字"><a class="header" href="#this关键字">this关键字</a></h3>
+<p>在C++中，this是一个指针，指向当前对象的实例。它在类的成员函数中使用，允许你访问对象的成员变量和成员函数。以下是关于this指针的一些关键点：</p>
+<p>(1) 指向当前对象：this指针是一个隐式参数，指向调用成员函数的对象。例如，在一个成员函数中，this-&gt;memberVariable可以用来访问当前对象的成员变量。</p>
+<p>(2) 类型：this的类型是指向类的指针。例如，在类MyClass的成员函数中，this的类型是MyClass*。</p>
+<p>(3) 用于区分成员变量和参数：当成员变量的名称与参数名称相同时，可以使用this来区分。例如：</p>
+<pre><code class="language-cpp">class MyClass {  
+public:  
+    int value;  
+    MyClass(int value) {  
+        this-&gt;value = value; // 使用this指针区分成员变量和参数  
+    }  
+};
+</code></pre>
+<p>(4) 返回当前对象：<code>this</code>指针可以用于返回当前对象的引用，常用于链式调用。例如：</p>
+<pre><code class="language-cpp">class MyClass {  
+public:  
+    MyClass&amp; setValue(int value) {  
+        this-&gt;value = value;  
+        return *this; // 返回当前对象的引用  
+    }  
+};
+</code></pre>
+<p>(5) 在静态成员函数中不可用：<code>this</code>指针只能在非静态成员函数中使用，因为静态成员函数不属于任何特定对象。</p>
+<p>(6) 常量成员函数中的this：在常量成员函数中，this的类型是指向常量对象的指针（const ClassName*），这意味着你不能在常量成员函数中修改对象的成员变量。</p>
+<p>以下是一个简单的示例，展示了this的用法：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;  
+using namespace std;  
+
+class MyClass {  
+private:  
+    int value;  
+
+public:  
+    MyClass(int value) {  
+        this-&gt;value = value; // 使用this指针  
+    }  
+
+    MyClass&amp; setValue(int value) {  
+        this-&gt;value = value; // 使用this指针  
+        return *this; // 返回当前对象的引用  
+    }  
+
+    void display() const {  
+        cout &lt;&lt; "Value: " &lt;&lt; this-&gt;value &lt;&lt; endl; // 使用this指针  
+    }  
+};  
+
+int main() {  
+    MyClass obj(10);  
+    obj.display(); // 输出: Value: 10  
+    obj.setValue(20).display(); // 链式调用，输出: Value: 20  
+    return 0;  
+}
+</code></pre>
+<h3 id="常成员函数和常对象"><a class="header" href="#常成员函数和常对象">常成员函数和常对象</a></h3>
+<p>在C++中，常成员函数和常对象是用于控制对象状态和行为的重要概念。它们通过使用<code>const</code>关键字来确保对象的不可变性，从而提高代码的安全性和可读性。下面是对这两个概念的详细讲解：</p>
+<h4 id="常对象const-objects"><a class="header" href="#常对象const-objects">常对象（const Objects）</a></h4>
+<p>常对象是指在创建对象时，使用<code>const</code>关键字修饰的对象。这意味着该对象的状态（即其成员变量）不能被修改。</p>
+<p>特点：</p>
+<p><b>不可修改</b>：常对象的非静态成员变量不能被修改，尝试修改会导致编译错误。</p>
+<p><b>只能调用常成员函数</b></p>
+<p><b>常量引用</b>：常对象通常通过常引用传递，以确保在函数调用中不会修改对象。</p>
+<pre><code class="language-cpp">class MyClass {  
+public:  
+    int value;  
+
+    MyClass(int v) : value(v) {}  
+};  
+
+void display(const MyClass&amp; obj) {  
+    // obj.value = 10; // 错误：不能修改常对象的成员  
+    std::cout &lt;&lt; "Value: " &lt;&lt; obj.value &lt;&lt; std::endl;  
+}  
+
+int main() {  
+    const MyClass obj(10); // 创建常对象  
+    display(obj); // 正确，传递常对象  
+    return 0;  
+}
+</code></pre>
+<p>在这个示例中，<code>obj</code>是一个常对象，<code>display</code>函数接受一个常对象的引用作为参数，确保在函数内部不会修改<code>obj</code>的状态。</p>
+<h3 id="常成员函数const-member-functions"><a class="header" href="#常成员函数const-member-functions">常成员函数（const Member Functions）</a></h3>
+<p>常成员函数是指在成员函数的声明中使用<code>const</code>关键字修饰的函数。这表示该函数不会修改调用该函数的对象的状态。</p>
+<p><b>不能修改成员变量</b>：在常成员函数中，不能修改任何非静态成员变量。</p>
+<p><b>可以被常对象和非常对象调用</b></p>
+<pre><code class="language-cpp">class MyClass {  
+private:  
+    int value;  
+
+public:  
+    MyClass(int v) : value(v) {}  
+
+    // 常成员函数  
+    void display() const {  
+        std::cout &lt;&lt; "Value: " &lt;&lt; value &lt;&lt; std::endl; // 可以读取，但不能修改  
+    }  
+
+    // 非常成员函数  
+    void setValue(int v) {  
+        value = v; // 这是一个非常成员函数，可以修改  
+    }  
+};  
+
+int main() {  
+    MyClass obj(10);  
+    obj.display(); // 输出: Value: 10  
+
+    const MyClass constObj(20);  
+    constObj.display(); // 输出: Value: 20  
+    // constObj.setValue(30); // 错误：不能调用非常成员函数  
+    return 0;  
+}
+</code></pre>
+<p>在这个示例中，<code>display</code>是一个常成员函数，它可以在常对象上调用，而<code>setValue</code>是一个非常成员函数，不能在常对象上调用。</p>
+<h4 id="常成员函数与常对象的关系"><a class="header" href="#常成员函数与常对象的关系">常成员函数与常对象的关系</a></h4>
+<p><b>常对象只能调用常成员函数</b>：如果你有一个常对象，你只能调用该对象的常成员函数。这是为了确保对象的状态不会被意外修改。</p>
+<p><b>常成员函数可以被常对象和非常对象调用</b>：常成员函数可以被常对象和非常对象调用，但在常对象上调用时，函数内部不能修改对象的状态。</p>
+<h3 id="使用场景"><a class="header" href="#使用场景">使用场景</a></h3>
+<p><b>常对象</b>：常对象通常用于需要保护对象状态不被修改的场景，例如在函数参数中传递对象时，确保不会意外修改对象。</p>
+<p><b>常成员函数</b>：常成员函数用于提供只读访问对象状态的接口，确保对象的状态在调用过程中保持不变。</p>
+<h2 id="用法-10"><a class="header" href="#用法-10">用法</a></h2>
+<blockquote>
+<p>常成员函数和常对象很多人并不在意，确实都写普通变量也可以；但是在大型程序中，尽量加上const 关键字可以减少很多不必要的错误。</p>
+</blockquote>
+<p>(1) 常成员函数和常对象</p>
+<p>常成员函数就是无法修改成员变量的函数。可以理解为将this指针指向对象用const修饰的函数；</p>
+<p>常对象就是用 const 修饰的对象，定义好之后就再也不需要更改成员变量的值了。 常对象在大型程序中还是很有意义的;</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Test
+{
+public:
+    Test(std::string name_, int age_);
+    ~Test();
+    void output();         // 普通成员函数
+    void display() const;  // 常成员函数，无法修改成员变量；
+    // 常成员函数 本质是普通成员函数的this加上const修饰，但是参数中没有this，所以直接函数后加个const
+    
+    std::string name;
+    int age;
+};
+
+Test::Test(std::string name_, int age_) : name(name_), age(age_) {}
+Test::~Test(){}
+
+// 普通成员函数实现
+void Test::output()
+{
+    std::cout &lt;&lt; "调用普通成员函数" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "name = " &lt;&lt; name &lt;&lt; ", age = " &lt;&lt; age &lt;&lt; std::endl;
+}
+
+// 普通成员函数的本质 全局函数 + this指针（Test类指针常量）
+void output(Test* const myThis) 
+{
+    std::cout &lt;&lt; "调用普通成员函数" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "name = " &lt;&lt; myThis-&gt;name &lt;&lt; ", age = " &lt;&lt; myThis-&gt;age &lt;&lt; std::endl;
+}
+
+// 常成员函数实现
+void Test::display() const
+{
+    std::cout &lt;&lt; "调用常成员函数" &lt;&lt; std::endl;
+    //myThis-&gt;age = 100; // 此时不能修改指针指向的对象
+}
+
+
+// 常成员函数的本质 全局函数 + this指针（Test类指针常量指向常量）
+void display(const Test* const myThis)
+{
+    std::cout &lt;&lt; "调用常成员函数" &lt;&lt; std::endl;
+    //myThis-&gt;age = 100; // 此时不能修改指针指向的对象
+}
+
+
+int main() 
+{
+    Test t1("zhangsan", 20);
+
+    t1.output();
+    output(&amp;t1);      // 传入对象地址
+
+    t1.display();
+    display(&amp;t1);      // 传入对象地址
+
+    const Test t2("lisi", 25);   // 不希望t2对象被修改，所以使用常对象
+    //t2.age = 80;                 // t2是常对象，不能修改对象t2
+
+    return 0;
+}
+</code></pre>
+<p>(2) 常成员函数注意事项：</p>
+<p>因为类的成员函数已经将 this 指针省略了，只能在函数后面加 const 关键字来实现 无法修改类成员变量的功能了（上述代码里也进行了演示）</p>
+<ol>
+<li>常函数无法调用了普通函数，否则常函数的这个“常”字还有什么意义</li>
+</ol>
+<p>解释：如果一个常函数里可以调用普通函数，那么我们可以调用set函数，去修改对象，那么此时这个常成员函数就没有意义了，所以语法规定，常函数无法调用普通函数</p>
+<ol>
+<li>成员函数能写作常成员函数就尽量写作常成员函数，可以减少出错几率</li>
+<li>同名的常成员函数和普通成员函数是可以重载的，常量对象会优先调用常成员函数，普通对象会优先调用普通成员函数</li>
+</ol>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Test
+{
+public:
+    Test(std::string name_, int age_);
+    ~Test();
+    // 两个output函数是重载关系
+    void output();         // 普通成员函数
+    void output() const;   // 常成员函数
+    
+    std::string name;
+    int age;
+};
+
+Test::Test(std::string name_, int age_) : name(name_), age(age_) {}
+Test::~Test(){}
+
+void Test::output()
+{
+    std::cout &lt;&lt; "调用普通成员函数output" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "name = " &lt;&lt; name &lt;&lt; ", age = " &lt;&lt; age &lt;&lt; std::endl;
+}
+
+void Test::output() const
+{
+    std::cout &lt;&lt; "调用常成员函数output" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "name = " &lt;&lt; name &lt;&lt; ", age = " &lt;&lt; age &lt;&lt; std::endl;
+}
+
+
+int main() 
+{
+    Test t1("zhangsan", 20);  //  普通对象
+    t1.output();              //  普通对象会优先调用普通成员函数
+
+    const Test t2("lisi", 30); // 常对象
+    t2.output();               // 常对象会优先调用常成员
+
+    return 0;
+}
+</code></pre>
+<p>常对象注意事项：</p>
+<ul>
+<li>常对象不能调用普通函数，原因和常成员函数不能调用普通函数是一样的</li>
+<li>常成员函数和常对象要多用，这真的 是一个非常好的习惯，写大项目可以少出很多bug</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="inline-mutable-default-delete"><a class="header" href="#inline-mutable-default-delete">inline mutable default delete</a></h1>
+<h2 id="介绍-9"><a class="header" href="#介绍-9">介绍</a></h2>
+<h3 id="inline内联函数"><a class="header" href="#inline内联函数">inline（内联函数）</a></h3>
+<p>inline关键字用于函数定义，是一个编译器优化建议，用于提高函数调用的效率。</p>
+<pre><code class="language-cpp">inline int add(int a, int b) {  
+    return a + b;  
+}
+</code></pre>
+<p>特点：</p>
+<ul>
+<li>建议编译器在调用处直接展开函数，避免函数调用开销</li>
+<li>编译器可以自行决定是否真正内联</li>
+<li>适用于短小、频繁调用的函数</li>
+<li>可以减少函数调用的栈开销</li>
+</ul>
+<h3 id="mutable可变成员"><a class="header" href="#mutable可变成员">mutable（可变成员）</a></h3>
+<p>mutable用于修饰类的成员变量，允许在const成员函数中修改该成员变量。</p>
+<pre><code class="language-cpp">class Cache {  
+private:  
+    mutable int access_count = 0;  // 可以在const成员函数中被修改  
+public:  
+    int getData() const {  
+        access_count++;  // 即使在const函数中也可以修改  
+        return 42;  
+    }  
+};
+</code></pre>
+<p>特点：</p>
+<ul>
+<li>允许在const成员函数中修改特定成员变量</li>
+<li>常用于缓存、计数等辅助性成员</li>
+<li>不影响对象的整体const语义</li>
+</ul>
+<h3 id="default默认函数"><a class="header" href="#default默认函数">default（默认函数）</a></h3>
+<p>default用于显式地声明编译器默认生成的特殊成员函数。</p>
+<pre><code class="language-cpp">class MyClass {  
+public:  
+    MyClass() = default;  // 显式使用编译器生成的默认构造函数  
+    MyClass(const MyClass&amp;) = default;  // 默认拷贝构造  
+    MyClass&amp; operator=(MyClass&amp;&amp;) = default;  // 默认移动赋值  
+};
+</code></pre>
+<p>特点：</p>
+<ul>
+<li>明确告诉编译器使用默认实现</li>
+<li>可以提高代码可读性</li>
+<li>在某些情况下可以避免编译器阻止特殊成员函数的生成</li>
+</ul>
+<h3 id="delete删除函数"><a class="header" href="#delete删除函数">delete（删除函数）</a></h3>
+<p>delete用于禁止使用特定的函数或运算符。</p>
+<pre><code class="language-cpp">class Singleton {  
+public:  
+    Singleton(const Singleton&amp;) = delete;  // 禁止拷贝构造  
+    Singleton&amp; operator=(const Singleton&amp;) = delete;  // 禁止拷贝赋值  
+    static Singleton&amp; getInstance() {  
+        static Singleton instance;  
+        return instance;  
+    }  
+private:  
+    Singleton() {}  // 私有构造函数  
+};  
+
+class NonHeap {  
+public:  
+    void* operator new(size_t) = delete;  // 禁止在堆上分配  
+    void* operator new[](size_t) = delete;  
+}; 
+
+void processOnly(int x) { /* 处理整数 */ }  
+void processOnly(double) = delete;  // 禁止double重载
+</code></pre>
+<p>特点：</p>
+<ul>
+<li>明确禁止某些函数的使用</li>
+<li>可以阻止不期望的类型转换和函数调用</li>
+<li>在编译期就能检查和阻止不正确的使用</li>
+</ul>
+<h3 id="综合示例"><a class="header" href="#综合示例">综合示例</a></h3>
+<pre><code class="language-cpp">class SmartCache {  
+private:  
+    mutable int access_count = 0;  
+    int* data = nullptr;  
+
+public:  
+    SmartCache() = default;  // 默认构造  
+    SmartCache(const SmartCache&amp;) = delete;  // 禁止拷贝  
+    SmartCache&amp; operator=(const SmartCache&amp;) = delete;  
+
+    inline int getData() const {  
+        access_count++;  // mutable允许在const函数中修改  
+        return data ? *data : 0;  
+    }  
+};
+</code></pre>
+<h2 id="用法-11"><a class="header" href="#用法-11">用法</a></h2>
+<h3 id="inline"><a class="header" href="#inline">inline</a></h3>
+<p>inline关键字作用：</p>
+<p>在函数定义中函数返回类型前加上关键字inline就可以把函数指定为内联函数</p>
+<p>内联函数的作用，普通函数在调用时需要给函数分配栈空间以供函数执行，压栈等操作会影响成员运行效率，于是C++提供了内联函数将函数体放到需要调用函数的地方，用空间换效率。</p>
+<p>简单来说：普通函数调用需要分配新的栈空间，然后执行压栈等操作，而内联函数调用可以继续在当前的函数栈帧里执行，提高了运行效率，典型的以空间换时间</p>
+<p>总结：使用 inline 关键字就是一种提高效率，但加大编译后文件大小的方式，现在随着硬件性能的提高，inline关键字用的越来越少了</p>
+<p>inline关键字的注意事项：</p>
+<p>(1) inline关键字只是一个建议，开发者建议编译器将成员函数当做内联函数，一般适合搞内联的情况编译器都会采纳建议</p>
+<p>eg: 如果一个函数所需要分配的栈非常大，例如代码量很大的函数，或者是递归函数，他们需要分配的栈空间都很大，这个时候编译器就不会把它当作内联函数；</p>
+<p>(2) 关键字 inline 必须与函数定义放在一起才能使函数成为内联，仅仅将inline放在函数声明前不起任何作用；简单来说：就是inline关键字必须与函数定义放在一起，函数声明加不加inline无所谓；</p>
+<p>(3) 直接在类内部实现的函数，相当于函数默认加了inline关键字</p>
+<p>inline相关代码：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Test
+{
+public:
+    Test() {}
+    ~Test() {}
+    inline void func1();
+    inline void func2();
+    void func3();
+    void func4()
+    {
+        std::cout &lt;&lt; "call func4()" &lt;&lt; std::endl;
+    }
+};
+
+inline void Test::func1()
+{
+    std::cout &lt;&lt; "call func1()" &lt;&lt; std::endl;
+}
+
+void Test::func2()
+{
+    std::cout &lt;&lt; "call func2()" &lt;&lt; std::endl;
+}
+
+inline void Test::func3()
+{
+    std::cout &lt;&lt; "call func3()" &lt;&lt; std::endl;
+}
+
+int main()
+{
+    Test t1;
+    t1.func1();   // 函数声明和定义都加inline关键字，建议成内联函数
+    t1.func2();   // 函数声明加inline，函数定义不加，不是内联函数
+    t1.func3();   // 函数声明不加，函数定义加inline关键字，建议成内联函数
+    t1.func4();   // 类内实现函数，建议成内联函数
+
+    // 总结：
+    // 1. 关键字 inline 必须与函数定义放在一起才能使函数成为内联，
+    // 2. 直接在类内部实现的函数，默认相当于加了inline关键字
+    return 0;
+}
+</code></pre>
+<h3 id="mutable-关键字"><a class="header" href="#mutable-关键字">mutable 关键字</a></h3>
+<p>mutable关键字的作用：</p>
+<p>mutable意为可变的，与const相对，被mutable修饰的成员变量，永远处于可变的状态；</p>
+<p>mutable关键字修饰的变量在常函数中，该变量也可以被更改  （常函数中原本是不允许修改成员变量的）这个关键字在现代 C++中使用情况并不多，只有在统计函数调用次数这类情况下才推荐使用</p>
+<p>mutable 关键字的注意事项：</p>
+<p>(1) mutable不能修饰静态成员变量和常成员变量</p>
+<p>mutable相关代码</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Test
+{
+public:
+    Test() {}
+    ~Test(){}
+
+    void output() const   // mutable关键字修饰的成员变量 可以在常函数里修改
+    {
+        ++outputCallCount;
+        std::cout &lt;&lt; "hello world" &lt;&lt; std::endl;
+    }
+
+
+    // C++11新特性，直接初始化成员变量 &lt;=&gt; 代替 定义成员 + 构造函数初始化
+    mutable unsigned outputCallCount = 0;   // mutable关键字可以修饰普通成员变量
+    //mutable static int i = 0;               // mutable关键字不能修饰静态成员变量
+    //mutable const int j = 0;                // mutable关键字不能修饰常成员变量
+
+};
+
+
+int main()
+{
+    Test t1;
+    t1.output();
+    t1.output();
+    t1.output();
+
+    std::cout &lt;&lt; t1.outputCallCount &lt;&lt; std::endl;
+
+    return 0;
+}
+</code></pre>
+<h3 id="default-关键字"><a class="header" href="#default-关键字">default 关键字</a></h3>
+<p>default 关键字的作用:</p>
+<p>(1) 便于书写默认构造函数，默认拷贝构造函数，默认的赋值运算符重载函数，默认的析构函数，default关键字表示使用的是系统默认提供的代码，这样可以使代码更加直观，方便；</p>
+<p>defalut 关键字注意事项：</p>
+<p>(1) 现代 C++中，哪怕没有构造函数，也推荐将构造函数用default关键字标记，可以让代码看起来更加直观，方便</p>
+<p>Comment</p>
+<p>(2) 使用default关键字 语法层面就是函数声明 return_type fucntion_name (para list) = default</p>
+<p>default相关代码：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Test
+{
+public:
+    Test() = default;             // 默认构造函数  
+    ~Test() = default;            // 默认析构函数
+    Test(const Test&amp; test) = default;   // 默认复制构造函数
+    Test&amp; operator=(const Test&amp; test) = default;   // 赋值运算符重载函数   赋值运算符
+};
+
+int main()
+{
+    return 0;
+}
+</code></pre>
+<h3 id="delete-关键字"><a class="header" href="#delete-关键字">delete 关键字</a></h3>
+<p>delete 关键字的作用：</p>
+<p>(1) C++会为一个类生成默认构造函数，默认析构函数，默认复制构造函数，默认重载赋值运算符，在很多情况下，我们并不希望这些默认的函数被生成，为了解决这个问题，在 C++11 以前，只能有将此函数声明为私有函数或是将函数只声明不定义两种方式。于是在C++11中提供了 delete 关键字，只要在函数最后加上“=delete”就可以明确告诉编译期不要默认生成该函数</p>
+<p>总结：delete关键字还是推荐使用的，在现代 C++代码中，如果不希望一些函数默认生 成，就用 delete 表示，这个功能还是很有用的，比如在单例模式中</p>
+<p>delete 关键字注意事项：</p>
+<p>(1) delete一般不会用使用在析构函数</p>
+<p>delete相关代码</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Test
+{
+public:
+    Test() = delete;                                // 默认构造函数  
+    ~Test() = delete;                               // 默认析构函数
+    Test(const Test&amp; test) = delete;                // 默认复制构造函数
+    Test&amp; operator=(const Test&amp; test) = delete;     // 默认重载运算符
+};
+
+int main()
+{
+    return 0;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="友元"><a class="header" href="#友元">友元</a></h1>
+<h2 id="介绍-10"><a class="header" href="#介绍-10">介绍</a></h2>
+<p>在C++中，友元（friend) 是一种特殊的访问控制机制，允许其他类或其他函数访问当前类的私有成员和保护成员。友元的主要目的是为了提供更灵活的访问权限，尤其是在需要多个类之间紧密合作的情况下。</p>
+<h3 id="友元类型"><a class="header" href="#友元类型">友元类型</a></h3>
+<p>(1) 友元函数：一个普通的函数可以被声明为某个类的友元函数，这样它就可以访问该类的私有和保护成员。</p>
+<pre><code class="language-cpp">class MyClass {  
+private:  
+    int data;  
+public:  
+    MyClass(int val) : data(val) {}  
+    friend void showData(MyClass obj); // 声明友元函数  
+};  
+
+void showData(MyClass obj) {  
+    std::cout &lt;&lt; "Data: " &lt;&lt; obj.data &lt;&lt; std::endl; // 访问私有成员  
+}
+</code></pre>
+<p>(2) 友元类：一个类可以被声明为另一个类的友元类，这样友元类的所有成员函数都可以访问该类的私有和保护成员。</p>
+<pre><code class="language-cpp">class MyClass {  
+private:  
+    int data;  
+public:  
+    MyClass(int val) : data(val) {}  
+    friend class FriendClass; // 声明友元类  
+};  
+
+class FriendClass {  
+public:  
+    void display(MyClass obj) {  
+        std::cout &lt;&lt; "Data: " &lt;&lt; obj.data &lt;&lt; std::endl; // 访问私有成员  
+    }  
+};
+</code></pre>
+<p>(3) 友元成员函数：一个类的成员函数可以被声明为另一个类的友元，这样该成员函数可以访问另一个类的私有和保护成员。</p>
+<pre><code class="language-cpp">class MyClass {  
+private:  
+    int data;  
+public:  
+    MyClass(int val) : data(val) {}  
+    friend void FriendClass::display(MyClass obj); // 声明友元成员函数  
+};  
+
+class FriendClass {  
+public:  
+    void display(MyClass obj) {  
+        std::cout &lt;&lt; "Data: " &lt;&lt; obj.data &lt;&lt; std::endl; // 访问私有成员  
+    }  
+};
+</code></pre>
+<h3 id="友元特点和应用场景"><a class="header" href="#友元特点和应用场景">友元特点和应用场景</a></h3>
+<ol>
+<li>不继承：友元关系不是继承关系，友元类或函数并不自动成为其他类的友元。</li>
+<li>不对称：如果类A是类B的友元，类B并不一定是类A的友元。</li>
+<li>访问权限：友元可以访问私有和保护成员，但友元本身并不是类的成员。</li>
+<li>设计考虑：使用友元可以提高类之间的协作，但过度使用可能会导致代码的封装性降低，因此应谨慎使用</li>
+</ol>
+<p>操作符重载：在重载某些操作符时，可能需要访问类的私有成员。</p>
+<h2 id="用法-12"><a class="header" href="#用法-12">用法</a></h2>
+<h3 id="友元-作用"><a class="header" href="#友元-作用">友元 作用</a></h3>
+<p>友元是针对类来说的，友元可以让其他类或其他函数访问当前类的私有成员和保护成员</p>
+<blockquote>
+<p>友元平常并不推荐使用，只要可以用友元写出必须用友元的重载运算符就可以了</p>
+</blockquote>
+<h3 id="友元-注意事项"><a class="header" href="#友元-注意事项">友元 注意事项</a></h3>
+<p>(1) 友元会破坏封装性一般不推荐使用，所带来的方便写几个接口函数就解决了</p>
+<p>(2) 某些运算符的重载必须用到友元的功能，这才是友元的真正用途</p>
+<h3 id="友元-相关代码"><a class="header" href="#友元-相关代码">友元 相关代码</a></h3>
+<p>友元基本使用</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Test
+{
+    friend class Test2;                         // 声明Test2为友元类
+    friend void output(const Test&amp; test);       // 声明output函数为友元函数
+
+public:
+    Test() = default;
+    ~Test() = default;
+private:
+    std::string name = "lisi";
+    int age = 100;
+};
+
+
+// 另一个类访问私有成员
+class Test2
+{
+public:
+    Test2() {};
+    ~Test2() {};
+
+    void output(const Test&amp; test) const  // 为了在Test2类里访问Test类的私有成员，在Test类里声明Test2为友元类
+    {
+        std::cout &lt;&lt; "name = " &lt;&lt; test.name &lt;&lt; ", age = " &lt;&lt; test.age &lt;&lt; std::endl;
+    }
+};
+
+// 另一个函数访问私有成员
+void output(const Test&amp; test)          // 为了在output函数里访问Test的私有成员，在Test类里声明output函数为友元函数
+{
+    std::cout &lt;&lt; "name = " &lt;&lt; test.name &lt;&lt; ", age = " &lt;&lt; test.age &lt;&lt; std::endl;
+}
+
+int main()
+{
+    Test t1;
+    Test2 t2;
+    t2.output(t1);
+    output(t1);
+    return 0;
+}
+</code></pre>
+<p>利用公共接口代替友元</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Test
+{
+public:
+    Test() = default;
+    ~Test() = default;
+
+    // 要想其他的类或函数 访问私有成员，友元会破坏封装性
+    // 最好的方式是直接多写一些公共接口就行了，也可以达到一样的效果，而且不破坏封装性
+    std::string getName() const{ return name; }
+    int getAge() const { return age; }
+
+private:
+    std::string name = "lisi";
+    int age = 100;
+};
+
+
+// 另一个类访问私有成员
+class Test2
+{
+public:
+    Test2() {};
+    ~Test2() {};
+
+    void output(const Test&amp; test) const
+    {   // 使用公共接口访问
+        std::cout &lt;&lt; "name = " &lt;&lt; test.getName() &lt;&lt; ", age = " &lt;&lt; test.getAge() &lt;&lt; std::endl;
+    }
+};
+
+// 另一个函数访问私有成员
+void output(const Test&amp; test)          
+{
+    // 使用公共接口访问
+    std::cout &lt;&lt; "name = " &lt;&lt; test.getName() &lt;&lt; ", age = " &lt;&lt; test.getAge() &lt;&lt; std::endl;
+}
+
+int main()
+{
+    Test t1;
+    Test2 t2;
+    t2.output(t1);
+    output(t1);
+    return 0;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="重载运算符"><a class="header" href="#重载运算符">重载运算符</a></h1>
+<h2 id="用法-13"><a class="header" href="#用法-13">用法</a></h2>
+<blockquote>
+<p>在C++中，重载运算符是一种允许程序员为自定义类型（如类）定义或修改运算符的行为的机制。通过重载运算符，可以使自定义类型的对象像内置类型一样使用运算符进行操作，从而提高代码的可读性和可维护性。</p>
+</blockquote>
+<h3 id="重载运算符-作用"><a class="header" href="#重载运算符-作用">重载运算符 作用</a></h3>
+<p>(1) 在C++中，我们希望类对象能够像基本类型对象一样进行基本操作，例如“+”、“-”、“*”、“/”，以及某些其他运算符，如“=”、“()”、“[]”、“&lt;&lt;”、“&gt;&gt;”。然而，默认情况下，类对象并不能自动支持这些运算符的操作。为了使类对象能够正确响应这些运算符，我们必须为其定义或重载运算符的行为。</p>
+<p>(2) C++提供了一种机制来定义运算符的行为，即通过使用“operator 运算符”的语法来重载运算符，告诉编译器我们正在重载一个运算符，以便为自定义类型定义特定的操作行为。</p>
+<h3 id="重载运算符-注意事项"><a class="header" href="#重载运算符-注意事项">重载运算符 注意事项</a></h3>
+<p>(1) <b>我们只能重载 C++已有的运算符</b>，eg: 无法将<code>**</code>这个运算符定义为指数的形式， 因为 C++根本没有<code>**</code>这个运算符</p>
+<p>(2) <b>C++重载运算符不能改变运算符的元数</b>，“元数”这个概念就是指一个运算符对应的对象数量，比如“+”必须为“a + b”，也就是说“+”必须有两个对象，那么“+”就是二元运算符。比如“++”运算符，必须写为“a++”，也就是一元运算符；</p>
+<p>(3) 重载运算符的技巧：</p>
+<ul>
+<li>如果需要调用/修改原对象，运算结果为左值，那么就返回引用；</li>
+<li>如果只是访问对象，运算结果为右值，那么就返回值；</li>
+</ul>
+<p>(4) 重载运算符有两种主要实现方式：</p>
+<ul>
+<li>友元重载，直接定义全局的重载运算符函数，然后再在类中声明为友元函数</li>
+<li>成员函数重载，使用类的成员函数重载运算符，第一个参数需要使用this，所以&lt;&lt; &gt;&gt;无法使用此方式重载</li>
+</ul>
+<p>(5) =运算符会默认进行重载，如果不需要可以用delete关键字进行修饰。</p>
+<h3 id="重载运算符-相关代码"><a class="header" href="#重载运算符-相关代码">重载运算符 相关代码</a></h3>
+<p>运算符有很多，我们在重载运算符的时候一般按照以下框架去写</p>
+<pre><code class="language-cpp">一元运算符重载: 
+自增，自减 ++ -- 
+下标 [] 
+调用 () 
+输入输出 &lt;&lt;，&gt;&gt;
+ 
+二元运算符重载 
+基本运算 +，-，*，/  
+赋值 = 
+比较 &gt;，&lt;，== 
+
+三元运算符?:，不能重载 
+
+类类型转化运算符：
+operator 类型
+ 
+特殊的运算符：new，delete，new[]，delete[]
+</code></pre>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+
+class MyInt
+{   
+    // 重载 &lt;&lt; &gt;&gt; 必须使用友元，因为第一个参数无法用this访问
+    friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const MyInt&amp; t);
+    friend std::istream&amp; operator&gt;&gt;(std::istream&amp; is, MyInt&amp; t);
+public:
+    MyInt() : val(0) {}
+    MyInt(int val_) : val(val_) {}
+
+    // 重载前缀++
+    MyInt&amp; operator++()
+    {
+        ++val;
+        return *this;
+    }
+
+    // 重载后缀++
+    MyInt operator++(int)
+    {
+        MyInt tmp = *this;
+        val++;
+        return tmp;
+    }
+
+    // 重载前缀--
+    MyInt&amp; operator--()
+    {
+        --val;
+        return *this;
+    }
+
+    // 重载后缀--
+    MyInt operator--(int)
+    {
+        MyInt tmp = *this;
+        val--;
+        return tmp;
+    }
+
+    // 重载[]
+    int operator[](unsigned i)const
+    {
+        return a[i];
+    }
+
+    // 重载()
+    void operator()()const
+    {
+        std::cout &lt;&lt; "call function()" &lt;&lt; std::endl;
+    }
+
+
+    // 重载+   -*/都差不多就不写了
+    MyInt operator+(const MyInt&amp; t)
+    {
+        val += t.val;
+        return *this;
+    }
+
+    // 重载=   注意防止自赋值 然后返回原对象（返回引用） 
+    MyInt&amp; operator=(const MyInt&amp; t)
+    {
+        if (this == &amp;t) return *this;
+        val = t.val;
+        return *this;
+    }
+
+    // 重载 &lt;   &gt;,&gt;=，==这些都差不多
+    bool operator&lt;(const MyInt&amp; t)const
+    {
+        return val &lt; t.val;
+    }
+
+    int val;
+    std::vector&lt;int&gt; a{ 1, 2, 3, 4, 5 };
+};
+
+
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const MyInt&amp; t)
+{
+    os &lt;&lt; t.val;
+    return os;
+}
+
+std::istream&amp; operator&gt;&gt;(std::istream&amp; is, MyInt&amp; t)
+{
+    is &gt;&gt; t.val;
+    return is;
+}
+
+int main()
+{
+    std::cout &lt;&lt; "测试 ++" &lt;&lt; std::endl;
+    MyInt t1(10);
+    ++t1;
+    std::cout &lt;&lt; "expected: t1 = 11 " &lt;&lt; "now: t1 = " &lt;&lt; t1 &lt;&lt; std::endl;
+    MyInt t2 = t1++;
+    std::cout &lt;&lt; "expected: t1 = 12, t2 = 11 " &lt;&lt; "now: t1 = " &lt;&lt; t1 &lt;&lt; " now t2 = " &lt;&lt; t2 &lt;&lt; std::endl;
+
+    std::cout &lt;&lt; "探索 前缀++和后缀++ 区别" &lt;&lt; std::endl;
+    int a = 3;
+    int b = ++(++a);   // 验证 前缀++后的运算结果是左值，可以继续调用，所以重载需要返回引用
+    //int c = (a++)++;   // 验证 后缀++后的运算结果是右值，不能继续调用，所以重载是返回值
+    int c = a++;
+    std::cout &lt;&lt; a &lt;&lt; " " &lt;&lt; b &lt;&lt; " " &lt;&lt; c &lt;&lt; std::endl;
+    
+
+    // 测试 --
+    std::cout &lt;&lt; "测试 --" &lt;&lt; std::endl;
+    --t1;
+    t1--;
+    std::cout &lt;&lt; "expected: t1 = 10 " &lt;&lt; "now: t1 = " &lt;&lt; t1 &lt;&lt; std::endl;
+
+    // 测试[]
+    std::cout &lt;&lt; "测试 []" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "expected: t1[1] = 2 " &lt;&lt; "now: t1[1] = " &lt;&lt; t1[1] &lt;&lt; std::endl;
+
+    // 测试()
+    std::cout &lt;&lt; "测试 ()" &lt;&lt; std::endl;
+    t1();
+
+
+    // 测试 &lt;&lt; &gt;&gt;
+    std::cout &lt;&lt; "测试 &lt;&lt; &gt;&gt;" &lt;&lt; std::endl;
+    MyInt t3;
+    std::cin &gt;&gt; t3;
+    std::cout &lt;&lt; t3 &lt;&lt; std::endl;
+
+
+    // 测试 +
+    std::cout &lt;&lt; "测试 +" &lt;&lt; std::endl;
+    MyInt t4 = t1 + t2;
+    std::cout &lt;&lt; t4 &lt;&lt; std::endl;
+
+    // 测试=
+    std::cout &lt;&lt; "测试 =" &lt;&lt; std::endl;
+    MyInt t5;
+    std::cout &lt;&lt; t5 &lt;&lt; std::endl;
+    t5 = t4;
+    std::cout &lt;&lt; t5 &lt;&lt; std::endl;
+
+    // 测试&lt;
+    std::cout &lt;&lt; "测试 &lt;" &lt;&lt; std::endl;
+    MyInt t6(10), t7(12);
+    std::cout &lt;&lt; (t6 &lt; t7) &lt;&lt; std::endl;
+    //return 0;
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="c面试题整理"><a class="header" href="#c面试题整理">C++面试题整理</a></h1>
+<p>QT相关
+https://www.bilibili.com/video/BV1FM4m1U7EB?spm_id_from=333.788.videopod.sections&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<p>C++相关：</p>
+<p>https://www.bilibili.com/video/BV1Qm411z7AH?spm_id_from=333.788.videopod.sections&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<p>https://www.bilibili.com/video/BV1RZtMeVE8r?spm_id_from=333.788.videopod.sections&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="qt"><a class="header" href="#qt">QT</a></h1>
+<blockquote>
+<p>QT是C++开发人员几乎都要学习的一个GUI库，常用于桌面客户端开发</p>
+</blockquote>
+<p>QT的学习，分为以下几个大阶段</p>
+<p>(1) QT基础</p>
+<p>QT的环境搭建，文件类型，信号槽，定时器，容器类，数据读写，网络请求，线程库，控件</p>
+<p>(2) QT音视频图像</p>
+<p>ffmpeg在QT中的使用，opengl，opencv</p>
+<p>(3) QT网络流媒体</p>
+<p>主要就是注重流媒体客户端，</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="qt音视频图像"><a class="header" href="#qt音视频图像">QT音视频图像</a></h1>
+<blockquote>
+<p>QT音视频图像，主要是围绕图像处理和渲染引擎</p>
+</blockquote>
+<p>QT音视频图像的学习，包含音视频图像领域常用工具的理论 + 实践，之后通过一些典型的案例快速熟悉QT视音频图像领域的开发工作</p>
+<p>(1) FFmpeg</p>
+<p>理论 + 实践：熟悉FFmpeg在不同平台的编译过程，FFmpeg的不同版本之间的差异，FFmpeg的使用场景</p>
+<p>案例：QT + FFmpeg开发播放器核心，熟悉FFmpeg的API，熟悉在QT中使用FFmpeg</p>
+<p>案例：QT + FFmpeg封装mp4</p>
+<p>案例：QT + FFmpeg开发视频格式转化工厂</p>
+<p>(2) OpenGL</p>
+<p>理论 + 实践：OpenGL的数学基础，OpenGL基础操作，OpenGL的shader编程，视频处理等</p>
+<p>案例：QT + OpenGL人脸贴纸特效渲染引擎</p>
+<p>(3) OpenCV</p>
+<p>案例：QT + OpenCV人脸标定</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="案例qt--ffmpeg开发播放器核心"><a class="header" href="#案例qt--ffmpeg开发播放器核心">案例：QT + FFmpeg开发播放器核心</a></h1>
+<h2 id="搭建环境"><a class="header" href="#搭建环境">搭建环境</a></h2>
+<p>该案例需要用到FFmpeg和x264这两个库，所以我们首先要创建一个QT工程，然后为了能正确链接FFmpeg和x264库，并且在开发中使用这些库提供的API。</p>
+<p>QT工程中，要使用这两个库，需要去编辑配置文件，这里使用qmake去组织项目，所以就是要编辑.pro文件如果不熟悉.pro文件的编写语法，请参考之前的QT基础开发中的.pro相关文章。</p>
+<p>要在项目中加载这些库，我们首先在项目中创建3rdparty文件夹，这里专门用来存放项目中使用的第三方库。</p>
+<h3 id="win32"><a class="header" href="#win32">Win32</a></h3>
+<p>我们这里假设已经拿到了FFmpeg和x264的静态库文件，动态库文件，头文件。</p>
+<p>(1) 在3rdparty中，创建win文件夹，存放win平台下，所有要使用的第三方库</p>
+<p>(2) win文件中，创建子文件夹 libFFmpeg和libx264，因为我们要使用这两个库</p>
+<p>(3) libxxx文件夹下存放所有关于该库的内容，一般有头文件，静态库文件，动态库文件</p>
+<p>3rdpatry的目录结构：</p>
+<pre><code class="language-bash">3rdparty
++---mac
+|   +---libFFmpeg
+|   |   +---include
+|   |   |   +---libavcodec
+|   |   |   +---libavdevice
+|   |   |   +---libavfilter
+|   |   |   +---libavformat
+|   |   |   +---libavutil
+|   |   |   +---libpostproc
+|   |   |   +---libswresample
+|   |   |   /---libswscale
+|   |   /---lib
+|   |       /---pkgconfig
+|   /---libx264
+|       /---lib
+/---win
+    +---libFFmpeg
+    |   +---bin
+    |   +---include
+    |   |   +---libavcodec
+    |   |   +---libavdevice
+    |   |   +---libavfilter
+    |   |   +---libavformat
+    |   |   +---libavutil
+    |   |   +---libpostproc
+    |   |   +---libswresample
+    |   |   /---libswscale
+    |   /---lib
+    /---libx264
+        /---lib
+</code></pre>
+<p>在工程目录中添加了ffmpeg和x264库，现在需要编辑pro文件，来去链接这些库，包含这些库的头文件，主要是使用<code>INLCUDEPATH +=</code>添加头文件，<code>LIBS+=</code>添加静态库文件，动态库文件我们需要自己拷贝到最终的可执行文件夹的同级目录下，这一步很关键</p>
+<pre><code class="language-cmake">QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+
+TARGET = JCMPlayer
+TEMPLATE = app
+
+macx {
+}
+
+win32 {
+DEFINES += JCMPLAYER_WINDOWS
+
+INCLUDEPATH += $$PWD/3rdparty/win/libFFmpeg/include
+LIBS +=   $$PWD/3rdparty/win/libFFmpeg/lib/libavformat.dll.a /
+          $$PWD/3rdparty/win/libFFmpeg/lib/libavcodec.dll.a /
+          $$PWD/3rdparty/win/libFFmpeg/lib/libavutil.dll.a /
+          $$PWD/3rdparty/win/libFFmpeg/lib/libswresample.dll.a /
+          $$PWD/3rdparty/win/libFFmpeg/lib/libswscale.dll.a /
+          $$PWD/3rdparty/win/libFFmpeg/lib/libpostproc.dll.a /
+          $$PWD/3rdparty/win/libFFmpeg/lib/libavfilter.dll.a
+
+LIBS += -lOpengl32
+}
+
+SOURCES += 
+
+HEADERS += 
+
+FORMS += 
+
+RESOURCES +=
+</code></pre>
+<p>添加好后在QT工程中，引入头文件并使用；build没有报错证明头文件和静态库都找到了，但要注意动态库是运行时加载，所以build之后我们还要去run程序，检测动态库文件是否找到，如果run没问题，那么此时win环境搭建完毕，之后就可以愉快开发了。</p>
+<h3 id="mac-1"><a class="header" href="#mac-1">Mac</a></h3>
+<h3 id="linux"><a class="header" href="#linux">Linux</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="opengl-理论--实战"><a class="header" href="#opengl-理论--实战">OpenGL 理论 + 实战</a></h1>
+<h2 id="数学基础"><a class="header" href="#数学基础">数学基础</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="git"><a class="header" href="#git">Git</a></h1>
+<blockquote>
+<p>Git几乎是程序员必备技能之一，每一个程序员都应该好好学习git</p>
+</blockquote>
+<p>本专栏为Git专栏，主要记录Git的基本使用，工作使用，以及相关文章</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="git分支相关操作"><a class="header" href="#git分支相关操作">git分支相关操作</a></h1>
+<h1 id="创建和删除分支"><a class="header" href="#创建和删除分支">创建和删除分支</a></h1>
+<h2 id="本地分支"><a class="header" href="#本地分支">本地分支</a></h2>
+<p>创建本地分支：</p>
+<pre><code class="language-bash">git branch &lt;branch-name&gt;
+</code></pre>
+<p>创建一个分支并立即切换到该分支</p>
+<pre><code class="language-bash">git checkout -b &lt;new-branch-name&gt; 
+git switch -c &lt;new-branch-name&gt;
+</code></pre>
+<p>从特定的起点创建分支：</p>
+<pre><code class="language-bash">git checkout -b &lt;new-branch-name&gt; &lt;starting-point&gt;
+git switch -c &lt;new-branch-name&gt; &lt;starting-point&gt;
+</code></pre>
+<p>删除本地分支：</p>
+<pre><code class="language-bash">git branch -d &lt;branch-name&gt;  # 安全删除（如果分支未完全合并，则删除失败）
+git branch -D &lt;branch-name&gt;  # 强制删除
+</code></pre>
+<p>为什么要删除的分支没有合并时，删除会失败呢</p>
+<img src="git//assets/SetDbYbGtoxs4hxpiqwcAdUknSc.png" src-width="779" src-height="406"/>
+<img src="git//assets/XDdCbKS31o7ZVCxKaI1c0rxUn1b.png" src-width="793" src-height="504"/>
+<p>批量删除本地分支：</p>
+<pre><code class="language-bash">git branch | grep “feature/” | xargs git branch -d
+git branch | grep ”feature/“ | xargs git branch -D
+</code></pre>
+<h2 id="远程分支"><a class="header" href="#远程分支">远程分支</a></h2>
+<p>创建远程分支（通过推送本地分支）：</p>
+<pre><code class="language-bash">git push &lt;remote-name&gt; &lt;local-branch&gt;:&lt;remote-branch&gt;
+</code></pre>
+<p>删除远程分支：</p>
+<pre><code class="language-bash">git push &lt;remote-name&gt; --delete &lt;remote-branch&gt;
+</code></pre>
+<h1 id="查看分支"><a class="header" href="#查看分支">查看分支</a></h1>
+<p>查看本地所有分支：</p>
+<pre><code class="language-bash">git branch
+</code></pre>
+<p>查看远程所有分支：</p>
+<pre><code class="language-bash">git branch -r
+</code></pre>
+<p>查看本地和远程所有分支：</p>
+<pre><code class="language-bash">git branch -a
+</code></pre>
+<h1 id="切换分支"><a class="header" href="#切换分支">切换分支</a></h1>
+<p>切换本地分支</p>
+<pre><code class="language-bash">git checkout &lt;branch-name&gt;
+</code></pre>
+<p>或使用更新的 Git 命令：</p>
+<pre><code class="language-bash">git switch &lt;branch-name&gt;
+</code></pre>
+<p>切换远程分支</p>
+<p>切换到远程分支实际上是创建一个跟踪远程分支的本地分支：</p>
+<pre><code class="language-bash">git checkout -b &lt;local-branch&gt; &lt;remote-name&gt;/&lt;remote-branch&gt;
+</code></pre>
+<p>或使用更简洁的方式：</p>
+<pre><code class="language-bash">git checkout --track &lt;remote-name&gt;/&lt;remote-branch&gt;
+</code></pre>
+<p>使用新版 Git：</p>
+<pre><code class="language-bash">git switch -c &lt;local-branch&gt; --track &lt;remote-name&gt;/&lt;remote-branch&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="git开发常用操作"><a class="header" href="#git开发常用操作">git开发常用操作</a></h1>
+<h1 id="本地在dev分支做了一些修改现在想要切换到本地的master分支"><a class="header" href="#本地在dev分支做了一些修改现在想要切换到本地的master分支">本地在dev分支，做了一些修改，现在想要切换到本地的master分支</a></h1>
+<p>在切换到 <code>master</code> 分支之前，确保你不会丢失在 <code>dev</code> 分支上所做的更改。以下是几种安全切换分支的方法：</p>
+<h2 id="提交更改"><a class="header" href="#提交更改">提交更改</a></h2>
+<p>如果你已经完成了在 <code>dev</code> 分支上的更改，并且希望保留这些更改，可以将它们提交到 <code>dev</code> 分支：</p>
+<pre><code class="language-bash">git add .  
+git commit -m "Save changes before switching to master"
+</code></pre>
+<p>然后，你可以安全地切换到 <code>master</code> 分支：</p>
+<pre><code class="language-bash">git checkout master
+</code></pre>
+<h2 id="暂存更改stash"><a class="header" href="#暂存更改stash">暂存更改（Stash）</a></h2>
+<p>如果你不想立即提交更改，可以使用 <code>git stash</code> 将更改暂存起来：</p>
+<pre><code class="language-bash">git stash
+</code></pre>
+<p>这会将你的更改保存到一个临时存储区，并恢复工作目录到干净状态。然后，你可以切换到 <code>master</code> 分支：</p>
+<pre><code class="language-bash">git checkout master
+</code></pre>
+<p>当你准备好恢复 <code>dev</code> 分支上的更改时，可以使用：</p>
+<pre><code class="language-bash">git checkout dev  
+git stash pop
+</code></pre>
+<p>这会将暂存的更改应用到 <code>dev</code> 分支上。</p>
+<h2 id="创建一个新的分支"><a class="header" href="#创建一个新的分支">创建一个新的分支</a></h2>
+<p>如果你想保留当前的更改，但又不想提交到 <code>dev</code> 分支，可以创建一个新的分支：</p>
+<pre><code class="language-bash">git checkout -b temp-branch
+</code></pre>
+<p>这会创建一个名为 <code>temp-branch</code> 的新分支，并切换到该分支。你可以在这个新分支上继续工作，或者稍后再将更改合并回 <code>dev</code> 分支。</p>
+<p>总结:</p>
+<ul>
+<li><b>提交更改</b>：适用于你已经完成的工作。</li>
+<li><b>暂存更改</b>：适用于你想暂时保存更改但不想提交的情况。</li>
+<li><b>创建新分支</b>：适用于你想保留更改并继续工作的情况。</li>
+</ul>
+<p>选择最适合你当前需求的方法，确保在切换分支之前不会丢失任何重要的更改。</p>
+<h1 id="本地dev分支合并到master分支想以master分支为主简单方法"><a class="header" href="#本地dev分支合并到master分支想以master分支为主简单方法">本地dev分支合并到master分支，想以master分支为主，简单方法</a></h1>
+<p>如果你希望在将 <code>dev</code> 分支合并到 <code>master</code> 分支时以 <code>master</code> 分支的内容为主，可以使用 <code>-X ours</code> 选项。这样，Git 会在合并时自动选择 <code>master</code> 分支的内容，忽略 <code>dev</code> 分支的冲突部分。</p>
+<p>简化操作步骤</p>
+<h2 id="切换到-master-分支"><a class="header" href="#切换到-master-分支">切换到 <code>master</code> 分支：</a></h2>
+<pre><code class="language-bash">git checkout master
+</code></pre>
+<h2 id="合并-dev-分支并自动选择-master-的更改"><a class="header" href="#合并-dev-分支并自动选择-master-的更改">合并 <code>dev</code> 分支并自动选择 <code>master</code> 的更改：</a></h2>
+<pre><code class="language-bash">git merge -X ours dev
+</code></pre>
+<p>注意事项：</p>
+<ul>
+<li>使用 <code>-X ours</code> 选项时，Git 会自动解决冲突，所有冲突的文件将以 <code>master</code> 分支的内容为主。</li>
+<li>在合并完成后，建议检查合并结果，确保所有更改都符合预期。</li>
+</ul>
+<p>总结：</p>
+<p>通过使用 -X ours 选项，你可以快速合并 dev 分支到 master 分支，并自动选择 master 的更改，避免手动解决冲突的步骤。这是处理合并冲突时的一种简便方法。</p>
+<h1 id="本地dev分支合并到master分支想以dev分支为主简单方法"><a class="header" href="#本地dev分支合并到master分支想以dev分支为主简单方法">本地dev分支合并到master分支，想以dev分支为主，简单方法</a></h1>
+<p>如果你希望在合并 dev 分支到 master 分支时自动选择 dev 分支的更改，可以使用 -X theirs 选项来简化操作。这样，Git 会在合并时自动选择 dev 分支的内容，忽略 master 分支的冲突部分。</p>
+<p>简化操作步骤</p>
+<h2 id="切换到-master-分支-1"><a class="header" href="#切换到-master-分支-1">切换到 master 分支：</a></h2>
+<pre><code class="language-bash">git checkout master
+</code></pre>
+<h2 id="合并-dev-分支并自动选择-dev-的更改"><a class="header" href="#合并-dev-分支并自动选择-dev-的更改">合并 dev 分支并自动选择 dev 的更改：</a></h2>
+<pre><code class="language-bash">git merge -X theirs dev
+</code></pre>
+<p>注意事项：</p>
+<p>使用 -X theirs 选项时，Git 会自动解决冲突，所有冲突的文件将以 dev 分支的内容为主。</p>
+<p>在合并完成后，建议检查合并结果，确保所有更改都符合预期。</p>
+<p>总结：</p>
+<p>通过使用 -X theirs 选项，你可以快速合并 dev 分支到 master 分支，并自动选择 dev 的更改，避免手动解决冲突的步骤。这是处理合并冲突时的一种简便方法。</p>
+<h1 id="本地dev分支merge到master分支有冲突如何解决"><a class="header" href="#本地dev分支merge到master分支有冲突如何解决">本地dev分支merge到master分支，有冲突如何解决</a></h1>
+<p>在将本地的 dev 分支合并到 master 分支时，如果遇到冲突，可以按照以下步骤解决冲突：</p>
+<p>操作步骤</p>
+<h2 id="切换到-master-分支-2"><a class="header" href="#切换到-master-分支-2">切换到 master 分支：</a></h2>
+<pre><code class="language-bash">git checkout master
+</code></pre>
+<h2 id="合并-dev-分支"><a class="header" href="#合并-dev-分支">合并 dev 分支：</a></h2>
+<pre><code class="language-bash">git merge dev
+</code></pre>
+<p>如果有冲突，Git 会提示你哪些文件存在冲突。</p>
+<h2 id="查看冲突文件-使用以下命令查看哪些文件存在冲突"><a class="header" href="#查看冲突文件-使用以下命令查看哪些文件存在冲突">查看冲突文件： 使用以下命令查看哪些文件存在冲突：</a></h2>
+<pre><code class="language-bash">git status
+</code></pre>
+<h2 id="解决冲突-打开有冲突的文件查找冲突标记--"><a class="header" href="#解决冲突-打开有冲突的文件查找冲突标记--">解决冲突： 打开有冲突的文件，查找冲突标记（&lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, &gt;&gt;&gt;&gt;&gt;&gt;&gt;)</a></h2>
+<p>例如：</p>
+<pre><code class="language-text">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD  
+// master 分支的内容  
+=======  
+// dev 分支的内容  
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; dev
+</code></pre>
+<p>你需要手动编辑这些文件，选择保留的内容，删除冲突标记。可以选择保留 master 的内容、dev 的内容，或者两者的组合。</p>
+<h2 id="标记冲突已解决-在解决完所有冲突后使用以下命令将已解决的文件标记为已解决"><a class="header" href="#标记冲突已解决-在解决完所有冲突后使用以下命令将已解决的文件标记为已解决">标记冲突已解决： 在解决完所有冲突后，使用以下命令将已解决的文件标记为已解决：</a></h2>
+<pre><code class="language-text">git add &lt;conflicted-file&gt;
+</code></pre>
+<p>如果有多个文件，可以使用：</p>
+<pre><code class="language-text">git add .
+</code></pre>
+<h2 id="完成合并"><a class="header" href="#完成合并">完成合并：</a></h2>
+<p>一旦所有冲突都解决并标记为已解决，使用以下命令完成合并：</p>
+<pre><code class="language-text">git commit -m "Merge dev into master, resolved conflicts"
+</code></pre>
+<p>总结：</p>
+<p>通过以上步骤，你可以成功解决合并冲突并将 dev 分支的更改合并到 master 分支。确保在解决冲突时仔细检查每个文件，以避免丢失重要的更改。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="git远程相关操作"><a class="header" href="#git远程相关操作">git远程相关操作</a></h1>
+<h2 id="本地仓库初次上传到远程仓库"><a class="header" href="#本地仓库初次上传到远程仓库">本地仓库初次上传到远程仓库</a></h2>
+<img src="git//assets/VaJ4bZb2eoMNBqx2XxJcBu82nXf.png" src-width="783" src-height="226"/>
+<h1 id="clone完仓库后本地选取对应的远程分支进行开发"><a class="header" href="#clone完仓库后本地选取对应的远程分支进行开发">clone完仓库后，本地选取对应的远程分支进行开发</a></h1>
+<pre><code class="language-bash">git checkout origin/dev
+git checkout -b dev 
+git check -b dev origin/dev
+</code></pre>
+<p>上面两条命令组合和下面一条命令效果一样吗? 答案是不一样！</p>
+<h2 id="解析"><a class="header" href="#解析">解析</a></h2>
+<p>(1) <code>git checkout origin/dev</code></p>
+<p>这条命令用于切换到远程的 <code>dev</code> 分支，但不会在本地创建一个新的分支。你将处于“游离头指针”（detached HEAD）状态，意味着你在查看远程分支的内容，但没有在本地创建一个对应的分支。</p>
+<p>(2) <code>git checkout -b dev</code></p>
+<p>这条命令用于在本地创建一个新的分支 <code>dev</code>，并切换到该分支。此时，<code>dev</code> 分支是一个独立的本地分支，与远程分支没有直接关联。</p>
+<p>(3) <code>git checkout -b dev origin/dev</code></p>
+<p>这条命令用于在本地创建一个新的分支 <code>dev</code>，并将其设置为跟踪远程的 <code>origin/dev</code> 分支。这样，当你在本地 <code>dev</code> 分支上进行更改并推送时，Git 会知道将更改推送到远程的 <code>dev</code> 分支。</p>
+<h2 id="结论"><a class="header" href="#结论">结论</a></h2>
+<p><b>组合命令</b>：如果你先执行 <code>git checkout origin/dev</code>，然后执行 <code>git checkout -b dev</code>，你会得到一个新的本地分支 <code>dev</code>，但这个分支的起点是你在 <code>origin/dev</code> 上的游离状态。这意味着 <code>dev</code> 分支不会自动跟踪 <code>origin/dev</code>。</p>
+<p><b>单条命令</b>：<code>git checkout -b dev origin/dev</code> 直接创建一个新的本地分支 <code>dev</code>，并将其设置为跟踪远程的 <code>origin/dev</code> 分支。</p>
+<p>因此，虽然组合命令和单条命令都可以创建一个名为 <code>dev</code> 的本地分支，但它们的效果并不完全相同：</p>
+<p><b>组合命令</b>：创建的 <code>dev</code> 分支不会自动跟踪 <code>origin/dev</code></p>
+<p><b>单条命令</b>：创建的 <code>dev</code> 分支会自动跟踪 <code>origin/dev</code></p>
+<p>如果你希望本地分支 <code>dev</code> 跟踪远程分支，建议使用 <code>git checkout -b dev origin/dev</code></p>
+<h2 id="正确的组合命令"><a class="header" href="#正确的组合命令">正确的组合命令</a></h2>
+<p>那么组合命令，如何设置自动跟踪origin/dev</p>
+<p>如果你使用组合命令 <code>git checkout origin/dev</code> 和 <code>git checkout -b dev</code> 创建了本地分支 <code>dev</code>，但希望将其设置为自动跟踪远程的 <code>origin/dev</code> 分支，可以使用以下步骤：</p>
+<p>(1) 创建本地分支并切换</p>
+<p>首先，使用组合命令创建本地分支 <code>dev</code>：</p>
+<pre><code class="language-text">git checkout origin/dev  # 切换到远程分支，处于游离状态  
+git checkout -b dev      # 创建本地分支 dev
+</code></pre>
+<p>(2) 设置跟踪关系</p>
+<p>接下来，使用以下命令将本地 <code>dev</code> 分支设置为跟踪远程的 <code>origin/dev</code> 分支：</p>
+<pre><code class="language-bash">git branch --set-upstream-to=origin/dev dev
+</code></pre>
+<p>(3) 验证跟踪关系</p>
+<p>你可以使用以下命令来验证本地分支 <code>dev</code> 是否正确跟踪远程分支：</p>
+<pre><code class="language-bash">git branch -vv
+</code></pre>
+<p>这将显示所有本地分支及其跟踪的远程分支。</p>
+<p>通过以上步骤，你可以将本地分支 <code>dev</code> 设置为自动跟踪远程的 <code>origin/dev</code> 分支。这样，当你在本地 <code>dev</code> 分支上进行更改并推送时，Git 会知道将更改推送到远程的 <code>dev</code> 分支</p>
+<h1 id="git-push远程仓库authentication出错"><a class="header" href="#git-push远程仓库authentication出错">git push远程仓库authentication出错</a></h1>
+<img src="git//assets/Vs1DbUHk9oppx8xcInCcRicInHf.png" src-width="915" src-height="82" align="center"/>
+<p>有很多种解决办法，我认为最好的解决办法就是使用git credential</p>
+<p>(1) 首先就是创建token，创建完后自己可以选择保存下来，方便后续使用</p>
+<p>(2) 还是使用git push，但是此时输入的密码就是token了，git输入密码时，不能展示密码，先复制，然后直接右键按一下就是粘贴了</p>
+<p>(3) 为了防止每次输入token，使用git config –global credential.helper store，这样就会把token存入/~/.git-credentials中，文件内容类似于https:///&lt;USERNAME&gt;:/&lt;TOKEN&gt;@github.com</p>
+<p>参考：</p>
+<p>[1] https://stackoverflow.com/questions/68775869/message-support-for-password-authentication-was-removed</p>
+<p>[2] <a href="https://git-scm.com/book/en/v2/Git-Tools-Credential-Storage">https://git-scm.com/book/en/v2/Git-Tools-Credential-Storage</a></p>
+<h1 id="git-push大文件失败"><a class="header" href="#git-push大文件失败">git push大文件失败</a></h1>
+<p>要解决由于文件大小超过 GitHub 的限制而导致的 <code>git push</code> 失败问题，可以考虑使用 Git Large File Storage (LFS) Git LFS 是一个 Git 扩展，专门用于处理大文件。通过使用 Git LFS，您可以将大文件存储在外部服务器上，从而避免 GitHub 的文件大小限制。</p>
+<p>使用方法：</p>
+<p>(1) <b>安装 Git LFS</b>：</p>
+<p>根据您的系统，从 <a href="https://git-lfs.github.com/">Git LFS 官网</a> 下载并安装。</p>
+<p>(2) <b>初始化 Git LFS</b>：</p>
+<pre><code class="language-text">git lfs install
+</code></pre>
+<p>(3) <b>跟踪大文件</b>： 假设您的大文件路径是 <code>Resources/ffmpeg.exe</code>：</p>
+<pre><code class="language-text">git lfs track "Resources/ffmpeg.exe"
+</code></pre>
+<p>(4) <b>添加跟踪配置到仓库</b>：</p>
+<pre><code class="language-text">git add .gitattributes
+</code></pre>
+<p>(5) <b>提交和推送文件</b>：</p>
+<pre><code class="language-text">git add Resources/ffmpeg.exe  
+git commit -m "Add ffmpeg with Git LFS"  
+git push origin main
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="git代理相关操作"><a class="header" href="#git代理相关操作">git代理相关操作</a></h1>
+<h1 id="设置代理和取消代理"><a class="header" href="#设置代理和取消代理">设置代理和取消代理</a></h1>
+<p>参考：<a href="https://gist.github.com/laispace/666dd7b27e9116faece6">https://gist.github.com/laispace/666dd7b27e9116faece6</a></p>
+<pre><code class="language-bash"># 设置代理
+git config --global http.proxy http://127.0.0.1:1080
+git config --global https.proxy https://127.0.0.1:1080
+
+# 取消代理
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
+# 查看代理配置
+~/.gitconfg 查看全局配置
+</code></pre>
+<h2 id="-3"><a class="header" href="#-3"></a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="查看git信息设置git信息"><a class="header" href="#查看git信息设置git信息">查看git信息，设置git信息</a></h1>
+<blockquote>
+<p>在Git中，查看和设置用户信息是非常重要的，尤其是在进行版本控制时。</p>
+</blockquote>
+<h1 id="查看-git-用户信息"><a class="header" href="#查看-git-用户信息">查看 Git 用户信息</a></h1>
+<p>要查看当前 Git 配置的用户信息，可以使用以下命令：</p>
+<p>(1) 查看全局配置</p>
+<pre><code class="language-bash">git config --global user.name  
+git config --global user.email
+</code></pre>
+<p>(2) 查看本地仓库配置（如果在特定仓库中设置了不同的用户信息）</p>
+<pre><code class="language-bash">git config user.name  
+git config user.email
+</code></pre>
+<p>(3) 查看所有配置</p>
+<pre><code class="language-bash">git config --list
+</code></pre>
+<h1 id="设置-git-用户信息"><a class="header" href="#设置-git-用户信息">设置 Git 用户信息</a></h1>
+<p>如果你需要设置或更改 Git 的用户信息，可以使用以下命令：</p>
+<p>(1) 设置全局用户信息（适用于所有仓库）</p>
+<pre><code class="language-bash">git config --global user.name "Your Name"  
+git config --global user.email "your.email@example.com"
+</code></pre>
+<p>(2) 设置本地用户信息（仅适用于当前仓库）</p>
+<pre><code class="language-bash">git config user.name "Your Name"  
+git config user.email "your.email@example.com"
+</code></pre>
+<p>(3) 示例</p>
+<p>假设你想设置全局用户信息为 “Alice” 和 “<a href="mailto:alice@example.com">alice@example.com</a>”，可以执行以下命令：</p>
+<pre><code class="language-bash">git config --global user.name "Alice"  
+git config --global user.email "alice@example.com"
+</code></pre>
+<p>验证设置</p>
+<p>设置完成后，可以再次使用以下命令来验证你的设置：</p>
+<pre><code class="language-bash">git config --global user.name  
+git config --global user.email
+</code></pre>
+<p>注意事项</p>
+<p>(1) 全局与本地设置：全局设置会影响所有 Git 仓库，而本地设置仅影响当前仓库。如果在本地仓库中设置了用户信息，它将覆盖全局设置。</p>
+<p>(2) 确保信息正确：确保你输入的用户名和电子邮件地址是正确的，因为这些信息将出现在你的提交记录中。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="gitignore使用"><a class="header" href="#gitignore使用">.gitignore使用</a></h1>
+<h1 id="gitignore重新生效"><a class="header" href="#gitignore重新生效">gitignore重新生效</a></h1>
+<p>把某些目录或文件加入.gitignore后，按照上述方法定义后发现并未生效。</p>
+<p>原因是.gitignore只能忽略那些原来没有被追踪的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未被追踪状态），然后再提交：</p>
+<pre><code class="language-bash">git rm -r --cached .
+git add .
+</code></pre>
+<p>参考：</p>
+<p>[1] <a href="https://cloud.tencent.com/developer/article/2220223">https://cloud.tencent.com/developer/article/2220223</a></p>
+<p>[2] <a href="https://blog.csdn.net/mingjie1212/article/details/51689606">https://blog.csdn.net/mingjie1212/article/details/51689606</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="git基本概念"><a class="header" href="#git基本概念">git基本概念</a></h1>
+<h1 id="git索引和暂存区"><a class="header" href="#git索引和暂存区">git索引和暂存区</a></h1>
+<p>git索引和暂存区是同一个概念的不同称呼，在 Git中，索引（Index）或暂存区（Staging Area）是一个中间区域，用于在提交之前准备和组织更改。以下是对索引/暂存区的详细解释：</p>
+<p><b>作用</b></p>
+<p>索引或暂存区是一个临时区域，用于保存即将提交到版本库的更改。它允许您选择性地添加文件或文件的部分更改，以便在提交时只包含您想要的内容。</p>
+<p><b>工作流程</b></p>
+<p>(1) <b>工作目录</b>：您在工作目录中进行更改（编辑、添加或删除文件）。</p>
+<p>(2) <b>添加到暂存区</b>：使用 <code>git add</code> 命令将更改添加到暂存区。这些更改现在被标记为准备提交。</p>
+<p>(3) <b>提交更改</b>：使用 <code>git commit</code> 命令将暂存区中的更改提交到本地仓库。提交后，暂存区会被清空。</p>
+<p><b>命令</b></p>
+<ul>
+<li><code>git add &lt;file&gt;</code>：将文件的更改添加到暂存区。</li>
+<li><code>git status</code>：查看哪些更改在暂存区中，哪些在工作目录中。</li>
+<li><code>git reset &lt;file&gt;</code>：从暂存区中移除文件的更改，但保留在工作目录中。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="博客"><a class="header" href="#博客">博客</a></h1>
+<blockquote>
+<p>对于一名IT开发人员，记录个人博客，分类管理自己的知识体系，是很重要的。</p>
+</blockquote>
+<h1 id="经历"><a class="header" href="#经历">经历</a></h1>
+<p>对于个人来说，我尝试过很多博客的方案，其实大体分为两类：</p>
+<p>(1) 云笔记编写：</p>
+<p>例如 飞书，语雀，有道云笔记，印象笔记，notion，onenote等等</p>
+<p>(2) markdown编写</p>
+<p>本地编写好markdown文件，利用static page generator，生成网页后，部署到网站：</p>
+<p>例如 hexo，hugo，gitbook，vitepress，mdbook</p>
+<h1 id="需求"><a class="header" href="#需求">需求</a></h1>
+<p>我的需求，其实市面上的软件很难达到，因为我想同时达到很多效果</p>
+<p>(1) 编辑：</p>
+<ul>
+<li>多端可编辑，并且自动同步</li>
+<li>编写方式以markdown为主，同时支持markdown导出</li>
+</ul>
+<p>(2) Static page generator：</p>
+<ul>
+<li>轻松将已有的markdown文件，整理好目录结构</li>
+<li>社区生态和官方维护在线</li>
+</ul>
+<h1 id="方案"><a class="header" href="#方案">方案</a></h1>
+<p>最后采用了，feishu + feishu-pages + mdbook</p>
+<h2 id="为什么使用飞书"><a class="header" href="#为什么使用飞书">为什么使用飞书？</a></h2>
+<p>我的编辑要求是，多端可编辑，并且自动同步，其实也就是云文档需求，在我使用的已有的云文档软件里，飞书给我的体验非常好，编写非常舒服，并且业界的程序员使用的也很多。</p>
+<p>但是飞书有一个唯一的缺点，那就是不支持markdown导出，这个问题将使用feishu-pages解决</p>
+<h2 id="为什么使用feishu-pages"><a class="header" href="#为什么使用feishu-pages">为什么使用feishu-pages</a></h2>
+<p>feishu-pages是一个开源项目，它主要是可以将feishu的知识库内容，按照知识库目录结构导出markdown文件，同时自动将飞书图床的图片拉取到项目的assert文件夹，可以本地查看</p>
+<h2 id="为什么使用mdbook"><a class="header" href="#为什么使用mdbook">为什么使用mdbook</a></h2>
+<p>Static page generator我也试过很多已有方案，包括hexo，hugo，gitbook，mdbook等，最后我选择了mdbook</p>
+<p>mdbook的优势</p>
+<p>(1) 前文提到我是用feishu-pages导出具有目录结构的markdown文件，它默认使用SUMMARY.md进行组织结构的，这和gitbook以及mdbook的目录结构天然适配</p>
+<p>(2) gitbook现在已经不再维护static page generator版本，团队专注于线上版本，所以官方已经停止维护，并且没有相应的社区在活跃了</p>
+<p>(3) 过去的gitbook，在渲染大量markdown文件时，速度感人，所以最后使用mdbook</p>
+<p>(4) mdbook跟gitbook的使用方法基本一致，并且官网的demo做的也很好看https://rust-lang.github.io/mdBook/</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="方案飞书--feishu-pages--mdbook"><a class="header" href="#方案飞书--feishu-pages--mdbook">方案：飞书 + feishu-pages + mdbook</a></h1>
+<h1 id="飞书编写文档"><a class="header" href="#飞书编写文档">飞书编写文档</a></h1>
+<p>飞书支持的内容非常强大，但是飞书导出的markdown，会丧失一部分功能，所以这里为了兼容mdbook渲染后的体验，对飞书内部文档的编写要做出一定的规范要求。</p>
+<p>规范要求主要是取决于文档 <a href="%E5%8D%9A%E5%AE%A2//%E5%8D%9A%E5%AE%A2/%E9%A3%9E%E4%B9%A6%E6%96%87%E6%A1%A3%E8%BD%AC%E5%8C%96markdown%E6%B5%8B%E8%AF%95">飞书文档转化markdown测试</a></p>
+<h2 id="添加yaml-header"><a class="header" href="#添加yaml-header">添加yaml header</a></h2>
+<p>首先为了保证导出的markdown的文件名是nested url风格，我们需要在每个文档的前面手动编写yaml header也就是我们熟知的page meta</p>
+<blockquote>
+<p>注意 slug的值，千万不能设置一些特殊的字符，否则url会不合法而失效，访问不到对应的markdown，这里推荐只是用字母，数字，下划线_，连字符-，就行了，绝对不会出错</p>
+</blockquote>
+<p>例如本文我们可以这样设置yaml header</p>
+<pre><code class="language-yaml">slug: 方案-飞书-feishu-pages-mdbook
+hide: false
+</code></pre>
+<h1 id="feishu-pages"><a class="header" href="#feishu-pages">Feishu-pages</a></h1>
+<p>feishu-pages是一个第三方库，这里简单的介绍一下如何使用</p>
+<h2 id="配置环境"><a class="header" href="#配置环境">配置环境</a></h2>
+<p>安装node，npm，yarn</p>
+<h2 id="使用"><a class="header" href="#使用">使用</a></h2>
+<p>由于feishu-pages会持续更新，所以我们要以官方最新的使用教程为主：https://github.com/longbridgeapp/feishu-pages</p>
+<p>官方的教程没有图片，所以有的时候会不太清楚，这里也给出另一个大佬的教程：https://github.com/ftyszyx/feishu-vitepress</p>
+<p>(1) 新建存放feishu-pages的目录，可以取名例如 feishu-book</p>
+<p>(2) feishu-book目录下</p>
+<pre><code class="language-bash">yarn init -y             # 生成一个yarn项目
+yarn add feishu-pages    # 安装feishu-pages
+
+# 从node-modules中将feishu-docx和feishu-pages拷贝到feishu-book目录下
+# 拷贝feishu-book的env.default文件到feishu-book目录下，并重命名为.env
+# .env文件编辑好自己的飞书相关内容后保存
+
+yarn feishu-pages        # 生成dist目录，里面存放的是飞书知识库导出的所有markdown文件和资源
+</code></pre>
+<img src="博客//assets/GBXGb8SQToU4oxxImCecalaYnMg.png" src-width="739" src-height="350"/>
+<h1 id="mdbook"><a class="header" href="#mdbook">mdbook</a></h1>
+<h2 id="安装"><a class="header" href="#安装">安装</a></h2>
+<p>mdbook的使用，推荐直接看官方教程https://github.com/rust-lang/mdBook</p>
+<h2 id="创建项目"><a class="header" href="#创建项目">创建项目</a></h2>
+<p>(1) 新建一个mdbook项目</p>
+<pre><code class="language-bash">mdbook init md-book
+cd md-book
+mdbook serve --open
+</code></pre>
+<p>md-book目录结构</p>
+<img src="博客//assets/BIGDbJIbCo2bWbxZf1aclnconjf.png" src-width="679" src-height="256"/>
+<p>其中src为markdown文件存放的目录，book为渲染后的页面存放的目录</p>
+<p>为了之后的正常部署，我们自己调整一下目录结构，将src文件夹删除，然后book.toml的src = “.”，为什么要这样做，之后详细解释。</p>
+<img src="博客//assets/CwdJbk4NPosf0ux6hoJcqNB1nad.png" src-width="647" src-height="155"/>
+<p>(2) md-book和book目录下，初始化git仓库，然后添加remote。mdbook分两个部分上传到远程仓库，</p>
+<ul>
+<li>mdbook根目录下，上传到远程仓库的main分支，用来方便github直接查看markdown文件</li>
+<li>mdbook book目录下，上传到远程仓库的gh-pages分支，用来部署网站</li>
+</ul>
+<pre><code class="language-bash"># md-book下
+git init
+git remote add origin https://github.com/vendestine/vendestine.github.io.git
+
+# book目录下
+git init
+git remote add origin https://github.com/vendestine/vendestine.github.io.git
+
+# 查看是否添加远程仓库成功
+git remote -vv
+</code></pre>
+<h2 id="编写booktoml安装第三方插件"><a class="header" href="#编写booktoml安装第三方插件">编写book.toml，安装第三方插件</a></h2>
+<p>官方推荐的插件列表：https://github.com/rust-lang/mdBook/wiki/Third-party-plugins</p>
+<p>个人认为必要的插件列表</p>
+<ol>
+<li><u>mdbook-yml-header</u>：由于我们的飞书文档前面加了yaml header，所以这里一定要使用第三方插件</li>
+<li><u>mdbook-katex</u>: <b>弃用</b>，mardown公式的渲染，官方好像没有集成，使用这个插件</li>
+<li><u>mdBook-pagetoc</u>：<b>弃用</b>，生成右侧文章目录，会影响很多其他的内容</li>
+<li><u>mdbook-toc</u>：<b>弃用</b>，也是生成文章目录，但是不美观</li>
+</ol>
+<p>这里提出我的book.toml文件，主要是参考官方的用法</p>
+<pre><code class="language-bash">[book]
+authors = ["vendestine"]
+language = "en"
+multilingual = false
+src = "."
+title = "md-book"
+
+[rust]
+edition = "2018"
+
+[output.html]
+smart-punctuation = true
+mathjax-support = true
+git-repository-url = "https://github.com/vendestine/vendestine.github.io/tree/main"
+edit-url-template = "https://github.com/vendestine/vendestine.github.io/tree/main/{path}"
+
+[output.html.playground]
+editable = true
+line-numbers = true
+
+[output.html.code.hidelines]
+python = "~"
+
+[output.html.search]
+limit-results = 20
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 2
+boost-paragraph = 1
+expand = true
+heading-split-level = 2
+
+[output.html.fold]
+enable = true
+
+[preprocessor.yml-header]
+</code></pre>
+<h2 id="上传到github仓库"><a class="header" href="#上传到github仓库">上传到github仓库</a></h2>
+<p>(1) 将<code>cswiki/feishu-book/dist/docs</code>的所有内容，拷贝的md-book目录下，拷贝之后打开cmd，执行<code>mdbook serve --open</code> 本地检查是否渲染成功，如果是自己想要的页面，那么就执行<code>mdbook build</code> 生成最后需要部署的页面</p>
+<p>(2) 将md-book目录下的内容上传到main分支</p>
+<p>(3) 将md-book/book目录下的内容上传到gh-pages分支</p>
+<h1 id="github-pages"><a class="header" href="#github-pages">Github Pages</a></h1>
+<p>如果要部署到github pages，其实不需要什么github actions，因为github actions，每次要重装mdbook和相关插件很消耗资源，所以我们直接将mdbook的book目录下的所有内容上传到仓库就行了</p>
+<p>(1) 创建远程仓库，username.github.io，注意一定要取名这个，后面会解释为什么</p>
+<p>(2) 远程仓库，settings里设置github pages选型为，deploy from branch，然后选择gh-pages分支</p>
+<p>(3) 有新内容push到gh-pages分支后，应该会自动触发github action，部署网站</p>
+<h1 id="更新网站"><a class="header" href="#更新网站">更新网站</a></h1>
+<p>一般记录是在飞书的知识库下，那么我们要更新到网站的话只需要执行如下步骤</p>
+<p>首先所有的操作都发生在<code>C:/Users/ventu/Desktop/tmp/cswiki</code>目录下</p>
+<p>(1) 准备好markdown文件</p>
+<pre><code class="language-bash">cd feishu-book
+yarn feishu-pages        # 生成dist目录，里面存放的是飞书知识库导出的所有markdown文件和资源
+</code></pre>
+<p>(2) copy <code>C:/Users/ventu/Desktop/tmp/cswiki/feishu-book/dist/docs</code>所有文件到mdbook项目的根目录下，选择全部替换</p>
+<p>(3) 查看网页渲染效果，没有问题就build</p>
+<pre><code class="language-bash"># md-book目录下
+mdbook serve --open
+mdbook build
+</code></pre>
+<p>(4) 上传到github仓库</p>
+<pre><code class="language-bash">md-book根目录，git push到main分支，这样之后可以在github上查看这些markdown文件
+book目录，git push到gh-pages分支，将这些渲染后的pages文件上传到网站上
+</code></pre>
+<h1 id="问题"><a class="header" href="#问题">问题</a></h1>
+<h2 id="为什么远程仓库取名usernamegithubio"><a class="header" href="#为什么远程仓库取名usernamegithubio">为什么远程仓库取名username.github.io</a></h2>
+<p>因为我这边的markdown的资源引用都是使用的绝对路径（例如 <em>base-url/assets/xxx.jpg</em>）</p>
+<p>base-url会拼接在请求的url里，site-url会拼接在存储的url里。</p>
+<p>为了正确加载资源，我们必须保证，资源的存储url和请求url相等，才能正确访问资源。因为存储和请求的话，都是使用一样的prefix和path。<b>所以简单来讲，我们只需要让site-url和base-url一致就可以正确加载</b></p>
+<h3 id="部署情况"><a class="header" href="#部署情况">部署情况</a></h3>
+<p>prefix为域名</p>
+<p>如果创建的仓库名是别的，例如blog，</p>
+<p>那么site-url是/blog，存储url是username.github.io/blog/path；base-url默认是/，请求url是username.github.io/path，所以此时网站上请求资源就会失败。</p>
+<p>解决方法有两种</p>
+<p>要么改变site-url，要么改变base-url，这里选择改变site-url为/</p>
+<p>(1) 仓库名使用username.github.io，这样site-url就是/</p>
+<p>(2) 使用自定义的一级域名，site-url此时是/</p>
+<h2 id="为什么markdown文件放在mdbook项目的根目录下而不是放在src目录下"><a class="header" href="#为什么markdown文件放在mdbook项目的根目录下而不是放在src目录下">为什么markdown文件放在mdbook项目的根目录下，而不是放在src目录下</a></h2>
+<p>按照上个问题的的解决方案，我们已经可以在自己的网站上正确加载markdown中的资源引用，但是在github上查看还是不行。</p>
+<p>其实这个问题也是和上面的问题类似，<b>为了正确加载资源，我们必须保证site-url和base-url一致。</b></p>
+<h3 id="非部署情况"><a class="header" href="#非部署情况">非部署情况</a></h3>
+<p>如果在github查看或者本地查看，那么prefix为项目根目录</p>
+<p>如果markdown文件存放在src目录下，那么存储url是root/src/path，此时site-url是/src，请求url是root/path，base-url是/，所以加载资源失败。</p>
+<p>解决方法：</p>
+<p>site-url改成/</p>
+<p>将markdown文件存放在mdbook项目根目录下，这样子site-url和base-url就都是/，此时请求url和存储url都是root/path</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="飞书文档转化markdown测试"><a class="header" href="#飞书文档转化markdown测试">飞书文档转化markdown测试</a></h1>
+<p>本文用于演示当前 <a href="https://github.com/longbridgeapp/feishu-pages/tree/main/feishu-docx">feishu-docx</a> 导出后能完美支持的格式，在下面列出的均可以有较好的支持。</p>
+<p>由于 Feishu OpenAPI 数据给出有限，feishu-docx 导出并不能 100% 还原在飞书文档里面的格式，实际可以达到 99% 的效果。</p>
+<p>参考：<a href="https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/guide">新版文档 OpenAPI 操作 Block 能力边界</a></p>
+<p><b>已知不支持格式：</b></p>
+<ul>
+<li>
+<p>多维表格 - 飞书多维表格（电子表格）是独立的数据，且数据格式庞大复杂，暂时不支持，请编写文档的时候使用<b>普通表格</b>。</p>
+</li>
+<li>
+<p>流程图 / UML 图 / 画板 / 思维导图 - 以上几种为飞书文档的子应用功能，目前对接的飞书文档未给出此类数据或图片，所以无法实现。</p>
+<ul>
+<li>兼容方式：<a href="%E5%8D%9A%E5%AE%A2/UH2mwGrOiiYlw8kZ3M3cg1g5nSh">流程图、思维导图</a></li>
+</ul>
+</li>
+<li>
+<p>图片尺寸、裁剪 - 图片将以原图的方式输出，由于飞书 OpenAPI 未给出图片的裁剪和缩放尺寸信息，所以导出内容不含宽度、高度，这项可以依据最终页面的设定图片 100% 宽度来实现。</p>
+</li>
+<li>
+<p>公式 - 暂未支持，这个后面可能会支持。</p>
+</li>
+<li>
+<p>其他飞书三方组件 - 这个无法支持，API 未提供数据。</p>
+</li>
+<li>
+<p>文字颜色 - 文字的前景色、背景色，考虑到 Markdown 输出，暂时未做支持。</p>
+</li>
+</ul>
+<p>基于以上，建议在飞书侧编写文档的时候，尽量采用支持的格式，目前已经支持的格式能满足文档撰写（如帮助文档、博客）等场景的文档格式需要。</p>
+<h1 id="下面是完整格式演示"><a class="header" href="#下面是完整格式演示">下面是完整格式演示</a></h1>
+<h2 id="this-is-heading-2"><a class="header" href="#this-is-heading-2">This is heading 2</a></h2>
+<h3 id="this-is-heading-3"><a class="header" href="#this-is-heading-3">This is heading 3</a></h3>
+<h4 id="this-is-heading-4"><a class="header" href="#this-is-heading-4">This is heading 4</a></h4>
+<h5 id="this-is-heading-5"><a class="header" href="#this-is-heading-5">This is heading 5</a></h5>
+<h6 id="this-is-heading-6"><a class="header" href="#this-is-heading-6">This is heading 6</a></h6>
+<blockquote>
+<p>This is a block quote.
+With a new line.</p>
+</blockquote>
+<h2 id="paragraph"><a class="header" href="#paragraph">Paragraph</a></h2>
+<p>导出飞书知识库，并按相同目录结构生成 <a href="https://www.google.com/search?q=Static+Page+Generator">Static Page Generator</a> 支持 <code>Markdown</code> 文件组织方式，用于发布为<b>静态网站</b>。</p>
+<p>Generate <b>Feishu Wiki</b> into a Markdown for work with Static Page Generators.</p>
+<h2 id="callout"><a class="header" href="#callout">Callout</a></h2>
+<div class="callout callout-bg-1 callout-border-1 callout-color-1">
+<div class='callout-emoji'>❤️</div>
+<p>Red Callout</p>
+<p>And a <a href="https://github.com/longbridgeapp/feishu-pages">Link</a> and <b>Bold</b> in the Callout.</p>
+</div>
+<div class="callout callout-bg-2 callout-border-2 callout-color-2">
+<div class='callout-emoji'>💡</div>
+<p>Orange Callout</p>
+</div>
+<div class="callout callout-bg-3 callout-border-3 callout-color-3">
+<div class='callout-emoji'>🤖</div>
+<p>Yellow Callout</p>
+</div>
+<div class="callout callout-bg-4 callout-border-4 callout-color-4">
+<div class='callout-emoji'>✅</div>
+<p>Green Callout</p>
+</div>
+<div class="callout callout-bg-5 callout-border-5 callout-color-5">
+<div class='callout-emoji'>🐳</div>
+<p>Blue Callout</p>
+</div>
+<div class="callout callout-bg-6 callout-border-6 callout-color-6">
+<div class='callout-emoji'>🐳</div>
+<p>Purple Callout</p>
+</div>
+<div class="callout callout-bg-14 callout-border-7 callout-color-7">
+<div class='callout-emoji'>🐼</div>
+<p>Gray Callout</p>
+</div>
+<h2 id="grid"><a class="header" href="#grid">Grid</a></h2>
+<p>Here is a 3 column grid example:</p>
+<div class="flex gap-3 columns-3" column-size="3">
+<div class="w-[17%]" width-ratio="17">
+<img src="博客//assets/A28qbYMxCoFdFgxz3Cnc6Rrbnod.jpeg" src-width="440" src-height="440" align="center"/>
+</div>
+<div class="w-[52%]" width-ratio="52">
+<img src="博客//assets/KIQSbfhsLosav1xWlp2clrgKnJh.png" src-width="440" src-height="440" align="center"/>
+</div>
+<div class="w-[29%]" width-ratio="29">
+<img src="博客//assets/CtfUbGNqjolWnOxWZg2cIdqSnhb.jpeg" src-width="440" src-height="440" align="center"/>
+</div>
+</div>
+<div class="flex gap-3 columns-2" column-size="2">
+<div class="w-[70%]" width-ratio="70">
+<blockquote>
+<p>BlockQuote in Grid Line 1<br/>This is line 2</p>
+</blockquote>
+</div>
+<div class="w-[30%]" width-ratio="30">
+<ul>
+<li><p>List Item in Grid</p>
+<ul>
+<li>This is level 1.1</li>
+</ul>
+</li>
+<li><p>Level 2</p>
+<ol>
+<li>Level 2.1 as Ordered</li>
+<li>Level 2.2</li>
+</ol>
+</li>
+</ul>
+</div>
+</div>
+<h2 id="bullet-list"><a class="header" href="#bullet-list">Bullet List</a></h2>
+<ul>
+<li>
+<p>Projects</p>
+<ul>
+<li>GitHub</li>
+<li>Twitter
+<ul>
+<li>x.com</li>
+</ul>
+</li>
+<li>Facebook</li>
+</ul>
+</li>
+<li>
+<p>OpenSource</p>
+<ul>
+<li>feishu-pages</li>
+<li>feishu-docx</li>
+</ul>
+</li>
+</ul>
+<h2 id="ordered-list"><a class="header" href="#ordered-list">Ordered List</a></h2>
+<ol>
+<li>
+<p>This is 1 item</p>
+<ol>
+<li>This is a item
+<ol>
+<li>This is i</li>
+</ol>
+</li>
+<li>This is b</li>
+<li>This c</li>
+</ol>
+</li>
+<li>
+<p>This is 2 item</p>
+<ol>
+<li>This is 2.1</li>
+<li>This is 2.2</li>
+</ol>
+</li>
+</ol>
+<h2 id="codeblock"><a class="header" href="#codeblock">CodeBlock</a></h2>
+<p>A JSON example:</p>
+<pre><code class="language-json">{
+  "name": "feishu-pages",
+}
+</code></pre>
+<p>A TypeScript example:</p>
+<pre><code class="language-ts">const name = "feishu-pages";
+</code></pre>
+<h2 id="todo"><a class="header" href="#todo">TODO</a></h2>
+<ul>
+<li>
+<p><input disabled="" type="checkbox" checked=""/>
+This item is completed</p>
+</li>
+<li>
+<p><input disabled="" type="checkbox"/>
+This is imcomplete</p>
+</li>
+</ul>
+<h2 id="divider"><a class="header" href="#divider">Divider</a></h2>
+<p>There is a divider</p>
+<p>To split contents.</p>
+<h2 id="image"><a class="header" href="#image">Image</a></h2>
+<p>An example of an image with caption.</p>
+<img src="博客//assets/ULOSbLiCrop4JxxCI6scEvxInve.png" src-width="1280" src-height="720" align="center"/>
+<h2 id="file"><a class="header" href="#file">File</a></h2>
+<p><a href="%E5%8D%9A%E5%AE%A2//assets/SlQbbWIjlooG1TxbWu3cAWQ7nRe.zip">test-file.zip</a></p>
+<h2 id="table"><a class="header" href="#table">Table</a></h2>
+<p>Currently, feishu-docx only supports pure Table.</p>
+<table header_column="1" header_row="1">
+<colgroup>
+<col width="180"/>
+<col width="222"/>
+<col width="418"/>
+</colgroup>
+<thead>
+<tr><th><p>Name</p></th><th><p>Type</p></th><th><p>Website</p></th></tr>
+</thead>
+<tbody>
+<tr><td colspan="3"><p>This is merge row.</p></td></tr>
+<tr><td><p>GitHub</p></td><td><p>Programming</p></td><td><p><a href="https://github.com">https://github.com</a></p></td></tr>
+<tr><td rowspan="2"><p>Twitter</p></td><td rowspan="2"><p>Social Network</p></td><td><p><a href="https://x.com">https://x.com</a></p></td></tr>
+<tr><td><p><a href="https://twitter.com">https://twitter.com</a></p></td></tr>
+<tr><td><p>Dribbble</p></td><td><p>Design</p></td><td><p><a href="https://dribbble.com">https://dribbble.com</a></p></td></tr>
+</tbody>
+</table>
+<h2 id="equation"><a class="header" href="#equation">Equation</a></h2>
+<p>$$E = mc^2$$</p>
+<h2 id="iframe"><a class="header" href="#iframe">Iframe</a></h2>
+<iframe src="https://www.ixigua.com/7299339232005325364?logTag=ba0d2e6368561e74ff60"/>
+<h2 id="artboard"><a class="header" href="#artboard">Artboard</a></h2>
+<img src="博客//assets/E3ziw5JbDhtOfYb2CEwcQ2NMnBh-board.png"/>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="gitbook"><a class="header" href="#gitbook">GitBook</a></h1>
+<h1 id="gitbook-node使用"><a class="header" href="#gitbook-node使用">gitbook node使用</a></h1>
+<h2 id="gitbook和github之间的同步"><a class="header" href="#gitbook和github之间的同步">gitbook和github之间的同步</a></h2>
+<p>(1) 实验结果</p>
+<p>gitbook和github之间的同步分为两种，gitbook -&gt; github 和 github -&gt; gitbook，结果测试后我发现，对于这两种方式都是如下的工作模式：</p>
+<p>gitbook web端上，edit page后，merge，commit自动push到github仓库上去； github仓库，自己手动编辑后，gitbook web端的page会自动pull仓库的内容，进行更新；</p>
+<p>(2) 结论</p>
+<p>通过上述的实验，我们清楚了gitbook和github同步的本质</p>
+<p>无论是在gitbook编辑，还是在github仓库编辑，实际都是把更新的内容add到索引里，然后再提交到commit，最后push到github仓库中。github仓库中，肯定是最新的commit，而gitbook web端会自动检测是否有新的commit，如果有就进行update，同步成最新的commit。所以同步源其实就是github仓库</p>
+<p>那既然如此，为什么有给出了两种同步方式，这里的同步其实是说gitbook和github建立connection后，第一次同步的方式，因为建立connection的时候，要么是gitbook为空，github仓库有内容；要么是gitbook有内容，github仓库为空。</p>
+<p>按照上述机制，如果初始情况是 gitbook有内容，github仓库为空，这个时候作为同步源的github仓库是空的，所以此时必须选择gitbook -&gt; github，将gitbook的内容同步到github仓库中。之后可以随意切换同步模式，因为github仓库不为空了，它可以作为同步源，gitbook和github仓库都是自动同步。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="环境配置"><a class="header" href="#环境配置">环境配置</a></h1>
+<h1 id="参考"><a class="header" href="#参考">参考</a></h1>
+<p>环境配置，我真的踩了很多坑，这里记录一下有用的一些资料，防止以后换了新设备继续踩坑。</p>
+<p>[1] https://zhuanlan.zhihu.com/p/343053359</p>
+<p>[2] https://blog.csdn.net/m0_74239772/article/details/132710525</p>
+<p>[3] https://www.cnblogs.com/hacv/p/14311409.html</p>
+<h1 id="卸载原来的node和npm"><a class="header" href="#卸载原来的node和npm">卸载原来的node和npm</a></h1>
+<blockquote>
+<p>因为gitbook框架和高版本的node和npm适配，会出现很多奇怪的bug，所以我们使用较低版本version 10的node和配套的npm，但如果下载新的node和npm前，以前老版本的node和npm没有卸载干净，也会出一些奇奇怪怪的错误，所以首先一定要确保彻底卸载原来的node和npm。</p>
+</blockquote>
+<p>要彻底卸载 Node.js 和 npm，具体步骤取决于你使用的操作系统。以下是针对 Windows 和 macOS/Linux 的详细卸载步骤。</p>
+<h3 id="在-windows-上卸载-nodejs-和-npm"><a class="header" href="#在-windows-上卸载-nodejs-和-npm">在 Windows 上卸载 Node.js 和 npm</a></h3>
+<p>(1) 通过控制面板卸载:</p>
+<ul>
+<li>打开“控制面板”。</li>
+<li>点击“程序” &gt; “程序和功能”。</li>
+<li>在程序列表中找到 Node.js，右键点击并选择“卸载”。</li>
+<li>按照提示完成卸载。</li>
+</ul>
+<p>(2) 删除残留文件:</p>
+<ul>
+<li>卸载后，检查以下目录并手动删除 Node.js 和 npm 的相关文件：
+<ul>
+<li><code>C:/Program Files/nodejs</code>（Node.js 安装目录）</li>
+<li><code>C:/Users/&lt;YourUsername&gt;/AppData/Roaming/npm</code>（全局 npm 模块）</li>
+<li><code>C:/Users/&lt;YourUsername&gt;/AppData/Roaming/npm-cache</code>（npm 缓存）</li>
+<li><code>C:/Users/&lt;YourUsername&gt;/AppData/Local/Programs/Nodejs</code>（如果存在）</li>
+</ul>
+</li>
+</ul>
+<p>(3) 检查环境变量:</p>
+<ul>
+<li>右键点击“此电脑”或“计算机”，选择“属性”。</li>
+<li>点击“高级系统设置” &gt; “环境变量”。</li>
+<li>在“系统变量”中找到 <code>Path</code> 变量，确保删除与 Node.js 相关的路径（例如 <code>C:/Program Files/nodejs/</code>）。</li>
+</ul>
+<p>(4) 重启计算机（可选）:</p>
+<ul>
+<li>为确保所有更改生效，可以重启计算机。</li>
+</ul>
+<h3 id="在-macos-上卸载-nodejs-和-npm"><a class="header" href="#在-macos-上卸载-nodejs-和-npm">在 macOS 上卸载 Node.js 和 npm</a></h3>
+<p>(1) 使用 Homebrew 卸载（如果是通过 Homebrew 安装的）:</p>
+<p><code>brew uninstall node  </code></p>
+<p>(2) 手动删除 Node.js 和 npm:</p>
+<ul>
+<li>打开终端，运行以下命令删除 Node.js 和 npm 的相关文件：</li>
+</ul>
+<pre><code class="language-bash">sudo rm -rf /usr/local/bin/node  
+sudo rm -rf /usr/local/bin/npm  
+sudo rm -rf /usr/local/lib/node_modules  
+sudo rm -rf /usr/local/include/node  
+sudo rm -rf /usr/local/share/man/man1/node.1  
+sudo rm -rf /usr/local/share/man/man1/npm.1
+</code></pre>
+<p>(3) 检查和删除 npm 缓存:</p>
+<pre><code class="language-bash">sudo rm -rf ~/.npm  
+sudo rm -rf ~/.node-gyp
+</code></pre>
+<p>(4) 检查环境变量:</p>
+<ul>
+<li>打开 <code>~/.bash_profile</code>、<code>~/.bashrc</code> 或 <code>~/.zshrc</code> 文件，确保没有与 Node.js 相关的路径。如果有，手动删除。</li>
+</ul>
+<p>(5) 重启终端:</p>
+<ul>
+<li>为确保所有更改生效，可以重启终端。</li>
+</ul>
+<h3 id="在-linux-上卸载-nodejs-和-npm"><a class="header" href="#在-linux-上卸载-nodejs-和-npm">在 Linux 上卸载 Node.js 和 npm</a></h3>
+<p>(1) 使用包管理器卸载:</p>
+<p>如果是通过 <code>apt</code> 安装的（Debian/Ubuntu）:<code>sudo apt remove nodejs npm  </code></p>
+<p>如果是通过 <code>yum</code> 安装的（CentOS/RHEL）:<code>sudo yum remove nodejs npm  </code></p>
+<p>如果是通过 <code>dnf</code> 安装的（Fedora）:<code>sudo dnf remove nodejs npm  </code></p>
+<p>(2) 手动删除 Node.js 和 npm:
+运行以下命令删除 Node.js 和 npm 的相关文件：</p>
+<pre><code class="language-bash">sudo rm -rf /usr/local/bin/node  
+sudo rm -rf /usr/local/bin/npm  
+sudo rm -rf /usr/local/lib/node_modules  
+sudo rm -rf /usr/local/include/node  
+sudo rm -rf /usr/local/share/man/man1/node.1  
+sudo rm -rf /usr/local/share/man/man1/npm.1
+</code></pre>
+<p>(3) 检查和删除 npm 缓存:</p>
+<pre><code class="language-bash">sudo rm -rf ~/.npm  
+sudo rm -rf ~/.node-gyp
+</code></pre>
+<p>(4) 检查环境变量:</p>
+<ul>
+<li>打开 <code>~/.bash_profile</code>、<code>~/.bashrc</code> 或 <code>~/.zshrc</code> 文件，确保没有与 Node.js 相关的路径。如果有，手动删除。</li>
+</ul>
+<p>(5) 重启终端:</p>
+<p>为确保所有更改生效，可以重启终端。</p>
+<h3 id="-4"><a class="header" href="#-4"></a></h3>
+<h1 id="下载node和npm"><a class="header" href="#下载node和npm">下载node和npm</a></h1>
+<p>版本选择node version10，验证node和npm的版本</p>
+<p>官网下载 node v10：https://nodejs.org/en/about/previous-releases</p>
+<p>根据不同的平台，选择对应的安装程序：https://nodejs.org/download/release/v10.24.1/</p>
+<pre><code class="language-bash">node -v
+npm -v
+</code></pre>
+<p>确认是v10版本的node和配套的npm就可以了</p>
+<img src="博客/gitbook//assets/H2rAbxOEIolfx2xwE2ocgkrwnWf.png" src-width="455" src-height="104"/>
+<h1 id="安装gitbook"><a class="header" href="#安装gitbook">安装GitBook</a></h1>
+<pre><code class="language-bash">npm install -g gitbook-cli
+gitbook -V
+</code></pre>
+<p>gitbook -V如果gitbook框架没有下载的话，会install，下载完成后再次执行gitbook -V验证是否安装成功</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="gitbook-node端和web端详细研究"><a class="header" href="#gitbook-node端和web端详细研究">Gitbook node端和web端详细研究</a></h1>
+<h1 id="gitbook-node和gitbook-web"><a class="header" href="#gitbook-node和gitbook-web">gitbook node和gitbook web</a></h1>
+<p>Gitbook node端：</p>
+<p>gitbook最开始只是node端的一个框架，一般都是在node端下载gitbook框架，然后我们自己组织markdown文件，最后上传到服务器上，其实就和之前使用的hexo框架差不多</p>
+<p>Gitbook web端：</p>
+<p>之后又出现了web端，web端其实可以看做一个云笔记，就是按照web page的方式编辑gitbook，然后编辑完后，会push到对应的gitbook仓库中</p>
+<p>两者之间的关系：</p>
+<p>gitbook web 和 gitbook node其实并不完全相同，gitbook web端实际上是原始的gitbook node + 定制插件和定制样式。直接把gitbook web的仓库clone下来，然后用gitbook node去打开的时候，两者的界面还是有一些区别的。</p>
+<p>gitbook web:</p>
+<img src="博客/gitbook//assets/OR5QbX4gdo54tXx9cyGcqYGRnmd.png" src-width="1920" src-height="911" align="center"/>
+<p>gitbook node:</p>
+<img src="博客/gitbook//assets/FmoVbLvz2oAaXexFrmTcx4hQnFb.png" src-width="1920" src-height="911" align="center"/>
+<p>结论：gitbook node端，可定制化更高，可以下载很多插件，同时页面ui貌似更大气好看一些，所以之后还是使用gitbook node端为主，配上一些好用的插件，提高生产力。</p>
+<h1 id="gitbook的summarymd和readmemd"><a class="header" href="#gitbook的summarymd和readmemd">gitbook的summary.md和README.md</a></h1>
+<p>gitbook渲染到web page，主要就是通过所有的md文件 + summary.md + README.md 其中README.md是gitbook的简介，而summary.md是gitbook的目录</p>
+<p>gitbook的编辑方式：</p>
+<p>(1) gitbook web端编辑：如果是采用gitbook web端编辑，那么会自动将第一个page的内容作为README.md，然后自动根据现有的page结构，生成目录写入summary.md里</p>
+<p>(2) github仓库编辑：如果是直接在仓库边界，那么我们为了让仓库的md文件渲染到web page上，我们需要手动编辑summary.md文件，也就是说要自己手动组织目录结构。</p>
+<h1 id="gitbook-page-和-github-markdown"><a class="header" href="#gitbook-page-和-github-markdown">gitbook page 和 github markdown</a></h1>
+<p>(1) markdown -&gt; page</p>
+<p>如果只有一个一级标题，自动提升，一级标题-&gt;page标题，二级-&gt;一级，依次类推； 如果有多个一级标题，不会自动提升，markdown文件名是page标题，一级-&gt;一级，二级-&gt;二级，依次类推</p>
+<p>(2) page-&gt; markdown</p>
+<p>都是自动下降，page标题-&gt;一级标题，一级标题-&gt;二级标题，依次类推</p>
+<p>(3) 示例</p>
+<img src="博客/gitbook//assets/JNOMb97UNoEXGixdkr3cDctOnre.png" src-width="940" src-height="804"/>
+<p>(4) 总结</p>
+<p>为了保持gitbook上传的markdown，和最后同步到github的markdown的一致性。 编辑markdown文件，一级标题是文章名字，然后内容用二三四级标题即可。 编辑page，page标题是文章名字，然后内容用一二三级标题即可。</p>
+<h1 id="gitbook和github之间的同步-1"><a class="header" href="#gitbook和github之间的同步-1">gitbook和github之间的同步</a></h1>
+<p>(1) 实验结果</p>
+<p>gitbook和github之间的同步分为两种，gitbook -&gt; github 和 github -&gt; gitbook，结果测试后我发现，对于这两种方式都是如下的工作模式：</p>
+<p>gitbook web端上，edit page后，merge，commit自动push到github仓库上去； github仓库，自己手动编辑后，gitbook web端的page会自动pull仓库的内容，进行更新；</p>
+<p>(2) 结论</p>
+<p>通过上述的实验，我们清楚了gitbook和github同步的本质</p>
+<p>无论是在gitbook编辑，还是在github仓库编辑，实际都是把更新的内容add到索引里，然后再提交到commit，最后push到github仓库中。</p>
+<p>github仓库中，肯定是最新的commit，而gitbook web端会自动检测是否有新的commit，如果有就进行update，同步成最新的commit。所以同步源其实就是github仓库。</p>
+<p>那既然如此，为什么有给出了两种同步方式，这里的同步其实是说gitbook和github建立connection后，第一次同步的方式，因为建立connection的时候，要么是gitbook为空，github仓库有内容；要么是gitbook有内容，github仓库为空。</p>
+<p>按照上述机制，如果初始情况是 gitbook有内容，github仓库为空，这个时候作为同步源的github仓库是空的，所以此时必须选择gitbook -&gt; github，将gitbook的内容同步到github仓库中。之后可以随意切换同步模式，因为github仓库不为空了，它可以作为同步源，gitbook和github仓库都是自动同步。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="ace.js"></script>
+        <script src="editor.js"></script>
+        <script src="mode-rust.js"></script>
+        <script src="theme-dawn.js"></script>
+        <script src="theme-tomorrow_night.js"></script>
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+
+    </div>
+    </body>
+</html>

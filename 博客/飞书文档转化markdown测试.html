@@ -1,0 +1,426 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>飞书文档转化markdown测试 - md-book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">md-book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main/./博客/飞书文档转化markdown测试.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="飞书文档转化markdown测试"><a class="header" href="#飞书文档转化markdown测试">飞书文档转化markdown测试</a></h1>
+<p>本文用于演示当前 <a href="https://github.com/longbridgeapp/feishu-pages/tree/main/feishu-docx">feishu-docx</a> 导出后能完美支持的格式，在下面列出的均可以有较好的支持。</p>
+<p>由于 Feishu OpenAPI 数据给出有限，feishu-docx 导出并不能 100% 还原在飞书文档里面的格式，实际可以达到 99% 的效果。</p>
+<p>参考：<a href="https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/guide">新版文档 OpenAPI 操作 Block 能力边界</a></p>
+<p><b>已知不支持格式：</b></p>
+<ul>
+<li>
+<p>多维表格 - 飞书多维表格（电子表格）是独立的数据，且数据格式庞大复杂，暂时不支持，请编写文档的时候使用<b>普通表格</b>。</p>
+</li>
+<li>
+<p>流程图 / UML 图 / 画板 / 思维导图 - 以上几种为飞书文档的子应用功能，目前对接的飞书文档未给出此类数据或图片，所以无法实现。</p>
+<ul>
+<li>兼容方式：<a href="UH2mwGrOiiYlw8kZ3M3cg1g5nSh">流程图、思维导图</a></li>
+</ul>
+</li>
+<li>
+<p>图片尺寸、裁剪 - 图片将以原图的方式输出，由于飞书 OpenAPI 未给出图片的裁剪和缩放尺寸信息，所以导出内容不含宽度、高度，这项可以依据最终页面的设定图片 100% 宽度来实现。</p>
+</li>
+<li>
+<p>公式 - 暂未支持，这个后面可能会支持。</p>
+</li>
+<li>
+<p>其他飞书三方组件 - 这个无法支持，API 未提供数据。</p>
+</li>
+<li>
+<p>文字颜色 - 文字的前景色、背景色，考虑到 Markdown 输出，暂时未做支持。</p>
+</li>
+</ul>
+<p>基于以上，建议在飞书侧编写文档的时候，尽量采用支持的格式，目前已经支持的格式能满足文档撰写（如帮助文档、博客）等场景的文档格式需要。</p>
+<h1 id="下面是完整格式演示"><a class="header" href="#下面是完整格式演示">下面是完整格式演示</a></h1>
+<h2 id="this-is-heading-2"><a class="header" href="#this-is-heading-2">This is heading 2</a></h2>
+<h3 id="this-is-heading-3"><a class="header" href="#this-is-heading-3">This is heading 3</a></h3>
+<h4 id="this-is-heading-4"><a class="header" href="#this-is-heading-4">This is heading 4</a></h4>
+<h5 id="this-is-heading-5"><a class="header" href="#this-is-heading-5">This is heading 5</a></h5>
+<h6 id="this-is-heading-6"><a class="header" href="#this-is-heading-6">This is heading 6</a></h6>
+<blockquote>
+<p>This is a block quote.
+With a new line.</p>
+</blockquote>
+<h2 id="paragraph"><a class="header" href="#paragraph">Paragraph</a></h2>
+<p>导出飞书知识库，并按相同目录结构生成 <a href="https://www.google.com/search?q=Static+Page+Generator">Static Page Generator</a> 支持 <code>Markdown</code> 文件组织方式，用于发布为<b>静态网站</b>。</p>
+<p>Generate <b>Feishu Wiki</b> into a Markdown for work with Static Page Generators.</p>
+<h2 id="callout"><a class="header" href="#callout">Callout</a></h2>
+<div class="callout callout-bg-1 callout-border-1 callout-color-1">
+<div class='callout-emoji'>❤️</div>
+<p>Red Callout</p>
+<p>And a <a href="https://github.com/longbridgeapp/feishu-pages">Link</a> and <b>Bold</b> in the Callout.</p>
+</div>
+<div class="callout callout-bg-2 callout-border-2 callout-color-2">
+<div class='callout-emoji'>💡</div>
+<p>Orange Callout</p>
+</div>
+<div class="callout callout-bg-3 callout-border-3 callout-color-3">
+<div class='callout-emoji'>🤖</div>
+<p>Yellow Callout</p>
+</div>
+<div class="callout callout-bg-4 callout-border-4 callout-color-4">
+<div class='callout-emoji'>✅</div>
+<p>Green Callout</p>
+</div>
+<div class="callout callout-bg-5 callout-border-5 callout-color-5">
+<div class='callout-emoji'>🐳</div>
+<p>Blue Callout</p>
+</div>
+<div class="callout callout-bg-6 callout-border-6 callout-color-6">
+<div class='callout-emoji'>🐳</div>
+<p>Purple Callout</p>
+</div>
+<div class="callout callout-bg-14 callout-border-7 callout-color-7">
+<div class='callout-emoji'>🐼</div>
+<p>Gray Callout</p>
+</div>
+<h2 id="grid"><a class="header" href="#grid">Grid</a></h2>
+<p>Here is a 3 column grid example:</p>
+<div class="flex gap-3 columns-3" column-size="3">
+<div class="w-[17%]" width-ratio="17">
+<img src="/assets/A28qbYMxCoFdFgxz3Cnc6Rrbnod.jpeg" src-width="440" src-height="440" align="center"/>
+</div>
+<div class="w-[52%]" width-ratio="52">
+<img src="/assets/KIQSbfhsLosav1xWlp2clrgKnJh.png" src-width="440" src-height="440" align="center"/>
+</div>
+<div class="w-[29%]" width-ratio="29">
+<img src="/assets/CtfUbGNqjolWnOxWZg2cIdqSnhb.jpeg" src-width="440" src-height="440" align="center"/>
+</div>
+</div>
+<div class="flex gap-3 columns-2" column-size="2">
+<div class="w-[70%]" width-ratio="70">
+<blockquote>
+<p>BlockQuote in Grid Line 1<br/>This is line 2</p>
+</blockquote>
+</div>
+<div class="w-[30%]" width-ratio="30">
+<ul>
+<li><p>List Item in Grid</p>
+<ul>
+<li>This is level 1.1</li>
+</ul>
+</li>
+<li><p>Level 2</p>
+<ol>
+<li>Level 2.1 as Ordered</li>
+<li>Level 2.2</li>
+</ol>
+</li>
+</ul>
+</div>
+</div>
+<h2 id="bullet-list"><a class="header" href="#bullet-list">Bullet List</a></h2>
+<ul>
+<li>
+<p>Projects</p>
+<ul>
+<li>GitHub</li>
+<li>Twitter
+<ul>
+<li>x.com</li>
+</ul>
+</li>
+<li>Facebook</li>
+</ul>
+</li>
+<li>
+<p>OpenSource</p>
+<ul>
+<li>feishu-pages</li>
+<li>feishu-docx</li>
+</ul>
+</li>
+</ul>
+<h2 id="ordered-list"><a class="header" href="#ordered-list">Ordered List</a></h2>
+<ol>
+<li>
+<p>This is 1 item</p>
+<ol>
+<li>This is a item
+<ol>
+<li>This is i</li>
+</ol>
+</li>
+<li>This is b</li>
+<li>This c</li>
+</ol>
+</li>
+<li>
+<p>This is 2 item</p>
+<ol>
+<li>This is 2.1</li>
+<li>This is 2.2</li>
+</ol>
+</li>
+</ol>
+<h2 id="codeblock"><a class="header" href="#codeblock">CodeBlock</a></h2>
+<p>A JSON example:</p>
+<pre><code class="language-json">{
+  "name": "feishu-pages",
+}
+</code></pre>
+<p>A TypeScript example:</p>
+<pre><code class="language-ts">const name = "feishu-pages";
+</code></pre>
+<h2 id="todo"><a class="header" href="#todo">TODO</a></h2>
+<ul>
+<li>
+<p><input disabled="" type="checkbox" checked=""/>
+This item is completed</p>
+</li>
+<li>
+<p><input disabled="" type="checkbox"/>
+This is imcomplete</p>
+</li>
+</ul>
+<h2 id="divider"><a class="header" href="#divider">Divider</a></h2>
+<p>There is a divider</p>
+<p>To split contents.</p>
+<h2 id="image"><a class="header" href="#image">Image</a></h2>
+<p>An example of an image with caption.</p>
+<img src="/assets/ULOSbLiCrop4JxxCI6scEvxInve.png" src-width="1280" src-height="720" align="center"/>
+<h2 id="file"><a class="header" href="#file">File</a></h2>
+<p><a href="/assets/SlQbbWIjlooG1TxbWu3cAWQ7nRe.zip">test-file.zip</a></p>
+<h2 id="table"><a class="header" href="#table">Table</a></h2>
+<p>Currently, feishu-docx only supports pure Table.</p>
+<table header_column="1" header_row="1">
+<colgroup>
+<col width="180"/>
+<col width="222"/>
+<col width="418"/>
+</colgroup>
+<thead>
+<tr><th><p>Name</p></th><th><p>Type</p></th><th><p>Website</p></th></tr>
+</thead>
+<tbody>
+<tr><td colspan="3"><p>This is merge row.</p></td></tr>
+<tr><td><p>GitHub</p></td><td><p>Programming</p></td><td><p><a href="https://github.com">https://github.com</a></p></td></tr>
+<tr><td rowspan="2"><p>Twitter</p></td><td rowspan="2"><p>Social Network</p></td><td><p><a href="https://x.com">https://x.com</a></p></td></tr>
+<tr><td><p><a href="https://twitter.com">https://twitter.com</a></p></td></tr>
+<tr><td><p>Dribbble</p></td><td><p>Design</p></td><td><p><a href="https://dribbble.com">https://dribbble.com</a></p></td></tr>
+</tbody>
+</table>
+<h2 id="equation"><a class="header" href="#equation">Equation</a></h2>
+<p>$$E = mc^2$$</p>
+<h2 id="iframe"><a class="header" href="#iframe">Iframe</a></h2>
+<iframe src="https://www.ixigua.com/7299339232005325364?logTag=ba0d2e6368561e74ff60"/>
+<h2 id="artboard"><a class="header" href="#artboard">Artboard</a></h2>
+<img src="/assets/E3ziw5JbDhtOfYb2CEwcQ2NMnBh-board.png"/>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../博客/方案-飞书-feishu-pages-mdbook.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../博客/gitbook.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../博客/方案-飞书-feishu-pages-mdbook.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../博客/gitbook.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

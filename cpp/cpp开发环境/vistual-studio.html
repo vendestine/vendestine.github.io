@@ -1,0 +1,284 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Visual Studio - md-book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">md-book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main/./cpp/cpp开发环境/vistual-studio.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="visual-studio"><a class="header" href="#visual-studio">Visual Studio</a></h1>
+<h2 id="vs项目的创建与编译"><a class="header" href="#vs项目的创建与编译">VS项目的创建与编译</a></h2>
+<p>创建一个vs项目的时候，提供了很多种选项，例如控制台项目，windows桌面应用程序。</p>
+<p>它们之间的区别：</p>
+<ol>
+<li>提供的初始代码不同 （很容易理解，功能不同，提供的初始代码也会不同）</li>
+<li>使用的链接库不同（重点）</li>
+</ol>
+<p>这里演示一下VS中，如何查看和更改链接库:</p>
+<img src="/assets/A1bqbOCixoYF5FxJsamcgmdWnYd.png" src-width="1904" src-height="992"/>
+<p>VS的解决方案下可以包含多个项目，vs是以文件组成的项目为最小编译单元的，也就是说vs无法单独编译一个源文件。</p>
+<h2 id="vs项目调试"><a class="header" href="#vs项目调试">VS项目调试</a></h2>
+<p>vs项目调试方法：</p>
+<p>在想要停止的语句的上打断点，然后调试（快捷键 F5），程序机会在断点行执行前停下。</p>
+<p>需要知道的是，为了支持调试功能，编译和链接必须添加很多额外的东西，所以使用 debug功能，必须以调试的方式进行编译；直接运行（快捷键 CTRL + F5）是无法调试的。</p>
+<h2 id="vs解决方案项目目录结构详解"><a class="header" href="#vs解决方案项目目录结构详解">VS解决方案，项目，目录结构详解</a></h2>
+<p>一个正常的VS项目目录结构如下</p>
+<img src="/assets/QbcCbzpxQoiOv4x4nl6ch6YznIc.png" src-width="870" src-height="432"/>
+<p>我把每一个文件都通过记事本打开看了一遍，总结了这些文件的作用。</p>
+<pre><code class="language-bash">项目配置文件
+demo1.vcxproj           项目配置文件，添加/导入项目时，就是使用这个文件
+demo1.vcxproj.filters   项目配置目录文件，里面配置了IDE中项目的目录信息
+demo1.vcxproj.user      项目用户配置文件，用户的自定义配置，一般把项目给第三方的时候，删除这个文件
+
+编译文件
+Debug文件夹              存储32位平台下的Debug模式下编译后的文件
+Release文件夹            存储32位平台下的Release模式下编译后的文件
+x64文件                 存储64位平台下的编译文件，里面还有Debug，Release文件夹，分别存储不同模式下编译后的文件
+
+相关源码
+.cpp 源文件
+.h   头文件
+</code></pre>
+<p>一个正常的VS解决方案的目录结构如下</p>
+<img src="/assets/BpHebOTiFoZPO0xfOvgcst7Vn1b.png" src-width="870" src-height="432"/>
+<pre><code class="language-bash">解决方案的配置文件
+.vs文件夹         解决方案中的一些详细配置信息
+demo1.sln        解决方案的配置文件，打开解决方案时，使用这个文件
+
+项目
+demo1            解决方案中的每个项目对应每个文件夹
+
+编译文件
+Debug, Release,x64  这些与项目结构类似，存放不同平台不同模式下编译后的文件
+</code></pre>
+<h2 id="vs-项目重命名"><a class="header" href="#vs-项目重命名">VS 项目重命名</a></h2>
+<p>VS项目的重命名，如果直接在IDE中重命名项目，项目目录中的配置文件，编译文件，以及项目本身的名字是不会更改的，这不是我们想要的，所以以下给出项目真正重命名的方法：</p>
+<p>这里先说一下卸载项目和移除项目的区别：</p>
+<p>卸载项目：解决方案中卸载项目后，解决方案中显示项目已卸载，生成解决方案的时候不会编译这个项目；之后我们只要不改变项目目录名称，以及项目配置文件名称，我们还是可以直接在IDE中重新加载进来的；</p>
+<p>移除项目：解决方案中直接将项目排除，排除后解决方案中看不到该项目，不能在IDE中重新加载了；只能通过添加新项目的方式，将项目重新添加进来；</p>
+<p>重命名项目：</p>
+<ol>
+<li>IDE中移除项目</li>
+<li>将项目目录，项目配置文件（.vcxproj文件，.vcxproj.filters文件） 重命名为新项目名称</li>
+<li>删除编译文件（Debug文件夹，x86文件夹），项目用户配置文件（.vcxproj.user文件），保留相关源码（.h，.cpp文件）</li>
+<li>IDE中重新添加项目，重新生成</li>
+</ol>
+<p>重命名项目可能遇到的问题：</p>
+<p>IDE中重命名项目，未将对象引用设置到对象的实例，说明解决方案没有同步，把解决方案下的.vs文件夹删掉，然后再重新打开解决方案，重命名项目；</p>
+<h2 id="vs常用快捷键"><a class="header" href="#vs常用快捷键">VS常用快捷键</a></h2>
+<p>注释/取消注释：CTRL + K, CTRL + C/U；</p>
+<p>代码格式化：CTRL + K, CTRL + E；</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../cpp/cpp开发环境.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../cpp/cpp开发环境/vscode-cmake-clangd.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../cpp/cpp开发环境.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../cpp/cpp开发环境/vscode-cmake-clangd.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

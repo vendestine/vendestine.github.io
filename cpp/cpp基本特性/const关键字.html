@@ -1,0 +1,357 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>const关键字 - md-book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">md-book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main/./cpp/cpp基本特性/const关键字.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="const关键字"><a class="header" href="#const关键字">const关键字</a></h1>
+<h2 id="用法"><a class="header" href="#用法">用法</a></h2>
+<p>在C/C++中，<code>const</code>关键字用于声明常量，表示某个变量的值在初始化后不能被修改。它可以用于变量、指针、函数参数和返回值等多种场景。下面是对<code>const</code>关键字的详细讲解：</p>
+<h3 id="const修饰变量"><a class="header" href="#const修饰变量">const修饰变量</a></h3>
+<p>使用<code>const</code>声明的变量在初始化后不能被修改。例如：</p>
+<pre><code class="language-cpp">const int x = 10;  
+// x = 20; // 错误：不能修改常量
+</code></pre>
+<h3 id="const修饰指针"><a class="header" href="#const修饰指针">const修饰指针</a></h3>
+<p><code>const</code>可以与指针结合使用</p>
+<ul>
+<li>常量指针（Pointer to Constant）：指向常量，不能修改指向的值，但可以改变指针的指向。</li>
+</ul>
+<pre><code class="language-cpp">const Type* pointer;  // const修饰指针指向的对象
+
+const int a = 10;  
+const int* ptr = &amp;a; // ptr是一个指向常量整数的指针  
+
+// *ptr = 20; // 错误：不能通过ptr修改a的值  
+int b = 30;  
+ptr = &amp;b; // 合法：ptr可以指向其他地址
+</code></pre>
+<ul>
+<li>指针常量（Constant Pointer）：指针本身是常量，不能改变指针的指向，但可以修改指向的值。</li>
+</ul>
+<pre><code class="language-cpp">Type* const pointer;  // const修饰指针本身
+
+int a = 10;  
+int* const ptr = &amp;a; // ptr是一个常量指针，指向整数  
+
+*ptr = 20; // 合法：可以通过ptr修改a的值  
+// ptr = &amp;b; // 错误：不能改变ptr的指向
+</code></pre>
+<ul>
+<li>常量指针指向常量（Constant Pointer to Constant）：指针和指向的值都是常量，既不能修改指针的指向，也不能修改指向的值。</li>
+</ul>
+<pre><code class="language-cpp">const Type* const pointer;
+
+const int a = 10;  
+const int* const ptr = &amp;a; // ptr是一个指向常量整数的常量指针  
+
+// *ptr = 20; // 错误：不能通过ptr修改a的值  
+// ptr = &amp;b; // 错误：不能改变ptr的指向
+</code></pre>
+<h3 id="常量函数参数"><a class="header" href="#常量函数参数">常量函数参数</a></h3>
+<p>在函数参数中使用<code>const</code>可以防止函数修改传入的参数，尤其是对于引用和指针类型的参数。</p>
+<pre><code class="language-cpp">void func(const int* arr) {  
+    // arr[0] = 10; // 错误：不能修改数组内容  
+}
+</code></pre>
+<h3 id="常量成员函数"><a class="header" href="#常量成员函数">常量成员函数</a></h3>
+<p>在类中，使用<code>const</code>修饰成员函数，表示该函数不会修改类的成员变量。</p>
+<pre><code class="language-cpp">class MyClass {  
+public:  
+    void display() const {  
+        // this-&gt;value = 10; // 错误：不能在const成员函数中修改成员变量  
+    }  
+};
+</code></pre>
+<h3 id="常量返回值"><a class="header" href="#常量返回值">常量返回值</a></h3>
+<p>函数可以返回<code>const</code>类型的值，表示返回的值不能被修改。</p>
+<pre><code class="language-cpp">const int getValue() {  
+    return 10;  
+}  
+
+// int val = getValue();  
+// val = 20; // 合法：val是一个普通变量，可以修改
+</code></pre>
+<h3 id="总结"><a class="header" href="#总结">总结</a></h3>
+<p><code>const</code>关键字在C/C++中是一个重要的工具，用于提高代码的安全性和可读性。它可以帮助开发者明确哪些变量是常量，防止意外修改，从而减少错误和提高代码的可维护性。使用<code>const</code>的最佳实践是尽可能多地使用它，以确保代码的意图清晰。</p>
+<h2 id="const修饰的变量和常量的区别"><a class="header" href="#const修饰的变量和常量的区别">const修饰的变量和常量的区别</a></h2>
+<p>const是让编译器将变量视为常量，用const修饰的变量和真正的常量有本质的区别</p>
+<p><b>什么是真正的常量？</b></p>
+<p>真正的常量就是字面值，它们一般都存储在只读区。</p>
+<p>一般来说只读区中包含.text段和.rodata段（因为它们都是仅可读的），数字字面值有时会直接嵌入指令中，所以存储在.text段，而字符串字面值通常都是存储在.rodata段。</p>
+<p>例如：</p>
+<pre><code class="language-cpp">const char* str = "abcdefg";
+const int a = 3;
+const int b = 100;
+</code></pre>
+<p>str, a, b这些是const变量，并不是真正的常量，可以通过一些方式进行修改；而”abcdefg“，3，100这些是字面值，是真正的常量，无法修改。其中“abcdefg“这个字符串就存储在.rodata段， 而3, 100这些数字就存储在.text段中，这些都是真正的常量，无法用任何方式修改。</p>
+<p><b>const修饰的变量</b></p>
+<p>const修饰的变量，从内存分布的角度讲，和普通变量没有区别。</p>
+<p>const 修饰的变量并非不可更改的，C++本身就提供了mutable 关键字用来修改const修饰的变量，从汇编的角度讲，const 修饰的变量也是可以修改的</p>
+<p>代码分析：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main() {
+    int i = 100;                        // i在栈区
+    const int i2 = 200;                 // i2也在栈区, i2的值无法修改，但是i和i2在内存上是相邻的；
+    static int i3;                      // i3在.bss段
+    static int i4 = 400;                // i4在.data段
+    const static int i5 = 500;          // i5在.rodata段
+    std::string str = "hello world";    // str在栈区，"hello world"在常量区
+    
+    // 真正的常量 100 200 400 500存储在.text代码段（代码区），"hello world"存储在.rodata段（常量区）
+    return 0;
+}
+</code></pre>
+<h2 id="const在c和c中的区别"><a class="header" href="#const在c和c中的区别">const在C和C++中的区别</a></h2>
+<ul>
+<li>C/C++中都可以通过指针间接修改（不在只读区）const对象（全局未初始化的const对象，局部const对象）；但是C中可以修改成功，C++中虽然编译器不会报错，但是修改失败，因为在使用const对象时还是使用编译期常量进行替换。</li>
+<li>C中的const对象可以不初始化；C++中const对象必须初始化</li>
+</ul>
+<p>这一段代码，可以改成.c文件或者.cpp文件试试，会发现上面的结论。</p>
+<pre><code class="language-cpp">#include &lt;stdio.h&gt;
+
+const int a = 10;
+
+int main()
+{
+    const int b = 20;
+
+    // 使用指针强制类型转换来修改 const 对象的值
+    int* pa = (int*)&amp;a;
+    int* pb = (int*)&amp;b;
+    //*pa = 30;
+    *pb = 40;
+
+    printf("a = %d/n", a);
+    printf("b = %d/n", b);
+    printf("*pb = %d/n", *pb);
+    return 0;
+}
+
+
+// C中 输出 10 40 40
+// C++中 输出 10 20 40
+</code></pre>
+<h2 id="const的作用详细分析"><a class="header" href="#const的作用详细分析">const的作用，详细分析</a></h2>
+<p>视频讲解：
+https://www.bilibili.com/video/BV1FWtre2EJo/?spm_id_from=333.337.search-card.all.click&amp;vd_source=cb02f779bd17a3aad9801e0c4464dfc9</p>
+<p>C/C++中的区别有误，看上面的总结，其他的没问题，可以作为回答问题的思路</p>
+<img src="/assets/QbLjbt12goFA8ixG73hcMV5qnFb.png" src-width="2342" src-height="1580" align="center"/>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../cpp/cpp基本特性/命名空间.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../cpp/cpp基本特性/static关键字.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../cpp/cpp基本特性/命名空间.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../cpp/cpp基本特性/static关键字.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

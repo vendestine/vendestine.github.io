@@ -1,0 +1,674 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>vscode + CMake + clangd - md-book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">md-book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/vendestine/vendestine.github.io/tree/main/./cpp/cpp开发环境/vscode-cmake-clangd.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="vscode--cmake--clangd"><a class="header" href="#vscode--cmake--clangd">vscode + CMake + clangd</a></h1>
+<h2 id="vscode配置c"><a class="header" href="#vscode配置c">Vscode配置C++</a></h2>
+<p>vscode配置C++开发环境，一般使用MinGW，直接参考官方教程：https://code.visualstudio.com/docs/cpp/config-mingw</p>
+<p>然后记得配置环境变量，工具链中所有的可执行文件都放入了<code>C:/msys64/ucrt64/bin</code>该目录，所以我们把这个目录添加到环境变量</p>
+<blockquote>
+<p>注意，使用不同的shell，环境变量的选取和加载顺序不同，例如git bash shell，它会先加载git bash相关的环境变量，再添加主机的环境变量，qt也是同理，先加载qt文件的环境变量，再添加主机的环境变量，但是msys2，它只会添加自己的环境变量，不会添加主机的环境变量，它和主机之间是完全隔离的</p>
+</blockquote>
+<h3 id="msys2-msys-mingw之间的关系"><a class="header" href="#msys2-msys-mingw之间的关系">MSYS2, MSYS, MinGW之间的关系</a></h3>
+<p>MSYS2、MSYS和MinGW之间的关系可以通过它们的历史背景和功能来理解。以下是对这三者的详细讲解：</p>
+<p>(1) MSYS（Minimal SYStem）</p>
+<ul>
+<li>定义：MSYS是一个轻量级的Unix环境，旨在为Windows用户提供一个类Unix的命令行界面。它最初是为了支持MinGW（Minimalist GNU for Windows）项目而开发的。</li>
+<li>功能：MSYS提供了一些基本的Unix工具（如bash、make、grep等），使得在Windows上使用GNU工具链变得更加容易。它允许开发者在Windows上编写和运行Unix风格的脚本。</li>
+<li>局限性：MSYS的功能相对有限，主要用于提供一个基本的开发环境，支持一些简单的构建和编译任务。</li>
+</ul>
+<p>(2) MinGW（Minimalist GNU for Windows）</p>
+<ul>
+<li>定义：MinGW是一个为Windows平台提供GNU工具链的项目，允许开发者在Windows上编译和运行本地的Windows应用程序。</li>
+<li>功能：MinGW提供了GCC（GNU Compiler Collection）编译器及其相关工具，支持C、C++等语言的编译。它生成的可执行文件是Windows本地的，不依赖于Cygwin等其他层。</li>
+<li>局限性：MinGW本身并不提供完整的Unix环境，主要关注于编译和构建Windows应用程序。</li>
+</ul>
+<p>(3) MSYS2</p>
+<ul>
+<li>
+<p>定义：MSYS2是MSYS的一个更新和扩展版本，结合了MSYS和MinGW的优点，提供了一个更现代化的开发环境。</p>
+</li>
+<li>
+<p>功能：</p>
+<ul>
+<li>包管理：MSYS2使用<code>pacman</code>作为包管理器，允许用户轻松安装、更新和管理软件包。</li>
+<li>多种环境支持：MSYS2支持MSYS（用于Unix命令行工具）和MinGW-w64（用于编译Windows本地应用程序），同时支持32位和64位编译。</li>
+<li>丰富的软件库：MSYS2提供了大量的预编译软件包，用户可以通过包管理器轻松获取所需的工具和库。</li>
+</ul>
+</li>
+<li>
+<p>优势：MSYS2比MSYS更强大，提供了更好的包管理和更新机制，适合现代开发需求。</p>
+</li>
+</ul>
+<h3 id=""><a class="header" href="#"></a></h3>
+<p>(4) 总结</p>
+<ul>
+<li>MSYS是一个基本的Unix环境，主要用于支持MinGW。</li>
+<li>MinGW是一个为Windows提供GNU编译器的项目，专注于编译Windows应用程序。</li>
+<li>MSYS2是MSYS的现代化版本，结合了MSYS和MinGW的优点，提供了更强大的功能和更好的用户体验。</li>
+</ul>
+<p>这三者之间的关系可以看作是一个演变过程，MSYS2是对MSYS和MinGW的整合与扩展，旨在为Windows开发者提供一个更完整的开发环境。</p>
+<h2 id="vscode中使用cmake"><a class="header" href="#vscode中使用cmake">vscode中使用CMake</a></h2>
+<p>在vscode中使用cmake，直接安装extenstion：cmake tools，就会打包安装所有cmake相关的工具</p>
+<h3 id="cmake内置命令"><a class="header" href="#cmake内置命令">CMake内置命令</a></h3>
+<p>(1) 项目和版本相关命令</p>
+<p><b>cmake_minimum_required</b></p>
+<p>设置项目所需的最低 CMake 版本</p>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.10)
+</code></pre>
+<p><b>project</b></p>
+<p>定义项目名称和支持的语言</p>
+<pre><code class="language-cmake">project(MyProject
+    VERSION 1.0
+    LANGUAGES CXX C  
+)
+</code></pre>
+<p>(2) 目标创建命令</p>
+<p><b>add_executable</b></p>
+<p>创建可执行文件目标</p>
+<pre><code class="language-cmake">add_executable(app main.cpp utils.cpp)
+</code></pre>
+<p><b>add_library</b></p>
+<p>创建库目标</p>
+<pre><code class="language-cmake"># 静态库
+add_library(mylib STATIC source1.cpp source2.cpp)  
+# 动态库
+add_library(mylib SHARED source1.cpp source2.cpp)  
+# 模块库
+add_library(mylib MODULE source1.cpp source2.cpp)
+</code></pre>
+<p><b>add_custom_target</b></p>
+<p>创建自定义目标</p>
+<pre><code class="language-cmake">add_custom_target(docs
+    COMMAND doxygen Doxyfile  
+)
+</code></pre>
+<p>(3) 目标配置命令</p>
+<p><b>target_link_libraries</b></p>
+<p>为目标链接库</p>
+<pre><code class="language-cmake">target_link_libraries(app
+    PRIVATE mylib
+    PUBLIC otherlib  
+)
+</code></pre>
+<p><b>target_include_directories</b></p>
+<p>设置目标的头文件包含路径</p>
+<pre><code class="language-cmake">target_include_directories(app
+    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include
+    PUBLIC /usr/local/include  
+)
+</code></pre>
+<p><b>target_compile_definitions</b></p>
+<p>为目标添加编译宏定义</p>
+<pre><code class="language-cmake">target_compile_definitions(app
+    PRIVATE DEBUG_MODE
+    PUBLIC USING_LIBRARY  
+)
+</code></pre>
+<p><b>target_compile_options</b></p>
+<p>设置编译选项</p>
+<pre><code class="language-cmake">target_compile_options(app
+    PRIVATE -Wall -Wextra
+    PUBLIC -O2  
+)
+</code></pre>
+<p>(4) 条件和控制流命令</p>
+<p><b>if/elseif/else/endif</b></p>
+<p>条件判断</p>
+<pre><code class="language-cmake">if(UNIX)
+    # Unix 系统特定配置  
+elseif(WIN32)
+    # Windows 系统特定配置  
+else()
+    # 其他系统  
+endif()
+</code></pre>
+<p><b>option</b></p>
+<p>定义可选编译选项</p>
+<pre><code class="language-cmake">option(USE_OPENGL "Enable OpenGL support" ON)  
+
+if(USE_OPENGL)
+    find_package(OpenGL REQUIRED)  
+endif()
+</code></pre>
+<p>(5) 变量和路径相关命令</p>
+<p><b>set</b></p>
+<p>设置变量</p>
+<pre><code class="language-cmake"># 普通变量
+set(SOURCES main.cpp utils.cpp)  
+# 缓存变量
+set(MY_VAR "value" CACHE STRING "Description")  
+# 环境变量
+set(ENV{PATH} "$ENV{PATH}:/new/path")
+</code></pre>
+<p><b>list</b></p>
+<p>列表操作</p>
+<pre><code class="language-cmake"># 追加元素
+list(APPEND SOURCES extra.cpp)  
+# 删除元素
+list(REMOVE_ITEM SOURCES extra.cpp)  
+# 排序
+list(SORT SOURCES)
+</code></pre>
+<p>(6) 查找和依赖命令</p>
+<p><b>find_package</b></p>
+<p>查找外部依赖库</p>
+<pre><code class="language-cmake">find_package(OpenCV REQUIRED)  
+find_package(Boost COMPONENTS system filesystem)
+</code></pre>
+<p><b>find_path</b></p>
+<p>查找头文件路径</p>
+<pre><code class="language-cmake">find_path(HEADER_DIR "myheader.h"
+    PATHS /usr/include /usr/local/include  
+)
+</code></pre>
+<p><b>find_library</b></p>
+<p>查找库文件</p>
+<pre><code class="language-cmake">find_library(MATH_LIB m
+    PATHS /usr/lib /usr/local/lib  
+)
+</code></pre>
+<p>(7) 安装和导出命令</p>
+<p><b>install</b></p>
+<p>定义安装规则</p>
+<pre><code class="language-cmake"># 安装可执行文件
+install(TARGETS app
+    RUNTIME DESTINATION bin  
+) 
+ 
+# 安装头文件
+install(FILES header.h
+    DESTINATION include  
+)
+</code></pre>
+<h1 id="-1"><a class="header" href="#-1"></a></h1>
+<p>(8) 其他实用命令</p>
+<p><b>message</b></p>
+<p>输出消息</p>
+<pre><code class="language-cmake">message(STATUS "Configuring project")  
+message(WARNING "This is a warning")  
+message(FATAL_ERROR "Compilation cannot continue")
+</code></pre>
+<p><b>include</b></p>
+<p>包含其他 CMake 脚本</p>
+<pre><code class="language-cmake">include(CMakePrintHelpers)  
+include(GNUInstallDirs)
+</code></pre>
+<p>(9) 高级命令</p>
+<p><b>macro/function</b></p>
+<p>定义可重用的 CMake 代码块</p>
+<pre><code class="language-cmake"># 函数
+function(my_function ARG1 ARG2)
+    message(STATUS "Function called with ${ARG1} and ${ARG2}")  
+endfunction()  
+
+# 宏
+macro(my_macro ARG1)
+    message(STATUS "Macro called with ${ARG1}")  
+endmacro()
+</code></pre>
+<p>(10) 综合示例</p>
+<pre><code class="language-css">MyProject/  
+├── CMakeLists.txt  
+├── main.cpp  
+├── utils.cpp  
+├── source1.cpp  
+├── source2.cpp  
+├── header.h  
+└── Doxyfile  # 如果你使用 Doxygen 文档生成
+</code></pre>
+<pre><code class="language-cmake"># (1) 项目和版本相关命令  
+cmake_minimum_required(VERSION 3.10)  # 设置所需的最低 CMake 版本  
+project(MyProject VERSION 1.0 LANGUAGES CXX C)  # 定义项目名称和支持的语言  
+
+# (2) 目标创建命令  
+add_executable(app main.cpp utils.cpp)  # 创建可执行文件目标  
+add_library(mylib STATIC source1.cpp source2.cpp)  # 创建静态库目标  
+
+# (3) 目标配置命令  
+target_link_libraries(app PRIVATE mylib)  # 为目标链接库  
+target_include_directories(app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)  # 设置头文件包含路径  
+target_compile_definitions(app PRIVATE DEBUG_MODE)  # 添加编译宏定义  
+target_compile_options(app PRIVATE -Wall -Wextra)  # 设置编译选项  
+
+# (4) 条件和控制流命令  
+if(UNIX)  
+    message(STATUS "Configuring for Unix")  
+elseif(WIN32)  
+    message(STATUS "Configuring for Windows")  
+else()  
+    message(STATUS "Configuring for other systems")  
+endif()  
+
+# 可选编译选项  
+option(USE_OPENGL "Enable OpenGL support" ON)  
+if(USE_OPENGL)  
+    find_package(OpenGL REQUIRED)  # 查找 OpenGL 库  
+    target_link_libraries(app PRIVATE OpenGL::GL)  # 链接 OpenGL  
+endif()  
+
+# (5) 变量和路径相关命令  
+set(SOURCES main.cpp utils.cpp)  # 设置源文件列表  
+list(APPEND SOURCES extra.cpp)  # 追加额外的源文件  
+message(STATUS "Sources: ${SOURCES}")  # 输出源文件列表  
+
+# (6) 查找和依赖命令  
+find_package(Boost COMPONENTS system filesystem REQUIRED)  # 查找 Boost 库  
+find_path(HEADER_DIR "myheader.h" PATHS /usr/include /usr/local/include)  # 查找头文件路径  
+find_library(MATH_LIB m PATHS /usr/lib /usr/local/lib)  # 查找库文件  
+
+# (7) 安装和导出命令  
+install(TARGETS app RUNTIME DESTINATION bin)  # 安装可执行文件  
+install(TARGETS mylib DESTINATION lib)  # 安装库文件  
+install(FILES header.h DESTINATION include)  # 安装头文件  
+
+# (8) 其他实用命令  
+message(STATUS "Configuring project: ${PROJECT_NAME} v${PROJECT_VERSION}")  # 输出项目配置消息  
+include(CMakePrintHelpers)  # 包含其他 CMake 脚本  
+
+# (9) 高级命令  
+function(my_function ARG1 ARG2)  # 定义函数  
+    message(STATUS "Function called with ${ARG1} and ${ARG2}")  
+endfunction()  
+
+macro(my_macro ARG1)  # 定义宏  
+    message(STATUS "Macro called with ${ARG1}")  
+endmacro()  
+
+# 调用函数和宏  
+my_function("Hello" "World")  
+my_macro("Test")
+</code></pre>
+<h3 id="cmake内置命令-1"><a class="header" href="#cmake内置命令-1">cmake内置命令</a></h3>
+<p>以下是 CMake 中最常用和重要的内置变量详细解析：</p>
+<p>(1) 路径相关变量</p>
+<p><b>项目路径</b></p>
+<pre><code class="language-cmake">CMAKE_SOURCE_DIR       # 顶层源代码目录（顶层 CMakeLists.txt 所在目录）  
+CMAKE_CURRENT_SOURCE_DIR  # 当前处理的 CMakeLists.txt 所在目录  
+CMAKE_BINARY_DIR       # 顶层构建目录  
+CMAKE_CURRENT_BINARY_DIR  # 当前构建目录
+</code></pre>
+<p>示例:</p>
+<pre><code class="language-cmake">message(STATUS "项目根目录: ${CMAKE_SOURCE_DIR}")  
+message(STATUS "当前源码目录: ${CMAKE_CURRENT_SOURCE_DIR}")
+</code></pre>
+<p>(2) 系统和编译器相关变量</p>
+<p><b>系统识别</b></p>
+<pre><code class="language-cmake">CMAKE_SYSTEM_NAME          # 操作系统名称（Linux, Windows, Darwin）  
+CMAKE_SYSTEM_VERSION       # 操作系统版本  
+CMAKE_SYSTEM_PROCESSOR     # 处理器架构  
+
+# 平台判断
+WIN32                  # Windows 平台  
+UNIX                   # Unix 类系统  
+APPLE                  # macOS 系统  
+LINUX                  # Linux 系统
+</code></pre>
+<p><b>编译器相关</b></p>
+<pre><code class="language-cmake">CMAKE_CXX_COMPILER         # C++ 编译器路径  
+CMAKE_C_COMPILER           # C 编译器路径  
+CMAKE_COMPILER_IS_GNUCXX   # 是否为 GCC 编译器  
+MSVC                       # 是否为 MSVC 编译器  
+
+#编译器版本
+CMAKE_CXX_COMPILER_VERSION  # C++ 编译器版本
+</code></pre>
+<p>示例:</p>
+<pre><code class="language-cmake">if(WIN32)
+    message(STATUS "当前系统: Windows")  
+elseif(UNIX)
+    message(STATUS "当前系统: Unix-like")  
+endif()  
+
+message(STATUS "编译器: ${CMAKE_CXX_COMPILER}")  
+message(STATUS "编译器版本: ${CMAKE_CXX_COMPILER_VERSION}")
+</code></pre>
+<p>(3) 构建类型相关变量</p>
+<pre><code class="language-cmake">CMAKE_BUILD_TYPE           # 构建类型（Debug, Release, RelWithDebInfo, MinSizeRel）  
+CMAKE_CONFIGURATION_TYPES  # 多配置生成器的可用配置类型  
+
+# 编译选项和标志
+CMAKE_CXX_FLAGS        # C++ 全局编译选项  
+CMAKE_CXX_FLAGS_DEBUG  # Debug 模式下的编译选项  
+CMAKE_CXX_FLAGS_RELEASE  # Release 模式下的编译选项
+</code></pre>
+<p>示例:</p>
+<pre><code class="language-cmake"># 设置默认构建类型
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type" FORCE)  
+endif()  
+
+# 添加编译选项
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+</code></pre>
+<h1 id="-2"><a class="header" href="#-2"></a></h1>
+<p>(4) 安装和导出相关变量</p>
+<pre><code class="language-cmake">CMAKE_INSTALL_PREFIX      # 安装根目录（默认 /usr/local）  
+CMAKE_INSTALL_LIBDIR      # 库文件安装目录  
+CMAKE_INSTALL_BINDIR      # 可执行文件安装目录  
+CMAKE_INSTALL_INCLUDEDIR  # 头文件安装目录
+</code></pre>
+<p>示例:</p>
+<pre><code class="language-cmake"># 自定义安装前缀
+set(CMAKE_INSTALL_PREFIX "/opt/myapp" CACHE PATH "Installation prefix")  
+
+# 安装目标
+install(TARGETS myapp
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}  
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static  
+)
+</code></pre>
+<p>(5) 编译工具链相关</p>
+<pre><code class="language-cmake">CMAKE_TOOLCHAIN_FILE   # 工具链文件路径  
+CMAKE_CROSSCOMPILING   # 是否交叉编译  
+CMAKE_HOST_SYSTEM_NAME # 主机系统名称
+</code></pre>
+<p>示例:</p>
+<pre><code class="language-cmake"># 检查是否交叉编译
+if(CMAKE_CROSSCOMPILING)
+    message(STATUS "正在进行交叉编译")  
+endif()
+</code></pre>
+<p>(6) 高级配置变量</p>
+<pre><code class="language-cmake">CMAKE_MODULE_PATH      # CMake 模块搜索路径  
+CMAKE_PREFIX_PATH      # 依赖库搜索路径  
+
+#标准设置
+CMAKE_CXX_STANDARD     # C++ 标准版本  
+CMAKE_CXX_STANDARD_REQUIRED  # 是否强制要求标准版本
+</code></pre>
+<p>示例:</p>
+<pre><code class="language-cmake"># 添加自定义模块路径
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")  
+
+# 设置 C++ 标准
+set(CMAKE_CXX_STANDARD 17)  
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+</code></pre>
+<p>(7) 完整示例：综合使用内置变量</p>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.15)  
+project(SystemInfoProject)  
+
+# 系统信息
+message(STATUS "操作系统: ${CMAKE_SYSTEM_NAME}")  
+message(STATUS "系统版本: ${CMAKE_SYSTEM_VERSION}")  
+message(STATUS "处理器架构: ${CMAKE_SYSTEM_PROCESSOR}")  
+
+# 编译器信息
+message(STATUS "编译器: ${CMAKE_CXX_COMPILER}")  
+message(STATUS "编译器版本: ${CMAKE_CXX_COMPILER_VERSION}")  
+
+# 构建类型配置
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type" FORCE)  
+endif()
+  
+message(STATUS "构建类型: ${CMAKE_BUILD_TYPE}")  
+
+# 平台特定配置
+if(WIN32)
+    add_definitions(-DWINDOWS_PLATFORM)  
+elseif(UNIX)
+    add_definitions(-DUNIX_PLATFORM)  
+endif()
+  
+# 编译选项
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")  
+set(CMAKE_CXX_STANDARD 17)  
+set(CMAKE_CXX_STANDARD_REQUIRED ON)  
+
+# 安装配置
+set(CMAKE_INSTALL_PREFIX "/opt/myapp" CACHE PATH "Installation prefix")  
+
+# 添加可执行文件
+add_executable(system_info main.cpp)  
+
+# 安装目标
+install(TARGETS system_info
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}  
+)
+</code></pre>
+<h2 id="vscode--clangd"><a class="header" href="#vscode--clangd">vscode + clangd</a></h2>
+<p>clangd的代码提示和补全，非常地强大，这里记录一下 vscode如何配置clangd。</p>
+<h3 id="windows"><a class="header" href="#windows">Windows</a></h3>
+<p>windows平台，在vscode上安装clangd比较简单。</p>
+<p>直接在extenstions里搜素clangd，然后install这个插件即可，安装好后，重新打开窗口检查是否安装成功。clangd.exe存储在如下目录：</p>
+<pre><code class="language-bash">clangd path: C:/Users/ventu/AppData/Roaming/Code/User/globalStorage
+/llvm-vs-code-extensions.vscode-clangd/install/18.1.3/clangd_18.1.3/bin/clangd.exe
+</code></pre>
+<h3 id="mac"><a class="header" href="#mac">mac</a></h3>
+<h3 id="ubuntu"><a class="header" href="#ubuntu">Ubuntu</a></h3>
+<p>(1) vscode 安装插件 clangd</p>
+<img src="/assets/VS4HbaU1voJ6HXxhgkFckdmlnbe.png" src-width="555" src-height="278"/>
+<p>(2) 然后<code>Ctrl + shift + p</code> reload window，一般这个时候会弹出install clangd的窗口，install即可。如果弹出的窗口显示fail，可以试着关闭代理reload window后再次尝试。</p>
+<p>(3) 如果isntall失败，那么我们手动install，<a href="https://clangd.llvm.org/installation.html">https://clangd.llvm.org/installation.html</a></p>
+<img src="/assets/GYNBbxCbroIw8pxCeLUcZmXvnjh.png" src-width="753" src-height="310"/>
+<p>由于我们是ubuntu，所以安装clangd-linux-18.1.3.zip</p>
+<img src="/assets/OLeXbY4XBoNZzzxyQDEcL8sGnHc.png" src-width="1251" src-height="678"/>
+<p>安装好后，得到一个压缩包，我们解压后，将clangd_18.1.3放入对应install目录下</p>
+<pre><code class="language-bash">"clangd.path": "/home/xxxx/.vscode-server/data/User/globalStorage
+/llvm-vs-code-extensions.vscode-clangd/install/18.1.3/clangd_18.1.3/bin/clangd",
+</code></pre>
+<p>vscode下，<code>ctrl + ,</code> 打开settings界面，然后输入proxy，打开settings.json (注意一定要选择正确的主机)，最后设置clangd.path。</p>
+<img src="/assets/GdADbqDrLoY9sOxzyFqcqHZEnWe.png" src-width="1880" src-height="887"/>
+<p>(4) 检查是否安装成功，vscode打开panel，然后输入clangd，check for language server update，如果已经安装会显示安装的版本。然后download language server，会提示发现installed clangd，直接set default，最后restart language server，reload window。到此，vscode上配置clangd完成。</p>
+<img src="/assets/U0vjbJnXaoqWMGxXEyZcFi4ynOb.png" src-width="1136" src-height="426"/>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../cpp/cpp开发环境/vistual-studio.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../cpp/cpp基本特性.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../cpp/cpp开发环境/vistual-studio.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../cpp/cpp基本特性.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
